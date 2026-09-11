@@ -19,25 +19,33 @@ app.secret_key = os.urandom(24)
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR    = os.path.join(BASE_DIR, "data")
 DB_PATH     = os.path.join(BASE_DIR, "database", "database.db")
-FIREBASE_KEY = os.path.join(BASE_DIR, "lotc-46ff1-firebase-adminsdk-fbsvc-021a9c18db.json")
+FIREBASE_KEY_DEFAULT = os.path.join(BASE_DIR, "lotc-46ff1-firebase-adminsdk-fbsvc-021a9c18db.json")
+FIREBASE_KEY_PATH = os.environ.get("FIREBASE_KEY_PATH", FIREBASE_KEY_DEFAULT)
 
 # ─── Firebase Admin Setup ─────────────────────────────────────────────────────
 firebase_app = None
 db_firestore = None
 
-if os.path.exists(FIREBASE_KEY):
-    try:
-        cred = credentials.Certificate(FIREBASE_KEY)
+try:
+    cred = None
+    env_json = os.environ.get("FIREBASE_CREDENTIALS_JSON")
+    if env_json:
+        cred_dict = json.loads(env_json)
+        cred = credentials.Certificate(cred_dict)
+    elif os.path.exists(FIREBASE_KEY_PATH):
+        cred = credentials.Certificate(FIREBASE_KEY_PATH)
+
+    if cred:
         firebase_app = firebase_admin.initialize_app(cred)
         try:
             db_firestore = firestore.client()
-            print("[Firebase] Admin SDK & Firestore client initialized successfully (lotc-46ff1).")
+            print("[Firebase] Admin SDK & Firestore client initialized successfully.")
         except Exception as fe:
             print(f"[Firebase] Admin initialized, Firestore note: {fe}")
-    except Exception as e:
-        print(f"[Firebase] Error initializing Firebase Admin: {e}")
-else:
-    print(f"[Firebase] Key file missing: {FIREBASE_KEY}")
+    else:
+        print(f"[Firebase] Credentials not found via FIREBASE_CREDENTIALS_JSON env or file {FIREBASE_KEY_PATH}")
+except Exception as e:
+    print(f"[Firebase] Error initializing Firebase Admin: {e}")
 
 # ─── Load JSON data files ─────────────────────────────────────────────────────
 def load_json(filename):
@@ -100,6 +108,9 @@ def init_db():
     """)
     conn.commit()
     conn.close()
+
+# Auto-initialize database tables on app launch
+init_db()
 
 def get_or_create_session():
     """Ensure a session_id exists in Flask session."""
