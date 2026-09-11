@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Piano 10 Giorni — TOLC-ITA-L2{% endblock %}
+{% block meta_desc %}Il piano di studio completo in 10 giorni per prepararsi al TOLC-ITA-L2: grammatica, vocabolario, lettura e simulazioni.{% endblock %}
+
+{% block content %}
+<div class="page-content">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Il percorso completo</div>
+      <h1>Il tuo piano di 10 giorni</h1>
+      <p>Ogni giorno ha un focus specifico. Completa le attività in ordine per un apprendimento progressivo e strutturato.</p>
+    </div>
+
+    <!-- Overall progress -->
+    <div class="card mb-8">
+      <div class="card-body">
+        <div class="flex-between mb-4">
+          <div>
+            <h3 style="margin:0;">Progresso totale</h3>
+            <p class="text-muted" style="margin:var(--space-1) 0 0;">{{ completed_days|length }} giorni completati su 10</p>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:2rem;font-weight:800;color:var(--primary);">{{ completed_days|length * 10 }}%</div>
+          </div>
+        </div>
+        <div class="progress-bar progress-bar-lg">
+          <div class="progress-fill" style="width:{{ completed_days|length * 10 }}%"></div>
+        </div>
+        <div style="display:flex;gap:var(--space-4);margin-top:var(--space-4);flex-wrap:wrap;">
+          {% for d in range(1,11) %}
+          <div style="display:flex;align-items:center;gap:var(--space-2);">
+            <div style="width:20px;height:20px;border-radius:50%;background:{% if d in completed_days %}var(--success){% elif d == (completed_days|length + 1) %}var(--primary){% else %}var(--border){% endif %};display:flex;align-items:center;justify-content:center;font-size:.65rem;color:white;font-weight:700;">
+              {% if d in completed_days %}✓{% else %}{{ d }}{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Notice -->
+    <div style="background:var(--info-bg);border:1px solid rgba(29,78,216,.2);border-radius:var(--radius-md);padding:var(--space-4) var(--space-5);margin-bottom:var(--space-8);display:flex;gap:var(--space-3);align-items:flex-start;">
+      <span style="font-size:1.2rem;" aria-hidden="true">ℹ️</span>
+      <p style="margin:0;font-size:.875rem;color:var(--info);">
+        <strong>Nota:</strong> Tutte le domande di pratica sono simulate e create a scopo didattico.
+        Non sono domande ufficiali del TOLC-ITA-L2. Verifica sempre le istruzioni ufficiali sul sito
+        <a href="https://www.cisiaonline.it" target="_blank" rel="noopener" style="color:var(--info);">CISIA</a>.
+      </p>
+    </div>
+
+    <!-- Day cards -->
+    <div style="display:flex;flex-direction:column;gap:var(--space-5);">
+      {% for day_item in plan %}
+      <div class="day-card {% if day_item.day in completed_days %}completed{% endif %}" style="position:relative;">
+        {% if day_item.day in completed_days %}
+        <div class="completed-check" aria-label="Completato">✓</div>
+        {% endif %}
+
+        <div class="day-card-header" style="padding:var(--space-6);">
+          <div class="day-number-badge" style="background:{{ day_item.color }};width:56px;height:56px;font-size:1.2rem;">{{ day_item.day }}</div>
+          <div style="flex:1;">
+            <div class="text-muted text-xs mb-1">Giorno {{ day_item.day }} di 10</div>
+            <h2 style="margin:0;font-size:1.3rem;">{{ day_item.icon }} {{ day_item.title }}</h2>
+            <p style="margin:var(--space-2) 0 0;font-size:.9rem;">{{ day_item.subtitle }}</p>
+          </div>
+        </div>
+
+        <div style="padding:0 var(--space-6) var(--space-6);display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);">
+          <div>
+            <h4 style="font-size:.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:var(--space-3);">Argomenti</h4>
+            <ul class="topic-list">
+              {% for topic in day_item.topics %}
+              <li>{{ topic }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="font-size:.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:var(--space-3);">Esercizi</h4>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+              {% if day_item.exercises.grammar > 0 %}
+              <div style="display:flex;align-items:center;gap:var(--space-2);">
+                <span style="font-size:.9rem;">📝</span>
+                <span class="text-sm">{{ day_item.exercises.grammar }} domande di grammatica</span>
+              </div>
+              {% endif %}
+              {% if day_item.exercises.vocabulary > 0 %}
+              <div style="display:flex;align-items:center;gap:var(--space-2);">
+                <span style="font-size:.9rem;">📚</span>
+                <span class="text-sm">{{ day_item.exercises.vocabulary }} domande di vocabolario</span>
+              </div>
+              {% endif %}
+              {% if day_item.exercises.reading > 0 %}
+              <div style="display:flex;align-items:center;gap:var(--space-2);">
+                <span style="font-size:.9rem;">📖</span>
+                <span class="text-sm">{{ day_item.exercises.reading }} testo/i di comprensione</span>
+              </div>
+              {% endif %}
+            </div>
+
+            {% if day_item.challenge_description %}
+            <div style="background:var(--warning-bg);border:1px solid rgba(217,119,6,.2);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);margin-top:var(--space-4);">
+              <div style="font-size:.75rem;font-weight:700;color:var(--warning);margin-bottom:var(--space-1);">⚡ SFIDA DEL GIORNO</div>
+              <p style="font-size:.85rem;margin:0;color:var(--text-secondary);">{{ day_item.challenge_description }}</p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if day_item.motivation %}
+        <div style="padding:var(--space-4) var(--space-6);background:var(--surface-2);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);">
+          <p style="margin:0;font-size:.875rem;font-style:italic;color:var(--text-muted);">💪 {{ day_item.motivation }}</p>
+          <a href="/day/{{ day_item.day }}" class="btn btn-primary btn-sm" style="white-space:nowrap;"
+             aria-label="{% if day_item.day in completed_days %}Ripassa il Giorno {{ day_item.day }}{% else %}Inizia il Giorno {{ day_item.day }}{% endif %}">
+            {% if day_item.day in completed_days %}↩ Ripassa{% else %}▶ Inizia{% endif %}
+          </a>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Final CTA -->
+    <div class="card mt-8" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));border:none;text-align:center;">
+      <div class="card-body" style="padding:var(--space-10);">
+        <h2 style="color:white;margin-bottom:var(--space-4);">🏆 Pronto per l'esame finale?</h2>
+        <p style="color:rgba(255,255,255,.85);margin-bottom:var(--space-6);">Completa il percorso di 10 giorni e poi affronta la simulazione completa TOLC-ITA-L2.</p>
+        <a href="/simulation" class="btn btn-white btn-lg">Inizia la simulazione finale →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

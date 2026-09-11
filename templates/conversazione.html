@@ -1,0 +1,1048 @@
+{% extends "base.html" %}
+
+{% block title %}Da Zero a Eroe — Conversazione in Italiano{% endblock %}
+{% block meta_desc %}Impara a conversare in italiano partendo da zero: scenari guidati, dialoghi interattivi, vocabolario essenziale e progresso tracciato.{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ─── Hero ──────────────────────────────────────────────────── */
+.conv-hero {
+  background: linear-gradient(135deg, #0f2027 0%, #1a7f4b 100%);
+  padding: var(--space-16) 0 var(--space-12);
+  position: relative; overflow: hidden;
+}
+.conv-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");
+}
+.conv-hero-inner { position: relative; z-index: 1; }
+.conv-hero h1   { color:#fff; font-size:clamp(2rem,5vw,3.5rem); margin-bottom:var(--space-4); }
+.conv-hero p    { color:rgba(255,255,255,.80); font-size:1.15rem; max-width:580px; margin-bottom:var(--space-8); }
+
+.level-pills { display:flex; flex-wrap:wrap; gap:var(--space-2); margin-bottom:var(--space-8); }
+.level-pill  {
+  padding:6px 16px; border-radius:var(--radius-full); font-size:.8rem; font-weight:700;
+  cursor:pointer; border:2px solid transparent; transition:all .25s;
+  background:rgba(255,255,255,.15); color:#fff;
+}
+.level-pill.active              { background:#fff; color:var(--primary); }
+.level-pill:hover:not(.active)  { background:rgba(255,255,255,.25); }
+
+/* overall bar */
+.overall-bar  { background:rgba(255,255,255,.15); border-radius:var(--radius-full); height:8px; overflow:hidden; max-width:480px; margin-bottom:var(--space-3); }
+.overall-fill { height:100%; border-radius:var(--radius-full); background:linear-gradient(90deg,#a8e6c3,#fff); transition:width .9s cubic-bezier(.4,0,.2,1); }
+.overall-label{ color:rgba(255,255,255,.85); font-size:.875rem; font-weight:600; margin-bottom:var(--space-2); }
+
+/* ─── Scenario grid ─────────────────────────────────────────── */
+.scenario-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:var(--space-6); padding:var(--space-10) 0;
+}
+.scenario-card {
+  background:var(--surface); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-md); overflow:hidden;
+  transition:transform .25s,box-shadow .25s;
+  cursor:pointer; position:relative; border:2px solid transparent;
+}
+.scenario-card:hover   { transform:translateY(-4px); box-shadow:var(--shadow-xl); }
+.scenario-card.done    { border-color:var(--success); }
+.scenario-card.locked  { opacity:.55; cursor:not-allowed; }
+.scenario-card-badge {
+  position:absolute; top:var(--space-3); right:var(--space-3);
+  width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700;
+}
+.badge-done   { background:var(--success); color:#fff; }
+.badge-locked { background:var(--border-strong); color:#fff; }
+.scenario-header {
+  padding:var(--space-6) var(--space-6) var(--space-4);
+  background:linear-gradient(135deg,var(--card-from,#e8f5ee),var(--card-to,#f7f8fc));
+  text-align:center;
+}
+.scenario-emoji { font-size:2.8rem; display:block; margin-bottom:var(--space-2); }
+.scenario-level-tag {
+  display:inline-block; padding:3px 12px; border-radius:var(--radius-full);
+  font-size:.7rem; font-weight:800; letter-spacing:.04em; margin-bottom:var(--space-3);
+}
+.scenario-body  { padding:var(--space-5) var(--space-6) var(--space-6); }
+.scenario-title { font-weight:700; font-size:1rem; margin-bottom:var(--space-2); }
+.scenario-desc  { font-size:.875rem; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-4); }
+.scenario-meta  { display:flex; gap:var(--space-3); align-items:center; flex-wrap:wrap; }
+.meta-chip      { font-size:.75rem; color:var(--text-muted); display:flex; align-items:center; gap:4px; }
+
+/* ─── Dialogue modal ────────────────────────────────────────── */
+.dialogue-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.55);
+  display:flex; align-items:center; justify-content:center;
+  z-index:1000; padding:var(--space-4);
+  opacity:0; pointer-events:none; transition:opacity .3s;
+}
+.dialogue-overlay.open { opacity:1; pointer-events:all; }
+.dialogue-panel {
+  background:var(--surface); border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-xl); width:100%; max-width:640px;
+  max-height:90vh; display:flex; flex-direction:column;
+  transform:translateY(24px) scale(.97); transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.dialogue-overlay.open .dialogue-panel { transform:translateY(0) scale(1); }
+
+.dialogue-top {
+  padding:var(--space-5) var(--space-6); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:var(--space-4);
+}
+.dialogue-avatar {
+  width:48px; height:48px; border-radius:50%; font-size:1.6rem;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  background:var(--surface-2);
+}
+.dialogue-info h3 { font-size:1rem; font-weight:700; margin:0; }
+.dialogue-info p  { font-size:.8rem; color:var(--text-muted); margin:0; }
+.close-btn {
+  margin-left:auto; background:var(--surface-2); border:none; cursor:pointer;
+  width:36px; height:36px; border-radius:50%; font-size:1.1rem;
+  display:flex; align-items:center; justify-content:center; transition:background .2s;
+}
+.close-btn:hover { background:var(--border); }
+
+/* vocab strip */
+.vocab-panel {
+  margin:0 var(--space-6) var(--space-4); background:var(--surface-2);
+  border-radius:var(--radius-md); padding:var(--space-4);
+  display:none; flex-direction:column; gap:var(--space-2);
+}
+.vocab-panel.visible { display:flex; }
+.vocab-panel h4 { font-size:.8rem; font-weight:700; margin-bottom:var(--space-2); color:var(--text-secondary); }
+.vocab-item { display:flex; align-items:baseline; gap:var(--space-3); font-size:.85rem; }
+.vocab-it   { font-weight:700; color:var(--primary); }
+.vocab-fr   { color:var(--text-secondary); }
+
+/* chat */
+.dialogue-chat {
+  flex:1; overflow-y:auto; padding:var(--space-6);
+  display:flex; flex-direction:column; gap:var(--space-4); scroll-behavior:smooth;
+}
+.bubble-row { display:flex; align-items:flex-end; gap:var(--space-3); }
+.bubble-row.me { flex-direction:row-reverse; }
+.speaker-avatar {
+  width:36px; height:36px; border-radius:50%; font-size:1.2rem;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0; background:var(--surface-2);
+}
+.bubble {
+  max-width:72%; padding:var(--space-3) var(--space-5);
+  border-radius:18px; font-size:.95rem; line-height:1.55;
+  animation:bubblePop .3s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes bubblePop { from{opacity:0;transform:scale(.85) translateY(8px);} to{opacity:1;transform:scale(1) translateY(0);} }
+.bubble.them {
+  background:var(--surface-2); color:var(--text-primary);
+  border-bottom-left-radius:4px; box-shadow:var(--shadow-sm);
+}
+.bubble.me {
+  background:var(--primary); color:#fff; border-bottom-right-radius:4px;
+}
+.bubble .translation { font-size:.78rem; opacity:.72; margin-top:4px; font-style:italic; }
+
+/* typing indicator */
+.typing-indicator {
+  display:flex; gap:5px; align-items:center;
+  padding:var(--space-3) var(--space-5); background:var(--surface-2);
+  border-radius:18px; border-bottom-left-radius:4px; box-shadow:var(--shadow-sm);
+  width:fit-content;
+}
+.typing-dot {
+  width:7px; height:7px; background:var(--text-muted); border-radius:50%;
+  animation:typingBounce 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay:.2s; }
+.typing-dot:nth-child(3) { animation-delay:.4s; }
+@keyframes typingBounce { 0%,80%,100%{transform:translateY(0);} 40%{transform:translateY(-6px);} }
+
+/* response area */
+.response-area { padding:var(--space-4) var(--space-6) var(--space-6); border-top:1px solid var(--border); }
+.response-prompt { font-size:.8rem; color:var(--text-muted); margin-bottom:var(--space-3); font-weight:600; letter-spacing:.04em; }
+.response-choices { display:flex; flex-direction:column; gap:var(--space-2); }
+.response-btn {
+  background:var(--surface-2); border:2px solid var(--border);
+  border-radius:var(--radius-md); padding:var(--space-3) var(--space-5);
+  text-align:left; cursor:pointer; transition:all .2s; font-size:.9rem;
+  display:flex; align-items:flex-start; gap:var(--space-3);
+}
+.response-btn:hover:not(:disabled) { background:var(--primary-light); border-color:var(--primary); color:var(--primary); }
+.response-btn.correct { background:var(--success-bg); border-color:var(--success); color:var(--success); }
+.response-btn.wrong   { background:var(--error-bg);   border-color:var(--error);   color:var(--error); }
+.response-btn:disabled { cursor:not-allowed; }
+.response-letter {
+  width:22px; height:22px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:800; border:2px solid currentColor;
+}
+
+/* progress dots */
+.progress-dots { display:flex; gap:var(--space-2); }
+.pdot { width:10px; height:10px; border-radius:50%; background:var(--border); transition:background .3s,transform .3s; }
+.pdot.done   { background:var(--success); }
+.pdot.active { background:var(--primary); transform:scale(1.4); }
+
+/* completion */
+.completion-card { text-align:center; padding:var(--space-10) var(--space-8); display:none; }
+.completion-card.show { display:block; }
+.completion-trophy { font-size:4rem; margin-bottom:var(--space-4); animation:trophyPop 1s cubic-bezier(.34,1.56,.64,1); }
+@keyframes trophyPop { from{transform:scale(0);opacity:0;} to{transform:scale(1);opacity:1;} }
+
+/* ─── Vocab flashcards ──────────────────────────────────────── */
+.vocab-section { padding:var(--space-10) 0; }
+.vocab-tabs    { display:flex; flex-wrap:wrap; gap:var(--space-2); margin-bottom:var(--space-6); }
+.vocab-tab {
+  padding:8px 20px; border-radius:var(--radius-full); font-size:.85rem; font-weight:600;
+  cursor:pointer; border:2px solid var(--border); background:transparent; color:var(--text-secondary);
+  transition:all .2s;
+}
+.vocab-tab.active { background:var(--primary); border-color:var(--primary); color:#fff; }
+.flashcard-grid  { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:var(--space-4); }
+.flashcard { height:130px; perspective:600px; cursor:pointer; }
+.flashcard-inner {
+  position:relative; width:100%; height:100%;
+  transform-style:preserve-3d; transition:transform .55s cubic-bezier(.4,0,.2,1);
+}
+.flashcard.flipped .flashcard-inner { transform:rotateY(180deg); }
+.flashcard-front,.flashcard-back {
+  position:absolute; inset:0; backface-visibility:hidden;
+  border-radius:var(--radius-md); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:var(--space-4);
+  box-shadow:var(--shadow-sm); text-align:center;
+}
+.flashcard-front { background:var(--surface); border:2px solid var(--border); font-size:1.05rem; font-weight:700; }
+.flashcard-back  { background:var(--primary); color:#fff; transform:rotateY(180deg); font-size:.9rem; font-weight:600; }
+.flashcard-back .phonetic { font-size:.72rem; opacity:.75; margin-top:4px; font-style:italic; }
+
+/* ─── Phrase builder ────────────────────────────────────────── */
+.builder-section {
+  background:var(--surface-2); border-radius:var(--radius-xl);
+  padding:var(--space-8); margin-bottom:var(--space-10);
+}
+.builder-section h2 { margin-bottom:var(--space-2); }
+.builder-hint { font-size:.875rem; color:var(--text-muted); margin-bottom:var(--space-6); }
+.word-bank {
+  display:flex; flex-wrap:wrap; gap:var(--space-2); margin-bottom:var(--space-5);
+  min-height:44px; padding:var(--space-3); background:var(--surface);
+  border-radius:var(--radius-md); border:2px dashed var(--border);
+}
+.word-chip {
+  padding:6px 14px; border-radius:var(--radius-full); font-size:.875rem; font-weight:600;
+  cursor:pointer; user-select:none; transition:transform .15s;
+  background:var(--primary-light); color:var(--primary); border:2px solid var(--primary);
+}
+.word-chip:hover:not(.used) { transform:scale(1.07); }
+.word-chip.used { background:var(--border); color:var(--text-muted); border-color:var(--border); cursor:default; }
+.answer-zone {
+  min-height:52px; border:2px dashed var(--primary); border-radius:var(--radius-md);
+  padding:var(--space-3) var(--space-4); display:flex; flex-wrap:wrap; gap:var(--space-2);
+  align-items:center; background:var(--primary-light); margin-bottom:var(--space-5);
+}
+.answer-placeholder { color:var(--text-muted); font-style:italic; font-size:.875rem; }
+.builder-controls   { display:flex; gap:var(--space-3); flex-wrap:wrap; }
+.builder-feedback   { margin-top:var(--space-4); padding:var(--space-4); border-radius:var(--radius-md); font-weight:600; font-size:.9rem; display:none; }
+.builder-feedback.success { background:var(--success-bg); color:var(--success); display:block; }
+.builder-feedback.error   { background:var(--error-bg);   color:var(--error);   display:block; }
+
+/* ─── Section divider ───────────────────────────────────────── */
+.section-divider { text-align:center; position:relative; margin:var(--space-10) 0; }
+.section-divider::before { content:""; position:absolute; left:0; right:0; top:50%; height:1px; background:var(--border); }
+.section-divider span { position:relative; background:var(--bg); padding:0 var(--space-5); color:var(--text-muted); font-size:.8rem; font-weight:700; letter-spacing:.08em; }
+
+@media(max-width:640px){
+  .scenario-grid { grid-template-columns:1fr; }
+  .flashcard-grid{ grid-template-columns:repeat(2,1fr); }
+  .dialogue-panel{ border-radius:var(--radius-lg); max-height:95vh; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ══════════════════ HERO ══════════════════════════════════ -->
+<section class="conv-hero" aria-label="Da Zero a Eroe — Conversazione">
+  <div class="container conv-hero-inner">
+    <div class="overall-label">Il tuo progresso complessivo</div>
+    <div class="overall-bar">
+      <div class="overall-fill" id="overallFill" style="width:0%"></div>
+    </div>
+    <p style="color:rgba(255,255,255,.7);font-size:.8rem;margin-bottom:var(--space-6);" id="overallPct">0 / 8 scenari completati</p>
+
+    <div class="hero-label" style="background:rgba(255,255,255,.15);color:#fff;margin-bottom:var(--space-5);">
+      <span>💬</span><span>Conversazione Interattiva — Italiano</span>
+    </div>
+    <h1 class="display-font">Da <em style="color:#a8e6c3;font-style:normal;">Zero</em><br>a <em style="color:#ffd700;font-style:normal;">Eroe</em></h1>
+    <p>Impara a parlare italiano in situazioni reali: saluti, acquisti, ristorante, lavoro e molto altro. Ogni scenario ti insegna frasi autentiche usate ogni giorno.</p>
+
+    <div class="level-pills" role="tablist" aria-label="Filtra per livello CEFR">
+      <button class="level-pill active" onclick="filterLevel('all')" id="tab-all">🌍 Tutti</button>
+      <button class="level-pill" onclick="filterLevel('A1')" id="tab-A1">🟦 A1 — Principiante</button>
+      <button class="level-pill" onclick="filterLevel('A2')" id="tab-A2">🟨 A2 — Elementare</button>
+      <button class="level-pill" onclick="filterLevel('B1')" id="tab-B1">🟧 B1 — Intermedio</button>
+      <button class="level-pill" onclick="filterLevel('B2')" id="tab-B2">🟥 B2 — Avanzato</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ SCENARIO CARDS ═════════════════════════ -->
+<div class="page-content">
+  <div class="container">
+
+    <div class="section-header" style="padding-top:var(--space-8);">
+      <div class="section-label">Scenari di conversazione</div>
+      <h2>Scegli una situazione</h2>
+      <p>Clicca su uno scenario per avviare la conversazione guidata. Rispondi alle domande e impara le frasi chiave.</p>
+    </div>
+
+    <div class="scenario-grid" id="scenarioGrid"></div>
+
+    <!-- ── Phrase Builder ───────────────────────────────────── -->
+    <div class="section-divider"><span>🧩 COSTRUTTORE DI FRASI</span></div>
+
+    <div class="builder-section" aria-label="Costruttore di frasi">
+      <h2>Costruisci la frase</h2>
+      <p class="builder-hint">Clicca le parole nel banco per formare la frase italiana corretta, poi premi <strong>Controlla</strong>.</p>
+
+      <div style="display:flex;align-items:baseline;gap:var(--space-3);margin-bottom:var(--space-2);">
+        <span class="section-label" style="margin:0;">🇬🇧 Da tradurre:</span>
+        <strong id="builderTarget" style="font-size:1rem;color:var(--text-primary);"></strong>
+      </div>
+      <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:var(--space-2);">
+        Esercizio <span id="builderIdxLabel">1</span> / 6
+      </div>
+
+      <div class="word-bank" id="wordBank" aria-label="Banco delle parole" role="group"></div>
+      <p style="font-size:.75rem;color:var(--text-muted);margin-bottom:var(--space-2);">La tua risposta:</p>
+      <div class="answer-zone" id="answerZone" aria-label="Zona risposta" role="group">
+        <span class="answer-placeholder" id="answerPlaceholder">Clicca le parole qui sopra per costruire la frase…</span>
+      </div>
+
+      <div class="builder-controls">
+        <button class="btn btn-primary"  onclick="checkBuilder()"  id="checkBuilderBtn">✓ Controlla</button>
+        <button class="btn btn-ghost"    onclick="resetBuilder()">↩ Ricomincia</button>
+        <button class="btn btn-outline"  onclick="nextBuilder()"   id="nextBuilderBtn" style="display:none;">→ Prossima</button>
+      </div>
+      <div class="builder-feedback" id="builderFeedback"></div>
+    </div>
+
+    <!-- ── Vocab Flashcards ─────────────────────────────────── -->
+    <div class="section-divider"><span>📚 VOCABOLARIO ESSENZIALE</span></div>
+
+    <div class="vocab-section">
+      <div class="section-header">
+        <div class="section-label">Flashcard</div>
+        <h2>Parole chiave per ogni situazione</h2>
+        <p>Clicca su una scheda per vedere la traduzione. Studia almeno 3 categorie prima dell'esame!</p>
+      </div>
+
+      <div class="vocab-tabs" role="tablist" aria-label="Categorie vocabolario">
+        <button class="vocab-tab active" onclick="showVocabCat('saluti')"    id="vtab-saluti"    >👋 Saluti</button>
+        <button class="vocab-tab"        onclick="showVocabCat('numeri')"    id="vtab-numeri"    >🔢 Numeri</button>
+        <button class="vocab-tab"        onclick="showVocabCat('negozio')"   id="vtab-negozio"   >🛍️ Negozio</button>
+        <button class="vocab-tab"        onclick="showVocabCat('ristorante')" id="vtab-ristorante">🍕 Ristorante</button>
+        <button class="vocab-tab"        onclick="showVocabCat('direzioni')" id="vtab-direzioni" >🗺️ Direzioni</button>
+        <button class="vocab-tab"        onclick="showVocabCat('lavoro')"    id="vtab-lavoro"    >💼 Lavoro</button>
+      </div>
+      <div class="flashcard-grid" id="flashcardGrid"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ DIALOGUE MODAL ═══════════════════════════ -->
+<div class="dialogue-overlay" id="dialogueOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogueTitle">
+  <div class="dialogue-panel" id="dialoguePanel">
+
+    <div class="dialogue-top">
+      <div class="dialogue-avatar" id="dlgAvatar" aria-hidden="true"></div>
+      <div class="dialogue-info">
+        <h3 id="dialogueTitle">Conversazione</h3>
+        <p  id="dlgSubtitle">Scenario</p>
+      </div>
+      <div class="progress-dots" id="progressDots" aria-hidden="true"></div>
+      <button class="close-btn" onclick="closeDialogue()" aria-label="Chiudi dialogo">✕</button>
+    </div>
+
+    <div class="vocab-panel" id="dlgVocabPanel">
+      <h4>💡 VOCABOLARIO UTILE</h4>
+      <div id="dlgVocabItems"></div>
+    </div>
+
+    <div class="dialogue-chat" id="dialogueChat"></div>
+
+    <div class="completion-card" id="completionCard">
+      <div class="completion-trophy">🏆</div>
+      <h3 style="margin-bottom:var(--space-2);">Scenario completato!</h3>
+      <p style="color:var(--text-secondary);margin-bottom:var(--space-6);" id="completionMsg"></p>
+      <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="closeDialogue()">✓ Fine</button>
+        <button class="btn btn-outline" onclick="restartDialogue()">↩ Riprova</button>
+      </div>
+    </div>
+
+    <div class="response-area" id="responseArea">
+      <div class="response-prompt" id="responsePrompt">SCEGLI LA TUA RISPOSTA</div>
+      <div class="response-choices" id="responseChoices"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ JS ══════════════════════════════ -->
+<script>
+/* ── Scenario data ─────────────────────────────────────────── */
+const SCENARIOS = [
+  {
+    id:'saluto_base', level:'A1', emoji:'👋',
+    title:'Primo saluto',
+    desc:'Impara come presentarti e salutare qualcuno per la prima volta.',
+    from:'#e8f5ee', to:'#f0fff4',
+    minutes:3, phrases:6,
+    speaker:{name:'Giulia', avatar:'👩‍🏫'},
+    vocab:[
+      {it:'Ciao',          fr:'Hi / Salut (informel)'},
+      {it:'Mi chiamo…',    fr:'Je m\'appelle…'},
+      {it:'Piacere!',      fr:'Enchanté(e)!'},
+      {it:'Come stai?',    fr:'Comment tu vas?'},
+    ],
+    steps:[
+      {side:'them', text:'Ciao! Sono Giulia. Come ti chiami?', trans:'Hi! I\'m Giulia. What\'s your name?'},
+      {side:'me', prompt:'Rispondi presentandoti:', choices:[
+        {text:'Mi chiamo [Nome]. Piacere!', correct:true,  tip:'✓ Perfetto! "Mi chiamo" = My name is'},
+        {text:'Non lo so.',                correct:false, tip:'❌ "Non lo so" vuol dire "I don\'t know"'},
+        {text:'Arrivederci!',              correct:false, tip:'❌ Questo è un saluto d\'addio'},
+      ]},
+      {side:'them', text:'Piacere mio! Di dove sei?', trans:'Nice to meet you! Where are you from?'},
+      {side:'me', prompt:'Da dove vieni?', choices:[
+        {text:'Sono di [paese]. E tu?',   correct:true,  tip:'✓ "Sono di…" = I\'m from…'},
+        {text:'Voglio dormire.',           correct:false, tip:'❌ "Voglio dormire" = I want to sleep 😂'},
+        {text:'Sì, grazie.',              correct:false, tip:'❌ Non risponde a "di dove sei?"'},
+      ]},
+      {side:'them', text:'Io sono di Roma! Come stai?', trans:'I\'m from Rome! How are you?'},
+      {side:'me', prompt:'Come risponderesti?', choices:[
+        {text:'Sto bene, grazie! E tu?', correct:true,  tip:'✓ "Sto bene" = I\'m fine — e rimandi cortesemente'},
+        {text:'Mi piace la pizza.',       correct:false, tip:'❌ Non risponde a "come stai?"'},
+        {text:'Ho fame.',                 correct:false, tip:'❌ "Ho fame" = I\'m hungry — cambia argomento'},
+      ]},
+    ]
+  },
+  {
+    id:'bar_caffe', level:'A1', emoji:'☕',
+    title:'Al Bar',
+    desc:'Ordina un caffè, un cornetto o una bibita al classico bar italiano.',
+    from:'#fff8e1', to:'#fffde7',
+    minutes:4, phrases:8,
+    speaker:{name:'Marco (Barista)', avatar:'👨‍🍳'},
+    vocab:[
+      {it:'Un caffè, per favore',    fr:'Un café, s\'il vous plaît'},
+      {it:'Quanto costa?',           fr:'Combien ça coûte?'},
+      {it:'Il conto, per favore',    fr:'L\'addition, s\'il vous plaît'},
+      {it:'Vorrei…',                 fr:'Je voudrais…'},
+    ],
+    steps:[
+      {side:'them', text:'Buongiorno! Cosa desidera?', trans:'Good morning! What would you like?'},
+      {side:'me', prompt:'Ordina qualcosa:', choices:[
+        {text:'Vorrei un caffè e un cornetto, per favore.', correct:true,  tip:'✓ "Vorrei" è la forma educata di "voglio"'},
+        {text:'Non ho soldi.',                              correct:false, tip:'❌ Non è un ordine!'},
+        {text:'Come ti chiami?',                           correct:false, tip:'❌ Non pertinente per ordinare al bar'},
+      ]},
+      {side:'them', text:'Certo! Lo vuole al banco o al tavolo?', trans:'Of course! At the counter or at a table?'},
+      {side:'me', prompt:'Dove vuoi sederti?', choices:[
+        {text:'Al tavolo, grazie.', correct:true,  tip:'✓ "Al tavolo" = at the table'},
+        {text:'In macchina.',       correct:false, tip:'❌ "In macchina" = in the car 🚗'},
+        {text:'Non capisco.',       correct:false, tip:'❌ Proviamo a rispondere con le frasi imparate!'},
+      ]},
+      {side:'them', text:'Il conto fa 2,50 euro.', trans:'The bill comes to €2.50.'},
+      {side:'me', prompt:'Come paghi?', choices:[
+        {text:'Ecco a lei. Tenga il resto.', correct:true,  tip:'✓ "Tenga il resto" = keep the change — molto italiano!'},
+        {text:'Non ho capito niente.',       correct:false, tip:'❌ Cerca di usare il vocabolario imparato!'},
+        {text:'Arrivederci domani!',         correct:false, tip:'❌ Non risponde al momento del pagamento'},
+      ]},
+    ]
+  },
+  {
+    id:'acquisti', level:'A2', emoji:'🛍️',
+    title:'Fare acquisti',
+    desc:'Compra vestiti, chiedi la taglia e contratta il prezzo come un vero italiano.',
+    from:'#fce4ec', to:'#fce4ff',
+    minutes:5, phrases:10,
+    speaker:{name:'Sofia (Commessa)', avatar:'👩‍💼'},
+    vocab:[
+      {it:'Che taglia porta?',          fr:'Quelle est votre taille?'},
+      {it:'Lo ha in un\'altra taglia?', fr:'Vous l\'avez dans une autre taille?'},
+      {it:'Mi fa uno sconto?',          fr:'Vous me faites une réduction?'},
+      {it:'Posso provarlo?',            fr:'Puis-je l\'essayer?'},
+    ],
+    steps:[
+      {side:'them', text:'Salve! La posso aiutare?', trans:'Hello! Can I help you?'},
+      {side:'me', prompt:'Cosa stai cercando?', choices:[
+        {text:'Sì, cerco una giacca invernale.',  correct:true,  tip:'✓ "Cerco" = I\'m looking for'},
+        {text:'Sto solo guardando, grazie.',      correct:true,  tip:'✓ "Sto solo guardando" = just browsing'},
+        {text:'Dov\'è il supermercato?',          correct:false, tip:'❌ Sei in un negozio di vestiti!'},
+      ]},
+      {side:'them', text:'Che taglia porta?', trans:'What\'s your size?'},
+      {side:'me', prompt:'Qual è la tua taglia?', choices:[
+        {text:'Porto la taglia media (M).',   correct:true,  tip:'✓ "Porto la taglia" = my size is'},
+        {text:'Non mi piace il colore.',      correct:false, tip:'❌ Non risponde alla domanda sulla taglia'},
+        {text:'Quanto costa quella rossa?',   correct:false, tip:'❌ Meglio rispondere prima alla taglia!'},
+      ]},
+      {side:'them', text:'Questo modello è molto di moda. Lo prova?', trans:'This style is very fashionable. Would you like to try it on?'},
+      {side:'me', prompt:'Vuoi provarla?', choices:[
+        {text:'Sì, posso provarla?',                       correct:true,  tip:'✓ "Posso provarla?" = Can I try it on?'},
+        {text:'No, la prendo subito senza provarla.',      correct:false, tip:'😅 Coraggioso! Ma meglio provarla…'},
+        {text:'È un po\' stretta. Ha una taglia più grande?', correct:true, tip:'✓ "Stretta"=tight, "taglia più grande"=larger size'},
+      ]},
+    ]
+  },
+  {
+    id:'ristorante', level:'A2', emoji:'🍕',
+    title:'Al Ristorante',
+    desc:'Prenota un tavolo, ordina il pasto e gestisci la serata come un madrelingua.',
+    from:'#e8f5ee', to:'#e0f7fa',
+    minutes:5, phrases:10,
+    speaker:{name:'Luca (Cameriere)', avatar:'🧑‍🍳'},
+    vocab:[
+      {it:'Un tavolo per due, per favore', fr:'Une table pour deux, s\'il vous plaît'},
+      {it:'Cosa mi consiglia?',            fr:'Que me conseillez-vous?'},
+      {it:'Il menu, per favore',           fr:'Le menu, s\'il vous plaît'},
+      {it:'Sono vegetariano/a',            fr:'Je suis végétarien(ne)'},
+    ],
+    steps:[
+      {side:'them', text:'Buonasera! Ha prenotato?', trans:'Good evening! Do you have a reservation?'},
+      {side:'me', prompt:'Hai prenotato o no?', choices:[
+        {text:'Sì, ho prenotato a nome Rossi.',        correct:true,  tip:'✓ "A nome" = under the name of'},
+        {text:'No, ma è possibile avere un tavolo?',   correct:true,  tip:'✓ Ottima alternativa se non hai prenotato!'},
+        {text:'Sì, mi chiamo pizza.',                  correct:false, tip:'😂 Divertente, ma non è corretto!'},
+      ]},
+      {side:'them', text:'Cosa prende come primo?', trans:'What will you have for the first course?'},
+      {side:'me', prompt:'Ordina il primo piatto:', choices:[
+        {text:'Prendo le tagliatelle al ragù, per favore.', correct:true,  tip:'✓ "Prendo" = I\'ll have — perfetto per ordinare'},
+        {text:'Cosa mi consiglia?',                         correct:true,  tip:'✓ "Cosa mi consiglia?" = What do you recommend?'},
+        {text:'Non ho mai mangiato italiano.',              correct:false, tip:'❌ Non è un ordine!'},
+      ]},
+      {side:'them', text:'Ottima scelta! E da bere?', trans:'Excellent choice! And to drink?'},
+      {side:'me', prompt:'Cosa vuoi bere?', choices:[
+        {text:'Acqua naturale e un bicchiere di vino rosso, grazie.', correct:true, tip:'✓ "Acqua naturale"=still water, "bicchiere"=glass'},
+        {text:'Solo acqua frizzante, per favore.',                    correct:true, tip:'✓ "Acqua frizzante" = sparkling water'},
+        {text:'Latte e biscotti.',                                    correct:false, tip:'😄 Insolito per un ristorante serale!'},
+      ]},
+    ]
+  },
+  {
+    id:'direzioni', level:'B1', emoji:'🗺️',
+    title:'Informazioni stradali',
+    desc:'Chiedi e dai indicazioni stradali in città come un vero italiano.',
+    from:'#e3f2fd', to:'#f3e5f5',
+    minutes:4, phrases:8,
+    speaker:{name:'Passante', avatar:'🚶'},
+    vocab:[
+      {it:'Scusi, dove si trova…?', fr:'Excusez-moi, où se trouve…?'},
+      {it:'Giri a destra/sinistra', fr:'Tournez à droite/gauche'},
+      {it:'Vada dritto',            fr:'Allez tout droit'},
+      {it:'È lontano da qui?',      fr:'C\'est loin d\'ici?'},
+    ],
+    steps:[
+      {side:'them', text:'Scusi, può aiutarmi? Mi sono perso!', trans:'Excuse me, can you help me? I\'m lost!'},
+      {side:'me', prompt:'Come offri aiuto?', choices:[
+        {text:'Certo! Dove deve andare?',        correct:true,  tip:'✓ "Dove deve andare?" = Where do you need to go?'},
+        {text:'Anch\'io sono perso, mi dispiace.', correct:false, tip:'❌ Non aiuta la persona!'},
+        {text:'Non parlo italiano.',             correct:false, tip:'😂 Ma stai già parlando italiano!'},
+      ]},
+      {side:'them', text:'Devo andare al Duomo. È lontano da qui?', trans:'I need to get to the Cathedral. Is it far?'},
+      {side:'me', prompt:'Come risponderesti?', choices:[
+        {text:'No, è a circa dieci minuti a piedi. Vada dritto poi giri a sinistra.', correct:true, tip:'✓ "A circa" = about — "a piedi" = on foot'},
+        {text:'Non conosco questa città.',          correct:false, tip:'❌ Proviamo a usare le frasi imparate!'},
+        {text:'Il Duomo è molto bello!',            correct:false, tip:'❌ Opinione, non indicazione stradale'},
+      ]},
+      {side:'them', text:'Grazie! C\'è una fermata della metro vicino?', trans:'Thank you! Is there a metro stop nearby?'},
+      {side:'me', prompt:'C\'è una metro?', choices:[
+        {text:'Sì, la fermata Duomo è proprio qui vicino, in Piazza Fontana.', correct:true, tip:'✓ "Qui vicino" = nearby — "proprio" enfatizza la vicinanza'},
+        {text:'Non prendo mai la metro.',   correct:false, tip:'❌ Non risponde alla domanda'},
+        {text:'La metro è rossa.',         correct:false, tip:'❌ Il colore non aiuta a trovare la fermata!'},
+      ]},
+    ]
+  },
+  {
+    id:'telefono', level:'B1', emoji:'📞',
+    title:'Telefonata professionale',
+    desc:'Gestisci una telefonata di lavoro: rispondi, lascia un messaggio, fissa un appuntamento.',
+    from:'#f3e5f5', to:'#ede7f6',
+    minutes:5, phrases:10,
+    speaker:{name:'Receptionist', avatar:'👩‍💼'},
+    vocab:[
+      {it:'Pronto!',                      fr:'Allô! (pour répondre au téléphone)'},
+      {it:'Posso parlare con…?',          fr:'Puis-je parler à…?'},
+      {it:'Vuole lasciare un messaggio?', fr:'Voulez-vous laisser un message?'},
+      {it:'Richiami più tardi',           fr:'Rappelez plus tard'},
+    ],
+    steps:[
+      {side:'them', text:'Pronto! Azienda Rossi, buongiorno. Come posso aiutarla?', trans:'Hello! Rossi Company, good morning. How can I help you?'},
+      {side:'me', prompt:'Come inizi la telefonata?', choices:[
+        {text:'Pronto! Sono Marco Bianchi. Posso parlare con il dottor Ferrari?', correct:true,  tip:'✓ "Pronto" + nome + richiesta — la formula classica'},
+        {text:'Ciao! Sei libera stasera?',  correct:false, tip:'❌ Troppo informale per una chiamata professionale'},
+        {text:'Sì, grazie.',               correct:false, tip:'❌ Non introduce chi sei né cosa vuoi'},
+      ]},
+      {side:'them', text:'Il dottor Ferrari è in riunione. Vuole aspettare o richiamare più tardi?', trans:'Dr. Ferrari is in a meeting. Would you like to hold or call back?'},
+      {side:'me', prompt:'Cosa preferisci fare?', choices:[
+        {text:'Aspetto, grazie.',                          correct:true,  tip:'✓ "Aspetto" = I\'ll hold'},
+        {text:'Può dirgli di richiamarmi? Il mio numero è 333-456-7890.', correct:true, tip:'✓ "Può dirgli di richiamarmi?" = ask him to call me back'},
+        {text:'Non mi interessa più.',                     correct:false, tip:'❌ Troppo brusco per un contesto professionale'},
+      ]},
+      {side:'them', text:'Certamente! Può lasciarmi il suo nome?', trans:'Certainly! May I take your name?'},
+      {side:'me', prompt:'Dai le tue informazioni:', choices:[
+        {text:'Sì, mi chiamo Marco Bianchi. Il numero è 333-456-7890.', correct:true, tip:'✓ Nome + numero — informazioni complete'},
+        {text:'Non ricordo il mio nome.',   correct:false, tip:'😅 Succede, ma non in una chiamata professionale!'},
+        {text:'Può trovarlo online.',       correct:false, tip:'❌ Non professionale!'},
+      ]},
+    ]
+  },
+  {
+    id:'medico', level:'B1', emoji:'🏥',
+    title:'Dal Medico',
+    desc:'Descrivi sintomi, comprendi la diagnosi e ottieni una prescrizione medica.',
+    from:'#e0f7fa', to:'#e8f5ee',
+    minutes:5, phrases:10,
+    speaker:{name:'Dott.ssa Greco', avatar:'👩‍⚕️'},
+    vocab:[
+      {it:'Ho mal di testa/stomaco', fr:'J\'ai mal à la tête / à l\'estomac'},
+      {it:'Da quanto tempo?',        fr:'Depuis combien de temps?'},
+      {it:'Ho la febbre',            fr:'J\'ai de la fièvre'},
+      {it:'Mi fa male qui',          fr:'J\'ai mal ici'},
+    ],
+    steps:[
+      {side:'them', text:'Buongiorno! Si sieda. Come si sente oggi?', trans:'Good morning! Please sit down. How are you feeling today?'},
+      {side:'me', prompt:'Descrivi il problema:', choices:[
+        {text:'Non mi sento bene. Ho mal di testa e un po\' di febbre.', correct:true, tip:'✓ "Non mi sento bene" = I don\'t feel well — "mal di testa" = headache'},
+        {text:'Sto benissimo, grazie!',           correct:false, tip:'😄 Allora perché sei dal medico?'},
+        {text:'Ho dimenticato perché sono qui.',  correct:false, tip:'❌ Cerca di descrivere i tuoi sintomi!'},
+      ]},
+      {side:'them', text:'Da quanto tempo ha questi sintomi?', trans:'How long have you had these symptoms?'},
+      {side:'me', prompt:'Da quanto stai male?', choices:[
+        {text:'Da ieri sera. Ho anche mal di gola.',  correct:true,  tip:'✓ "Da ieri sera" = since last night'},
+        {text:'Da sempre.',                           correct:false, tip:'❌ "Da sempre" = forever — un po\' esagerato!'},
+        {text:'Non mi ricordo.',                      correct:false, tip:'❌ Prova a dare una risposta più precisa al medico'},
+      ]},
+      {side:'them', text:'Ha anche tosse?', trans:'Do you also have a cough?'},
+      {side:'me', prompt:'Hai la tosse?', choices:[
+        {text:'Sì, ho un po\' di tosse secca da due giorni.', correct:true, tip:'✓ "Tosse secca" = dry cough — "da due giorni" = for two days'},
+        {text:'No, non ho tosse.',                             correct:true, tip:'✓ Semplice e chiaro — la negazione funziona benissimo'},
+        {text:'Cos\'è la tosse?',                             correct:false, tip:'❌ Studia il vocabolario medico di base!'},
+      ]},
+    ]
+  },
+  {
+    id:'dibattito', level:'B2', emoji:'🗣️',
+    title:'Discussione e opinioni',
+    desc:'Esprimi la tua opinione, argomenta un punto di vista e partecipa a un dibattito in italiano.',
+    from:'#fff3e0', to:'#fbe9e7',
+    minutes:6, phrases:12,
+    speaker:{name:'Prof. Mancini', avatar:'👨‍🏫'},
+    vocab:[
+      {it:'Secondo me / A mio avviso',              fr:'Selon moi / À mon avis'},
+      {it:'Sono d\'accordo / Non sono d\'accordo', fr:'Je suis d\'accord / Je ne suis pas d\'accord'},
+      {it:'Da un lato… dall\'altro…',              fr:'D\'un côté… de l\'autre…'},
+      {it:'In conclusione',                         fr:'En conclusion'},
+    ],
+    steps:[
+      {side:'them', text:'Oggi parleremo dell\'importanza di imparare le lingue straniere. Qual è la sua opinione?', trans:'Today we\'ll discuss the importance of learning foreign languages. What\'s your opinion?'},
+      {side:'me', prompt:'Inizia il tuo intervento:', choices:[
+        {text:'Secondo me, imparare le lingue straniere è fondamentale nel mondo globalizzato di oggi.', correct:true, tip:'✓ "Secondo me" + posizione chiara — inizio perfetto per un dibattito'},
+        {text:'Boh, non saprei.',               correct:false, tip:'❌ "Boh" è troppo informale per un dibattito accademico'},
+        {text:'Non ho mai pensato a questo.',   correct:false, tip:'❌ Non porta avanti la discussione'},
+      ]},
+      {side:'them', text:'Può argomentare meglio questa posizione?', trans:'Can you argue this position further?'},
+      {side:'me', prompt:'Argomenta la tua posizione:', choices:[
+        {text:'Da un lato, conoscere più lingue apre porte nel lavoro. Dall\'altro, favorisce la comprensione culturale.', correct:true, tip:'✓ Struttura "da un lato / dall\'altro" — ottima per i dibattiti accademici'},
+        {text:'È ovvio, no?',                          correct:false, tip:'❌ Non è un argomento valido — devi spiegare il perché'},
+        {text:'Molte persone pensano così.',            correct:false, tip:'❌ Vago — chi? Perché? Porta dati o esempi!'},
+      ]},
+      {side:'them', text:'C\'è chi sostiene invece che le lingue straniere siano inutili. Come risponde?', trans:'Some argue that foreign languages are useless. How do you respond?'},
+      {side:'me', prompt:'Come controbatti?', choices:[
+        {text:'Non sono d\'accordo. I benefici cognitivi e professionali del multilinguismo sono stati ampiamente dimostrati dalla ricerca.', correct:true, tip:'✓ Ottimo! Disaccordo esplicito + evidenza — struttura da B2+'},
+        {text:'Hanno ragione, non servono a niente.',  correct:false, tip:'❌ Contraddici la tua posizione iniziale!'},
+        {text:'È una domanda difficile.',              correct:false, tip:'❌ Non prende posizione — essenziale in un dibattito'},
+      ]},
+    ]
+  },
+];
+
+/* ── Vocab data ────────────────────────────────────────────── */
+const VOCAB_CATS = {
+  saluti:[
+    {it:'Ciao',            en:'Hi / Bye (informal)'},
+    {it:'Buongiorno',      en:'Good morning'},
+    {it:'Buonasera',       en:'Good evening'},
+    {it:'Buonanotte',      en:'Good night'},
+    {it:'Arrivederci',     en:'Goodbye (formal)'},
+    {it:'A presto',        en:'See you soon'},
+    {it:'Come stai?',      en:'How are you? (informal)'},
+    {it:'Piacere!',        en:'Nice to meet you!'},
+  ],
+  numeri:[
+    {it:'Uno / Una', en:'One'}, {it:'Due', en:'Two'}, {it:'Tre', en:'Three'},
+    {it:'Dieci',  en:'Ten'}, {it:'Venti', en:'Twenty'}, {it:'Cento', en:'One hundred'},
+    {it:'Mille',  en:'One thousand'}, {it:'Primo / Prima', en:'First'},
+  ],
+  negozio:[
+    {it:'Quanto costa?',       en:'How much does it cost?'},
+    {it:'È troppo caro',       en:'It\'s too expensive'},
+    {it:'Lo prendo',           en:'I\'ll take it'},
+    {it:'Taglia S/M/L/XL',    en:'Size S/M/L/XL'},
+    {it:'Posso provarla?',     en:'Can I try it on?'},
+    {it:'Sconto',              en:'Discount'},
+    {it:'Cassa',               en:'Checkout / Cash register'},
+    {it:'Saldi',               en:'Sale'},
+  ],
+  ristorante:[
+    {it:'Il menù',             en:'The menu'},
+    {it:'Primo / Secondo',     en:'First / Second course'},
+    {it:'Il conto',            en:'The bill'},
+    {it:'Sono allergico/a a…', en:'I\'m allergic to…'},
+    {it:'Ben cotto',           en:'Well done (meat)'},
+    {it:'Al sangue',           en:'Rare (meat)'},
+    {it:'Coperto',             en:'Cover charge'},
+    {it:'Mancia',              en:'Tip'},
+  ],
+  direzioni:[
+    {it:'Dritto',              en:'Straight ahead'},
+    {it:'Destra / Sinistra',   en:'Right / Left'},
+    {it:'Semaforo',            en:'Traffic light'},
+    {it:'Incrocio',            en:'Crossroads / Intersection'},
+    {it:'Fermata',             en:'Stop / Station'},
+    {it:'Vicino / Lontano',    en:'Near / Far'},
+    {it:'All\'angolo',         en:'On the corner'},
+    {it:'Di fronte a',         en:'Opposite / In front of'},
+  ],
+  lavoro:[
+    {it:'Colloquio',           en:'Job interview'},
+    {it:'Candidato/a',         en:'Candidate'},
+    {it:'Stipendio',           en:'Salary'},
+    {it:'Contratto',           en:'Contract'},
+    {it:'Lavoro a tempo pieno', en:'Full-time job'},
+    {it:'Permesso / Ferie',    en:'Leave / Holidays'},
+    {it:'Riunione',            en:'Meeting'},
+    {it:'Scadenza',            en:'Deadline'},
+  ],
+};
+
+/* ── Phrase-builder data ───────────────────────────────────── */
+const BUILDER_EX = [
+  {target:'Where is the train station?',         answer:['Dove','si','trova','la','stazione','ferroviaria?'], extra:['mercato','andare','piace']},
+  {target:'I would like a coffee, please.',       answer:['Vorrei','un','caffè,','per','favore.'], extra:['pizza','bello','grande']},
+  {target:'How much does this cost?',             answer:['Quanto','costa','questo?'], extra:['casa','grande','mangio']},
+  {target:'I don\'t understand, can you repeat?', answer:['Non','capisco,','può','ripetere?'], extra:['voglio','bello','italiano']},
+  {target:'I am looking for a pharmacy.',         answer:['Sto','cercando','una','farmacia.'], extra:['pizza','sempre','bene']},
+  {target:'Can you help me, please?',             answer:['Può','aiutarmi,','per','favore?'], extra:['mangio','grande','rosso']},
+];
+
+/* ── State ─────────────────────────────────────────────────── */
+const DONE_KEY = 'conv_done_v2';
+let done         = JSON.parse(localStorage.getItem(DONE_KEY) || '{}');
+let current      = null;
+let stepIdx      = 0;
+let meDotIdx     = 0;
+let currentLevel = 'all';
+let builderIdx   = 0;
+let builderAns   = [];
+
+function saveDone(){ localStorage.setItem(DONE_KEY, JSON.stringify(done)); }
+
+function getLevelColor(lvl){
+  return {A1:'#1d4ed8', A2:'#d97706', B1:'#ce2b37', B2:'#1a7f4b'}[lvl] || '#8b90a0';
+}
+
+/* ── Overall bar ───────────────────────────────────────────── */
+function updateOverall(){
+  const n   = Object.values(done).filter(Boolean).length;
+  const pct = Math.round(n / SCENARIOS.length * 100);
+  document.getElementById('overallFill').style.width = pct + '%';
+  document.getElementById('overallPct').textContent  = `${n} / ${SCENARIOS.length} scenari completati`;
+}
+
+/* ── Render scenario cards ─────────────────────────────────── */
+function renderCards(level){
+  const grid     = document.getElementById('scenarioGrid');
+  grid.innerHTML = '';
+  const list     = level === 'all' ? SCENARIOS : SCENARIOS.filter(s => s.level === level);
+
+  list.forEach(s => {
+    const isDone = !!done[s.id];
+    const el     = document.createElement('div');
+    el.className = `scenario-card ${isDone ? 'done' : ''}`;
+    el.setAttribute('role','button');
+    el.setAttribute('tabindex','0');
+    el.setAttribute('aria-label', `${s.title} — Livello ${s.level}${isDone ? ' (completato)' : ''}`);
+    el.style.cssText = `--card-from:${s.from};--card-to:${s.to};`;
+    const lc = getLevelColor(s.level);
+    el.innerHTML = `
+      ${isDone ? '<div class="scenario-card-badge badge-done">✓</div>' : ''}
+      <div class="scenario-header">
+        <span class="scenario-emoji">${s.emoji}</span>
+        <span class="scenario-level-tag" style="background:${lc}22;color:${lc};">${s.level}</span>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-title">${s.title}</div>
+        <div class="scenario-desc">${s.desc}</div>
+        <div class="scenario-meta">
+          <span class="meta-chip">⏱️ ${s.minutes} min</span>
+          <span class="meta-chip">💬 ${s.phrases} frasi</span>
+          <span class="meta-chip">${s.speaker.avatar} ${s.speaker.name}</span>
+        </div>
+        <button class="btn btn-primary btn-sm" style="margin-top:var(--space-5);width:100%;"
+          onclick="openDialogue('${s.id}')">
+          ${isDone ? '↩ Riprova' : '▶ Inizia'}
+        </button>
+      </div>`;
+    el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openDialogue(s.id); });
+    grid.appendChild(el);
+  });
+}
+
+function filterLevel(lvl){
+  currentLevel = lvl;
+  document.querySelectorAll('.level-pill').forEach(p => {
+    p.classList.toggle('active', p.id === 'tab-' + lvl);
+  });
+  renderCards(lvl);
+}
+
+/* ── Dialogue ──────────────────────────────────────────────── */
+function openDialogue(id){
+  current  = SCENARIOS.find(s => s.id === id);
+  if(!current) return;
+  stepIdx  = 0;
+  meDotIdx = 0;
+
+  document.getElementById('dialogueTitle').textContent = current.title;
+  document.getElementById('dlgSubtitle').textContent   = `${current.emoji} Livello ${current.level} · ${current.speaker.name}`;
+  document.getElementById('dlgAvatar').textContent     = current.speaker.avatar;
+  document.getElementById('dialogueChat').innerHTML    = '';
+  document.getElementById('completionCard').classList.remove('show');
+  document.getElementById('responseArea').style.display = '';
+
+  // Progress dots
+  const numMe = current.steps.filter(s => s.side === 'me').length;
+  const dots  = document.getElementById('progressDots');
+  dots.innerHTML = Array.from({length:numMe}, (_,i) => `<div class="pdot${i===0?' active':''}" id="dot-${i}"></div>`).join('');
+
+  // Vocab panel
+  const vp = document.getElementById('dlgVocabPanel');
+  const vi = document.getElementById('dlgVocabItems');
+  if(current.vocab && current.vocab.length){
+    vi.innerHTML = current.vocab.map(v =>
+      `<div class="vocab-item"><span class="vocab-it">${v.it}</span><span class="vocab-fr">— ${v.fr}</span></div>`
+    ).join('');
+    vp.classList.add('visible');
+  } else {
+    vp.classList.remove('visible');
+  }
+
+  document.getElementById('dialogueOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  playStep();
+}
+
+function closeDialogue(){
+  document.getElementById('dialogueOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  renderCards(currentLevel);
+  updateOverall();
+}
+
+function restartDialogue(){ if(current) openDialogue(current.id); }
+
+function playStep(){
+  if(stepIdx >= current.steps.length){ showCompletion(); return; }
+  const step = current.steps[stepIdx];
+  if(step.side === 'them'){
+    showTyping(() => {
+      addBubble('them', step.text, step.trans);
+      stepIdx++;
+      setTimeout(playStep, 650);
+    });
+  } else {
+    showChoices(step);
+  }
+}
+
+function showTyping(cb){
+  const chat = document.getElementById('dialogueChat');
+  const row  = document.createElement('div');
+  row.className = 'bubble-row';
+  row.innerHTML = `<div class="speaker-avatar">${current.speaker.avatar}</div>
+    <div class="typing-indicator">
+      <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+    </div>`;
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+  setTimeout(() => { row.remove(); cb(); }, 1100);
+}
+
+function addBubble(side, text, trans){
+  const chat   = document.getElementById('dialogueChat');
+  const avatar = side === 'them' ? current.speaker.avatar : '🧑‍🎓';
+  const row    = document.createElement('div');
+  row.className = `bubble-row ${side === 'me' ? 'me' : ''}`;
+  row.innerHTML = `
+    <div class="speaker-avatar">${avatar}</div>
+    <div class="bubble ${side}">
+      ${text}
+      ${trans ? `<div class="translation">${trans}</div>` : ''}
+    </div>`;
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function showChoices(step){
+  const area   = document.getElementById('responseChoices');
+  document.getElementById('responsePrompt').textContent = step.prompt || 'SCEGLI LA TUA RISPOSTA';
+  area.innerHTML = '';
+  const letters = ['A','B','C'];
+  step.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'response-btn';
+    btn.id = `choice-${i}`;
+    btn.innerHTML = `<span class="response-letter">${letters[i]}</span><span>${c.text}</span>`;
+    btn.onclick = () => selectChoice(c, i, step);
+    area.appendChild(btn);
+  });
+}
+
+function selectChoice(choice, idx, step){
+  document.querySelectorAll('.response-btn').forEach(b => b.disabled = true);
+  document.getElementById(`choice-${idx}`).classList.add(choice.correct ? 'correct' : 'wrong');
+  addBubble('me', choice.text);
+  setTimeout(() => {
+    addBubble('them', choice.tip);
+    const dot = document.getElementById(`dot-${meDotIdx}`);
+    if(dot){ dot.classList.remove('active'); dot.classList.add('done'); }
+    meDotIdx++;
+    const nd = document.getElementById(`dot-${meDotIdx}`);
+    if(nd) nd.classList.add('active');
+    stepIdx++;
+    setTimeout(playStep, 900);
+  }, 400);
+}
+
+function showCompletion(){
+  done[current.id] = true;
+  saveDone();
+  document.getElementById('responseArea').style.display   = 'none';
+  document.getElementById('dlgVocabPanel').classList.remove('visible');
+  document.getElementById('completionCard').classList.add('show');
+  const n = Object.values(done).filter(Boolean).length;
+  document.getElementById('completionMsg').textContent =
+    `Hai completato "${current.title}"! Totale scenari superati: ${n} / ${SCENARIOS.length} 🎉`;
+}
+
+/* ── Phrase builder ────────────────────────────────────────── */
+function loadBuilder(idx){
+  builderAns = [];
+  builderIdx = idx;
+  const ex   = BUILDER_EX[idx];
+  document.getElementById('builderTarget').textContent = ex.target;
+  document.getElementById('builderIdxLabel').textContent = idx + 1;
+  document.getElementById('nextBuilderBtn').style.display = 'none';
+  const fb = document.getElementById('builderFeedback');
+  fb.className = 'builder-feedback'; fb.textContent = '';
+
+  const words = [...ex.answer, ...ex.extra].sort(() => Math.random() - .5);
+  const bank  = document.getElementById('wordBank');
+  bank.innerHTML = '';
+  words.forEach((w, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'word-chip'; chip.id = `wc-${i}`; chip.textContent = w;
+    chip.onclick = () => pickWord(chip, w, i);
+    bank.appendChild(chip);
+  });
+  renderAnswerZone();
+}
+
+function renderAnswerZone(){
+  const zone = document.getElementById('answerZone');
+  zone.innerHTML = '';
+  if(!builderAns.length){
+    const p = document.createElement('span');
+    p.className = 'answer-placeholder';
+    p.textContent = 'Clicca le parole qui sopra per costruire la frase…';
+    zone.appendChild(p); return;
+  }
+  builderAns.forEach((item, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'word-chip'; chip.textContent = item.word;
+    chip.onclick = () => removeWord(i, item.chipId);
+    zone.appendChild(chip);
+  });
+}
+
+function pickWord(chip, word, chipId){
+  if(chip.classList.contains('used')) return;
+  chip.classList.add('used');
+  builderAns.push({word, chipId:`wc-${chipId}`});
+  renderAnswerZone();
+}
+
+function removeWord(ansIdx, chipId){
+  builderAns.splice(ansIdx, 1);
+  const chip = document.getElementById(chipId);
+  if(chip) chip.classList.remove('used');
+  renderAnswerZone();
+}
+
+function checkBuilder(){
+  const ex      = BUILDER_EX[builderIdx];
+  const userArr = builderAns.map(x => x.word);
+  const correct = JSON.stringify(userArr) === JSON.stringify(ex.answer);
+  const fb = document.getElementById('builderFeedback');
+  fb.className = 'builder-feedback ' + (correct ? 'success' : 'error');
+  fb.textContent = correct
+    ? `✓ Perfetto! La frase corretta è: "${ex.answer.join(' ')}"`
+    : `✗ Non corretto. La risposta giusta è: "${ex.answer.join(' ')}"`;
+  document.getElementById('nextBuilderBtn').style.display = 'inline-flex';
+}
+function resetBuilder(){ loadBuilder(builderIdx); }
+function nextBuilder() { loadBuilder((builderIdx + 1) % BUILDER_EX.length); }
+
+/* ── Flashcards ────────────────────────────────────────────── */
+function showVocabCat(cat){
+  document.querySelectorAll('.vocab-tab').forEach(t => {
+    t.classList.toggle('active', t.id === `vtab-${cat}`);
+  });
+  const words = VOCAB_CATS[cat] || [];
+  const grid  = document.getElementById('flashcardGrid');
+  grid.innerHTML = '';
+  words.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-label', `${w.it} — clicca per la traduzione`);
+    card.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <span style="font-size:1.4rem;margin-bottom:4px;">🇮🇹</span>
+          <span>${w.it}</span>
+          <span style="font-size:.7rem;color:var(--text-muted);margin-top:4px;">clicca per traduzione</span>
+        </div>
+        <div class="flashcard-back">
+          <span>${w.en}</span>
+          <span class="phonetic">🇬🇧 English</span>
+        </div>
+      </div>`;
+    const flip = () => card.classList.toggle('flipped');
+    card.onclick = flip;
+    card.onkeydown = e => { if(e.key==='Enter'||e.key===' ') flip(); };
+    grid.appendChild(card);
+  });
+}
+
+/* ── Init ──────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderCards('all');
+  updateOverall();
+  loadBuilder(0);
+  showVocabCat('saluti');
+});
+</script>
+{% endblock %}

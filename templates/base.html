@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{% block meta_desc %}Preparati al TOLC-ITA-L2 in 10 giorni con lezioni, esercizi e simulazioni d'esame interattive.{% endblock %}">
+  <title>{% block title %}TOLC-ITA-L2 Prep{% endblock %} — Preparazione Italiano</title>
+
+  <!-- Preconnect for Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Navigazione principale">
+    <div class="nav-top-bar"></div>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="TOLC-ITA-L2 Prep Home">
+        <div class="logo-icon" aria-hidden="true">🇮🇹</div>
+        <div class="logo-text-wrap">
+          <span class="logo-title">TOLC-ITA</span>
+          <span class="logo-badge">L2</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="/" class="{% if request.endpoint == 'index' %}active{% endif %}" aria-current="{% if request.endpoint == 'index' %}page{% endif %}"><span class="nav-icon">🏠</span><span>Dashboard</span></a></li>
+        <li><a href="/plan" class="{% if request.endpoint == 'plan' %}active{% endif %}"><span class="nav-icon">📅</span><span>Piano 10 Giorni</span></a></li>
+        <li><a href="/conversazione" class="{% if request.endpoint == 'conversazione' %}active{% endif %}"><span class="nav-icon">💬</span><span>Conversazione</span></a></li>
+        <li><a href="/test" class="{% if request.endpoint == 'test' %}active{% endif %}"><span class="nav-icon">✏️</span><span>Test Livello</span></a></li>
+        <li><a href="/simulation" class="{% if request.endpoint == 'simulation' %}active{% endif %}"><span class="nav-icon">🏆</span><span>Simulazione</span></a></li>
+        <li><a href="/about" class="{% if request.endpoint == 'about' %}active{% endif %}"><span class="nav-icon">ℹ️</span><span>Info</span></a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/simulation" class="nav-cta-btn">
+          <span>⚡ Simulazione</span>
+        </a>
+        <button id="darkToggle" class="dark-toggle" aria-label="Attiva modalità scura" title="Cambia Tema">🌙</button>
+        <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu mobile" aria-modal="true">
+    <div class="mobile-menu-inner">
+      <a href="/" class="{% if request.endpoint == 'index' %}active{% endif %}">
+        <span class="m-icon">🏠</span> Dashboard
+      </a>
+      <a href="/plan" class="{% if request.endpoint == 'plan' %}active{% endif %}">
+        <span class="m-icon">📅</span> Piano 10 Giorni
+      </a>
+      <a href="/conversazione" class="{% if request.endpoint == 'conversazione' %}active{% endif %}">
+        <span class="m-icon">💬</span> Conversazione
+      </a>
+      <a href="/test" class="{% if request.endpoint == 'test' %}active{% endif %}">
+        <span class="m-icon">✏️</span> Testa il Livello
+      </a>
+      <a href="/simulation" class="{% if request.endpoint == 'simulation' %}active{% endif %}">
+        <span class="m-icon">🏆</span> Simulazione Finale
+      </a>
+      <a href="/about" class="{% if request.endpoint == 'about' %}active{% endif %}">
+        <span class="m-icon">ℹ️</span> Info sull'Esame
+      </a>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-label="Notifiche"></div>
+
+  <!-- Core JS -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/progress.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/translator.js') }}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,2021 @@
+[
+  {
+    "id": 1,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Qual è l'articolo determinativo corretto per 'studente'?",
+    "options": ["il", "lo", "la", "l'"],
+    "correct_answer": 1,
+    "explanation": "Si usa 'lo' davanti alle parole maschili che iniziano con s+consonante, z, ps, gn, x, y. 'Studente' inizia con st-, quindi: lo studente."
+  },
+  {
+    "id": 2,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Completa la frase: '_____ amici di Marco sono simpatici.'",
+    "options": ["Il", "I", "Gli", "Le"],
+    "correct_answer": 2,
+    "explanation": "Il plurale di 'l'amico' è 'gli amici'. Si usa 'gli' davanti a parole maschili plurali che iniziano con vocale."
+  },
+  {
+    "id": 3,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Quale forma è corretta? 'Io _____ molto stanco oggi.'",
+    "options": ["ho", "sono", "sto", "faccio"],
+    "correct_answer": 1,
+    "explanation": "Con gli aggettivi che descrivono uno stato (stanco, felice, triste), si usa 'essere': sono stanco."
+  },
+  {
+    "id": 4,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Qual è il plurale di 'la biblioteca'?",
+    "options": ["le biblioteche", "i bibliotechi", "le bibliotechi", "le biblioteca"],
+    "correct_answer": 0,
+    "explanation": "I nomi femminili in -ca formano il plurale in -che per mantenere il suono /k/: biblioteca → biblioteche."
+  },
+  {
+    "id": 5,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Completa: 'Noi _____ due figli.'",
+    "options": ["siamo", "abbiamo", "facciamo", "prendiamo"],
+    "correct_answer": 1,
+    "explanation": "Il verbo 'avere' (to have) si usa per indicare possesso. 'Abbiamo' è la prima persona plurale di 'avere'."
+  },
+  {
+    "id": 6,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Qual è il genere di 'problema'?",
+    "options": ["femminile", "maschile", "neutro", "dipende dal contesto"],
+    "correct_answer": 1,
+    "explanation": "'Problema' è maschile nonostante finisca in -a (è di origine greca). Si dice 'il problema' e al plurale 'i problemi'."
+  },
+  {
+    "id": 7,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Come si coniuga 'parlare' alla terza persona plurale del presente?",
+    "options": ["parlono", "parlano", "parlino", "parleno"],
+    "correct_answer": 1,
+    "explanation": "I verbi in -are formano la terza persona plurale del presente con -ano: parlano."
+  },
+  {
+    "id": 8,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Completa: 'Voi dove _____?'",
+    "options": ["abitate", "abiti", "abita", "abitano"],
+    "correct_answer": 0,
+    "explanation": "La seconda persona plurale (voi) del presente di 'abitare' è 'abitate'."
+  },
+  {
+    "id": 9,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 1,
+    "question": "Quale articolo si usa con 'zaino'?",
+    "options": ["il", "lo", "la", "l'"],
+    "correct_answer": 1,
+    "explanation": "'Zaino' inizia con 'z', quindi richiede l'articolo 'lo' (maschile singolare): lo zaino."
+  },
+  {
+    "id": 10,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 1,
+    "question": "Qual è la forma corretta? 'Le _____ di Maria sono simpatiche.'",
+    "options": ["amica", "amiche", "amici", "amico"],
+    "correct_answer": 1,
+    "explanation": "L'articolo 'le' richiede un sostantivo femminile plurale. 'Amiche' è il femminile plurale di 'amica'."
+  },
+  {
+    "id": 11,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Quale forma di 'andare' è corretta per 'loro'?",
+    "options": ["andano", "vanno", "vano", "vadono"],
+    "correct_answer": 1,
+    "explanation": "'Andare' è irregolare. La terza persona plurale è 'vanno': loro vanno."
+  },
+  {
+    "id": 12,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Completa: 'Non _____ dove abita Paolo.'",
+    "options": ["so", "sappo", "saccio", "sapisco"],
+    "correct_answer": 0,
+    "explanation": "'Sapere' è irregolare. La prima persona singolare è 'so': non so dove abita."
+  },
+  {
+    "id": 13,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Quale frase è grammaticalmente corretta?",
+    "options": ["Voglio andare al cinema.", "Voglio di andare al cinema.", "Voglio che andare al cinema.", "Voglio per andare al cinema."],
+    "correct_answer": 0,
+    "explanation": "In italiano, i verbi modali (volere, potere, dovere) sono seguiti direttamente dall'infinito senza preposizione."
+  },
+  {
+    "id": 14,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Come si forma una domanda in italiano?",
+    "options": ["Invertendo verbo e soggetto obbligatoriamente", "Solo con l'intonazione ascendente", "Con l'intonazione o con parole interrogative, senza inversione obbligatoria", "Aggiungendo 'non' alla fine"],
+    "correct_answer": 2,
+    "explanation": "In italiano non è obbligatoria l'inversione soggetto-verbo per formare domande. Si può usare solo l'intonazione o aggiungere una parola interrogativa."
+  },
+  {
+    "id": 15,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Completa: '_____ venire con noi stasera?'",
+    "options": ["Puoi", "Puo", "Poti", "Potete"],
+    "correct_answer": 0,
+    "explanation": "La seconda persona singolare di 'potere' è 'puoi'. 'Puoi venire?' = Can you come?"
+  },
+  {
+    "id": 16,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Ieri Marco _____ al cinema con gli amici.",
+    "options": ["va", "andava", "è andato", "andrà"],
+    "correct_answer": 2,
+    "explanation": "Si usa il passato prossimo ('è andato') per un'azione completata in un momento specifico del passato. 'Ieri' indica un momento specifico."
+  },
+  {
+    "id": 17,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Da bambino, ogni estate _____ al mare con la famiglia.",
+    "options": ["sono andato", "andai", "andavo", "vado"],
+    "correct_answer": 2,
+    "explanation": "Si usa l'imperfetto ('andavo') per azioni abituali o ripetute nel passato. 'Ogni estate' indica un'abitudine."
+  },
+  {
+    "id": 18,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Mentre _____ (leggere), il telefono è squillato.",
+    "options": ["ho letto", "leggevo", "leggo", "leggerò"],
+    "correct_answer": 1,
+    "explanation": "Si usa l'imperfetto per un'azione in corso (background) interrotta da un'altra. 'Leggevo' descrive l'azione di background."
+  },
+  {
+    "id": 19,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Qual è il participio passato di 'aprire'?",
+    "options": ["aprito", "aperto", "apruto", "apritto"],
+    "correct_answer": 1,
+    "explanation": "'Aprire' ha un participio passato irregolare: aperto. Simile a 'coprire → coperto', 'soffrire → sofferto'."
+  },
+  {
+    "id": 20,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Completa: 'Non _____ mai visitato Firenze prima d'ora.'",
+    "options": ["ho", "sono", "avevo", "era"],
+    "correct_answer": 0,
+    "explanation": "Il verbo 'visitare' prende l'ausiliare 'avere' nel passato prossimo: ho visitato. 'Mai' si mette tra l'ausiliare e il participio."
+  },
+  {
+    "id": 21,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "La mia amica _____ a Roma tre anni fa.",
+    "options": ["ha nato", "è nata", "nasceva", "nascerà"],
+    "correct_answer": 1,
+    "explanation": "'Nascere' usa l'ausiliare 'essere' nel passato prossimo. Il participio concorda con il soggetto: è nata (femminile)."
+  },
+  {
+    "id": 22,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Completa: 'Cerco Marco, ma non _____ vedo da stamattina.'",
+    "options": ["lo", "la", "li", "le"],
+    "correct_answer": 0,
+    "explanation": "'Marco' è maschile singolare. Il pronome diretto corrispondente è 'lo'."
+  },
+  {
+    "id": 23,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Qual è la risposta corretta a 'Ti piace la pizza?'",
+    "options": ["Sì, mi piace molto.", "Sì, la piace molto.", "Sì, piace a me molto.", "Sì, io piaccio molto."],
+    "correct_answer": 0,
+    "explanation": "'Piacere' usa i pronomi indiretti. 'Mi piace' = pizza pleases me = I like pizza."
+  },
+  {
+    "id": 24,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Completa: 'Hai visto le chiavi? Non _____ trovo.'",
+    "options": ["li", "le", "la", "lo"],
+    "correct_answer": 1,
+    "explanation": "'Chiavi' è femminile plurale. Il pronome diretto corrispondente è 'le'."
+  },
+  {
+    "id": 25,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Completa: 'Ho comprato la borsa. _____ ho comprata ieri.'",
+    "options": ["Li", "Le", "La", "Lo"],
+    "correct_answer": 2,
+    "explanation": "Quando il pronome diretto precede 'avere' nei tempi composti, il participio concorda. 'La borsa' → 'la' → 'l'ho comprata'."
+  },
+  {
+    "id": 26,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Scegli la frase corretta:",
+    "options": ["Gli ho scritto un messaggio.", "Lo ho scritto un messaggio.", "Li ho scritto un messaggio.", "Le ho scritto un messaggio a lui."],
+    "correct_answer": 0,
+    "explanation": "Il pronome indiretto per 'a lui' è 'gli'. 'Ho scritto un messaggio a lui' → 'Gli ho scritto un messaggio'."
+  },
+  {
+    "id": 27,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Completa: 'Vado _____ università ogni mattina.'",
+    "options": ["a l'", "all'", "alla", "al"],
+    "correct_answer": 1,
+    "explanation": "La preposizione 'a' + articolo 'l'' (davanti a vocale) = 'all''. Università inizia con vocale, è femminile: all'università."
+  },
+  {
+    "id": 28,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Completa: 'Questo regalo è _____ mia sorella.'",
+    "options": ["di", "per", "a", "da"],
+    "correct_answer": 1,
+    "explanation": "Si usa 'per' per indicare destinazione/beneficiario: questo regalo è per mia sorella."
+  },
+  {
+    "id": 29,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Quale preposizione completa la frase: 'Vivo _____ Italia _____ tre anni.'",
+    "options": ["in / da", "a / per", "in / per", "a / da"],
+    "correct_answer": 0,
+    "explanation": "'In Italia' per stato in luogo con i paesi. 'Da tre anni' per indicare la durata di un'azione che continua nel presente."
+  },
+  {
+    "id": 30,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Completa: '_____ pioggia, ho deciso di restare a casa.'",
+    "options": ["Per via della", "A causa di", "Siccome", "Entrambe a e b sono corrette"],
+    "correct_answer": 3,
+    "explanation": "'Per via della pioggia' e 'a causa della pioggia' sono entrambe espressioni causali corrette con lo stesso significato."
+  },
+  {
+    "id": 31,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Scegli il connettivo corretto: 'Studio molto, _____ i risultati non sono ancora ottimi.'",
+    "options": ["quindi", "però", "perché", "anche"],
+    "correct_answer": 1,
+    "explanation": "'Però' è un connettivo avversativo (= but/however) che introduce un contrasto. È la scelta corretta per questo contesto."
+  },
+  {
+    "id": 32,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Completa con la preposizione articolata: 'Ho messo le chiavi _____ borsa.'",
+    "options": ["nella", "alla", "dalla", "sulla"],
+    "correct_answer": 0,
+    "explanation": "'In + la = nella'. Si usa 'nella' per indicare contenimento (dentro qualcosa). Le chiavi sono nella borsa."
+  },
+  {
+    "id": 33,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 8,
+    "question": "Qual è la forma corretta del congiuntivo presente di 'essere' per 'tu'?",
+    "options": ["sei", "sia", "eri", "siia"],
+    "correct_answer": 1,
+    "explanation": "Il congiuntivo presente di 'essere' è: sia, sia, sia, siamo, siate, siano. Per 'tu': sia."
+  },
+  {
+    "id": 34,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Qual è la frase corretta?",
+    "options": ["Credo che Marco viene domani.", "Credo che Marco venga domani.", "Credo che Marco verrà domani.", "Credo che Marco è venuto domani."],
+    "correct_answer": 1,
+    "explanation": "Dopo 'credere che' si usa il congiuntivo: 'venga'. Il congiuntivo esprime opinioni, dubbi, speranze."
+  },
+  {
+    "id": 35,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Completa con il condizionale: 'Se studiassi di più, _____ migliori risultati.'",
+    "options": ["avresti", "hai", "avevi", "avessi"],
+    "correct_answer": 0,
+    "explanation": "Con il periodo ipotetico di 2° tipo (irreale), si usa congiuntivo imperfetto + condizionale presente: 'avresti'."
+  },
+  {
+    "id": 36,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 8,
+    "question": "Scegli la forma corretta: 'Il libro che _____ ieri era bellissimo.'",
+    "options": ["ho letto", "leggevo", "leggo", "leggerò"],
+    "correct_answer": 0,
+    "explanation": "'Ieri' indica un momento specifico del passato. Con azioni completate in un momento specifico, si usa il passato prossimo: 'ho letto'."
+  },
+  {
+    "id": 37,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Completa: 'Il documento _____ dal direttore è importante.'",
+    "options": ["firmato", "firmata", "firmati", "firmate"],
+    "correct_answer": 0,
+    "explanation": "Il participio passato con valore aggettivale concorda con il nome: 'il documento' (maschile singolare) → 'firmato'."
+  },
+  {
+    "id": 38,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Quale forma verbale è corretta: 'Vorrei che tu mi _____ la verità.'?",
+    "options": ["dici", "dica", "dirai", "dire"],
+    "correct_answer": 1,
+    "explanation": "Dopo 'vorrei che' si usa il congiuntivo presente: 'dica' (da 'dire', irregolare al congiuntivo)."
+  },
+  {
+    "id": 39,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 8,
+    "question": "Completa: 'Non ho _____ amici in questa città.'",
+    "options": ["nessuno", "nessuni", "nessuna", "alcuno"],
+    "correct_answer": 0,
+    "explanation": "'Nessuno' è un aggettivo indefinito invariabile quando usato con la negazione 'non' davanti al verbo. 'Non ho nessun amico' (o 'nessuno' in questo caso non si accorderebbe al plurale - ma 'nessuno amici' è in realtà non standard; la forma migliore sarebbe 'non ho nessun amico')."
+  },
+  {
+    "id": 40,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Qual è il plurale di 'lo specchio'?",
+    "options": ["gli specchi", "gli specchii", "i specci", "gli speccio"],
+    "correct_answer": 0,
+    "explanation": "I nomi maschili in -io (con i atona) fanno il plurale in -i: specchio → specchi. L'articolo è 'gli' perché inizia con s+c."
+  },
+  {
+    "id": 41,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Completa: 'Loro _____ sempre molto tardi.'",
+    "options": ["esce", "escono", "uscono", "usciamo"],
+    "correct_answer": 2,
+    "explanation": "La terza persona plurale di 'uscire' è 'escono'. Attenzione: 'uscono' è la forma corretta nella lingua standard."
+  },
+  {
+    "id": 42,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 3,
+    "question": "Hai _____ il film di Fellini?",
+    "options": ["veduto", "visto", "vedito", "vedere"],
+    "correct_answer": 1,
+    "explanation": "Il participio passato di 'vedere' è irregolare: 'visto'. Si usa con l'ausiliare 'avere': hai visto."
+  },
+  {
+    "id": 43,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Ieri sera noi _____ a teatro per la prima volta.",
+    "options": ["abbiamo andato", "siamo andati", "andavamo", "andiamo"],
+    "correct_answer": 1,
+    "explanation": "'Andare' usa l'ausiliare 'essere'. Al plurale il participio si accorda: siamo andati (noi, maschile o misto)."
+  },
+  {
+    "id": 44,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Completa: '_____ piacciono i dolci?'",
+    "options": ["Tu", "A te", "Ti", "Tuo"],
+    "correct_answer": 2,
+    "explanation": "Con 'piacere', si usa il pronome indiretto: 'Ti piacciono i dolci?' = 'Do sweets please you?' = 'Do you like sweets?'"
+  },
+  {
+    "id": 45,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Scegli la risposta corretta: 'Hai dato il libro a Giulia?' → 'Sì, _____ ho dato stamattina.'",
+    "options": ["glie lo", "gli lo", "le la", "glielo"],
+    "correct_answer": 3,
+    "explanation": "Quando si combinano pronome indiretto 'le' (a Giulia) + pronome diretto 'lo' (il libro), 'le' diventa 'glie': glielo."
+  },
+  {
+    "id": 46,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Completa: 'La conferenza parla _____ cambiamento climatico.'",
+    "options": ["di", "su", "del", "per"],
+    "correct_answer": 2,
+    "explanation": "'Parlare di' + articolo determinativo = preposizione articolata. 'Cambiamento' è maschile: del cambiamento."
+  },
+  {
+    "id": 47,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Quale trasformazione al passivo è corretta? 'Il professore ha spiegato la lezione.'",
+    "options": ["La lezione è stata spiegata dal professore.", "La lezione ha stata spiegata dal professore.", "La lezione è spiegata del professore.", "La lezione fu spiegata da il professore."],
+    "correct_answer": 0,
+    "explanation": "Il passivo del passato prossimo si forma con 'essere' al passato prossimo + participio passato: è stata spiegata. L'agente è introdotto da 'da + articolo'."
+  },
+  {
+    "id": 48,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Qual è la domanda corretta per avere questa risposta: 'Ho ventidue anni.'?",
+    "options": ["Quanti anni hai?", "Come ti chiami?", "Di dove sei?", "Come stai?"],
+    "correct_answer": 0,
+    "explanation": "Per chiedere l'età si usa 'Quanti anni hai?' che richiede la risposta con il numero di anni."
+  },
+  {
+    "id": 49,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Come si dice 'they have' in italiano?",
+    "options": ["hanno", "abbiamo", "avete", "hai"],
+    "correct_answer": 0,
+    "explanation": "La terza persona plurale di 'avere' è 'hanno': loro hanno."
+  },
+  {
+    "id": 50,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Completa: 'Non _____ cosa dire.'",
+    "options": ["sappo", "so", "saccio", "sapo"],
+    "correct_answer": 1,
+    "explanation": "La prima persona singolare del presente di 'sapere' è irregolare: so."
+  },
+  {
+    "id": 51,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Cosa significa 'la borsa di studio'?",
+    "options": ["handbag for studying", "scholarship", "library bag", "study group"],
+    "correct_answer": 1,
+    "explanation": "'La borsa di studio' significa 'scholarship' - un contributo economico per gli studi."
+  },
+  {
+    "id": 52,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Qual è il sinonimo di 'iniziare'?",
+    "options": ["finire", "cominciare", "continuare", "fermare"],
+    "correct_answer": 1,
+    "explanation": "'Cominciare' e 'iniziare' sono sinonimi e significano entrambi 'to begin/start'."
+  },
+  {
+    "id": 53,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Come si dice 'homework' in italiano?",
+    "options": ["il lavoro a casa", "i compiti", "le lezioni", "lo studio"],
+    "correct_answer": 1,
+    "explanation": "'I compiti' (o 'i compiti a casa') è la traduzione di 'homework'. 'Fare i compiti' = to do homework."
+  },
+  {
+    "id": 54,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa significa 'affidabile'?",
+    "options": ["affordable", "reliable/trustworthy", "friendly", "available"],
+    "correct_answer": 1,
+    "explanation": "'Affidabile' significa 'reliable' o 'trustworthy'. Deriva da 'affidarsi' (to trust/rely on)."
+  },
+  {
+    "id": 55,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Qual è il contrario di 'rumoroso'?",
+    "options": ["veloce", "silenzioso", "pesante", "caldo"],
+    "correct_answer": 1,
+    "explanation": "'Silenzioso' (quiet/silent) è il contrario di 'rumoroso' (noisy/loud)."
+  },
+  {
+    "id": 56,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa significa 'sostenibile'?",
+    "options": ["interesting", "sustainable", "supportive", "substantial"],
+    "correct_answer": 1,
+    "explanation": "'Sostenibile' significa 'sustainable'. 'Lo sviluppo sostenibile' = sustainable development."
+  },
+  {
+    "id": 57,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Come si dice 'to apply for a job' in italiano?",
+    "options": ["chiedere un lavoro", "candidarsi per un lavoro", "cercare un lavoro", "trovare un lavoro"],
+    "correct_answer": 1,
+    "explanation": "'Candidarsi per un lavoro' o 'fare domanda per un lavoro' = to apply for a job."
+  },
+  {
+    "id": 58,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Cosa significa 'approvvigionamento'?",
+    "options": ["approval", "supply/procurement", "improvement", "agreement"],
+    "correct_answer": 1,
+    "explanation": "'Approvvigionamento' significa 'supply' o 'procurement', ovvero il processo di procurarsi risorse o materiali."
+  },
+  {
+    "id": 59,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Qual è il significato di 'reperire'?",
+    "options": ["to repeat", "to repair", "to find/obtain", "to report"],
+    "correct_answer": 2,
+    "explanation": "'Reperire' significa 'to find' o 'to obtain', soprattutto con riferimento a oggetti o informazioni difficili da trovare."
+  },
+  {
+    "id": 60,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Come si chiama il documento che certifica la laurea?",
+    "options": ["il diploma di maturità", "la tesi", "il titolo di studio", "il verbale"],
+    "correct_answer": 2,
+    "explanation": "'Il titolo di studio' è il termine generico per qualsiasi certificazione accademica. La laurea specifica è 'la laurea triennale/magistrale'."
+  },
+  {
+    "id": 61,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Cosa significa 'il quartiere'?",
+    "options": ["quarter hour", "neighborhood/district", "quarter of a country", "square"],
+    "correct_answer": 1,
+    "explanation": "'Il quartiere' significa 'neighborhood' o 'district', una zona di una città."
+  },
+  {
+    "id": 62,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa vuol dire 'fare carriera'?",
+    "options": ["to make a race", "to advance professionally/climb the career ladder", "to change career", "to study"],
+    "correct_answer": 1,
+    "explanation": "'Fare carriera' significa avanzare professionalmente, avere successo nel lavoro."
+  },
+  {
+    "id": 63,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Quale parola significa 'frugal/thrifty' in italiano?",
+    "options": ["frugale", "parsimoniosa", "economa", "Tutte e tre sono corrette"],
+    "correct_answer": 3,
+    "explanation": "'Frugale', 'parsimoniosa' ed 'economa' sono sinonimi che indicano una persona attenta alle spese, che non spreca."
+  },
+  {
+    "id": 64,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Come si dice 'to travel' in italiano?",
+    "options": ["passeggiare", "viaggiare", "camminare", "spostarsi"],
+    "correct_answer": 1,
+    "explanation": "'Viaggiare' significa 'to travel'. 'Passeggiare' = to stroll, 'camminare' = to walk, 'spostarsi' = to move/get around."
+  },
+  {
+    "id": 65,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa significa 'il benessere'?",
+    "options": ["good weather", "well-being/welfare", "good wishes", "wellness center"],
+    "correct_answer": 1,
+    "explanation": "'Il benessere' significa 'well-being', 'welfare' o 'wellbeing'. Può riferirsi sia alla salute fisica che economica."
+  },
+  {
+    "id": 66,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Cosa significa 'l'equivoco'?",
+    "options": ["equality", "misunderstanding", "fairness", "equivalence"],
+    "correct_answer": 1,
+    "explanation": "'L'equivoco' significa 'misunderstanding'. 'C'è stato un equivoco' = There has been a misunderstanding."
+  },
+  {
+    "id": 67,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Quale aggettivo descrive qualcosa che causa paura?",
+    "options": ["spaventoso", "spavaldo", "spazioso", "speciale"],
+    "correct_answer": 0,
+    "explanation": "'Spaventoso' significa 'frightening' o 'scary'. Deriva da 'spaventare' (to frighten)."
+  },
+  {
+    "id": 68,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Come si dice 'ambulance' in italiano?",
+    "options": ["l'ambulatorio", "l'ambulanza", "il pronto soccorso", "il medico"],
+    "correct_answer": 1,
+    "explanation": "'L'ambulanza' = ambulance. 'L'ambulatorio' = clinic/doctor's office. 'Il pronto soccorso' = emergency room."
+  },
+  {
+    "id": 69,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Cosa significa 'la locandina'?",
+    "options": ["inn/small hotel", "poster/flyer", "local newspaper", "landlady"],
+    "correct_answer": 1,
+    "explanation": "'La locandina' significa 'poster' o 'flyer', un manifesto pubblicitario. Molto usato per film e spettacoli."
+  },
+  {
+    "id": 70,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa vuol dire 'andare d'accordo'?",
+    "options": ["to go in agreement", "to get along (with someone)", "to agree formally", "to go together"],
+    "correct_answer": 1,
+    "explanation": "'Andare d'accordo' significa 'to get along well' con qualcuno: Mi trovo bene con lui, andiamo d'accordo."
+  },
+  {
+    "id": 71,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Cosa significa 'il tasso di disoccupazione'?",
+    "options": ["the badger rate", "the unemployment rate", "the discount rate", "the tax rate"],
+    "correct_answer": 1,
+    "explanation": "'Il tasso di disoccupazione' = unemployment rate. 'Tasso' qui significa 'rate'. 'La disoccupazione' = unemployment."
+  },
+  {
+    "id": 72,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Quale termine NON è sinonimo di 'rifiuti'?",
+    "options": ["immondizia", "spazzatura", "rifornimento", "pattume"],
+    "correct_answer": 2,
+    "explanation": "'Rifornimento' significa 'supply/refueling', non è sinonimo di 'rifiuti' (garbage/waste). 'Immondizia', 'spazzatura' e 'pattume' sono tutti sinonimi."
+  },
+  {
+    "id": 73,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Come si chiama il posto dove si prendono i soldi?",
+    "options": ["la farmacia", "la banca", "il comune", "il tribunale"],
+    "correct_answer": 1,
+    "explanation": "'La banca' è dove si gestisce il denaro. Si può anche usare 'lo sportello bancomat' per il bancomat."
+  },
+  {
+    "id": 74,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Cosa significa 'inossidabile'?",
+    "options": ["innovative", "stainless/rust-proof", "unbreakable", "indefinable"],
+    "correct_answer": 1,
+    "explanation": "'Inossidabile' significa 'stainless' o 'rust-proof'. 'Acciaio inossidabile' = stainless steel. Figurativamente: incorruttibile."
+  },
+  {
+    "id": 75,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa vuol dire 'prendere in giro' qualcuno?",
+    "options": ["to take someone around", "to make fun of someone", "to take someone seriously", "to take turns"],
+    "correct_answer": 1,
+    "explanation": "'Prendere in giro' significa 'to mock' o 'to make fun of someone' in modo scherzoso o crudele."
+  },
+  {
+    "id": 76,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Come si dice 'to be hungry' in italiano?",
+    "options": ["avere freddo", "avere fame", "avere sete", "avere paura"],
+    "correct_answer": 1,
+    "explanation": "'Avere fame' = to be hungry. 'Avere sete' = to be thirsty. In italiano si usa 'avere' con questi stati fisici, non 'essere'."
+  },
+  {
+    "id": 77,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa significa 'il rinvio'?",
+    "options": ["renewal", "postponement/delay", "refusal", "return"],
+    "correct_answer": 1,
+    "explanation": "'Il rinvio' significa 'postponement' o 'delay'. 'Rinviare' = to postpone/delay. 'Il rinvio del volo' = flight delay."
+  },
+  {
+    "id": 78,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Quale parola significa 'whistleblower' in italiano?",
+    "options": ["il fischiatore", "il soffiatore", "il delatore", "il segnalatore"],
+    "correct_answer": 3,
+    "explanation": "In italiano moderno si usa 'il segnalatore (di illeciti)' per 'whistleblower'. Anche 'il delatore' esiste ma ha connotazione più negativa."
+  },
+  {
+    "id": 79,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Cosa significa 'il colloquio'?",
+    "options": ["collection", "interview/meeting", "collection of works", "colloquium"],
+    "correct_answer": 1,
+    "explanation": "'Il colloquio' significa 'interview' (di lavoro) o 'meeting'. 'Sostenere un colloquio' = to have an interview."
+  },
+  {
+    "id": 80,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa vuol dire 'mettersi in proprio'?",
+    "options": ["to dress oneself", "to set up one's own business", "to put things in order", "to introduce oneself"],
+    "correct_answer": 1,
+    "explanation": "'Mettersi in proprio' significa aprire una propria attività commerciale, diventare imprenditore."
+  },
+  {
+    "id": 81,
+    "category": "verbs",
+    "difficulty": "easy",
+    "day": 2,
+    "question": "Coniuga 'fare' alla prima persona singolare del presente.",
+    "options": ["fo", "faccio", "fao", "fago"],
+    "correct_answer": 1,
+    "explanation": "'Fare' è molto irregolare al presente. La prima persona singolare è 'faccio'."
+  },
+  {
+    "id": 82,
+    "category": "verbs",
+    "difficulty": "easy",
+    "day": 2,
+    "question": "Qual è la prima persona singolare del futuro di 'andare'?",
+    "options": ["andrò", "vado", "anderò", "androi"],
+    "correct_answer": 0,
+    "explanation": "Il futuro di 'andare' è irregolare: andrò, andrai, andrà, andremo, andrete, andranno."
+  },
+  {
+    "id": 83,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 3,
+    "question": "Quale verbo richiede l'ausiliare 'essere' al passato prossimo?",
+    "options": ["mangiare", "leggere", "partire", "comprare"],
+    "correct_answer": 2,
+    "explanation": "'Partire' è un verbo di movimento intransitivo e richiede 'essere': sono partito/a. I verbi transitivi come mangiare, leggere, comprare usano 'avere'."
+  },
+  {
+    "id": 84,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 3,
+    "question": "Come si coniuga 'piacere' alla terza persona plurale?",
+    "options": ["piace", "piacciono", "piacono", "piacono"],
+    "correct_answer": 1,
+    "explanation": "'Piacere' alla terza persona plurale è 'piacciono'. Si usa con soggetti plurali: Mi piacciono i film."
+  },
+  {
+    "id": 85,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Completa: 'Noi _____ (dovere) studiare ogni giorno.'",
+    "options": ["dobbiamo", "dovemo", "devono", "doviamo"],
+    "correct_answer": 0,
+    "explanation": "La prima persona plurale di 'dovere' è 'dobbiamo'."
+  },
+  {
+    "id": 86,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Qual è il participio passato di 'chiedere'?",
+    "options": ["chieduto", "chiesto", "chiedito", "chiedente"],
+    "correct_answer": 1,
+    "explanation": "'Chiedere' ha un participio passato irregolare: chiesto. 'Ho chiesto' = I asked."
+  },
+  {
+    "id": 87,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Completa: 'Non _____ mai il nome di questa strada.'",
+    "options": ["ho saputo", "sapevo", "so", "saprei"],
+    "correct_answer": 0,
+    "explanation": "Con 'mai' e il passato prossimo si indica qualcosa che non è mai accaduto: 'Non ho mai saputo' = I have never known."
+  },
+  {
+    "id": 88,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Qual è la terza persona singolare del condizionale di 'essere'?",
+    "options": ["sarebbe", "serà", "sarei", "sarà"],
+    "correct_answer": 0,
+    "explanation": "Il condizionale di 'essere': sarei, saresti, sarebbe, saremmo, sareste, sarebbero. Terza singolare: sarebbe."
+  },
+  {
+    "id": 89,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Come si forma il gerundio di 'scrivere'?",
+    "options": ["scrivendo", "scrivendosi", "scritto", "scrivente"],
+    "correct_answer": 0,
+    "explanation": "Il gerundio dei verbi in -ere si forma con -endo: scrivere → scrivendo."
+  },
+  {
+    "id": 90,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Completa: 'Appena _____ (arrivare), chiamami!'",
+    "options": ["arrivi", "arriverai", "sei arrivato", "arriveresti"],
+    "correct_answer": 0,
+    "explanation": "Con 'appena' nel senso temporale futuro si usa il congiuntivo presente o l'indicativo futuro. 'Appena arrivi' (quando arrivi) è la forma più comune nel parlato e scritto."
+  },
+  {
+    "id": 91,
+    "category": "verbs",
+    "difficulty": "easy",
+    "day": 2,
+    "question": "Coniuga 'venire' alla seconda persona singolare del presente.",
+    "options": ["vengo", "vieni", "viene", "veniamo"],
+    "correct_answer": 1,
+    "explanation": "'Venire' è irregolare. La seconda persona singolare è 'vieni': Tu vieni a casa mia?"
+  },
+  {
+    "id": 92,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 3,
+    "question": "Qual è la forma corretta? 'Le vacanze _____ finite troppo presto.'",
+    "options": ["sono", "hanno", "erano", "stavano"],
+    "correct_answer": 0,
+    "explanation": "'Finire' al passato prossimo usa 'essere'. 'Le vacanze' è femminile plurale: sono finite."
+  },
+  {
+    "id": 93,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Completa al trapassato prossimo: 'Quando siamo arrivati, loro _____ già.'",
+    "options": ["sono partiti", "erano partiti", "partivano", "partono"],
+    "correct_answer": 1,
+    "explanation": "Il trapassato prossimo (past perfect) si forma con imperfetto di avere/essere + participio. 'Partire' usa essere: erano partiti."
+  },
+  {
+    "id": 94,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Come si dice 'I used to eat' in italiano?",
+    "options": ["mangiavo", "ho mangiato", "mangio", "mangerò"],
+    "correct_answer": 0,
+    "explanation": "L'imperfetto ('mangiavo') si usa per azioni abituali nel passato, equivalente a 'used to' in inglese."
+  },
+  {
+    "id": 95,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 3,
+    "question": "Scegli la forma corretta: 'Se _____ più tempo, studierei il russo.'",
+    "options": ["ho", "avessi", "avrei", "avrò"],
+    "correct_answer": 1,
+    "explanation": "Nel periodo ipotetico di 2° tipo (situazione contraria alla realtà), si usa il congiuntivo imperfetto nella protasi: 'se avessi'."
+  },
+  {
+    "id": 96,
+    "category": "verbs",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Qual è l'infinito del verbo 'sono'?",
+    "options": ["stare", "avere", "essere", "fare"],
+    "correct_answer": 2,
+    "explanation": "'Sono' è la prima o terza persona plurale del verbo 'essere' (to be) al presente indicativo."
+  },
+  {
+    "id": 97,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 3,
+    "question": "Quale frase usa correttamente il futuro?",
+    "options": ["Domani vado al cinema.", "Domani andrò al cinema.", "Entrambe sono corrette.", "Nessuna è corretta."],
+    "correct_answer": 2,
+    "explanation": "In italiano, sia il presente sia il futuro possono esprimere azioni future. 'Vado domani' (presente con valore futuro) e 'Andrò domani' (futuro) sono entrambe corrette e comuni."
+  },
+  {
+    "id": 98,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Completa: 'Si dice che l'italiano _____ (essere) una lingua musicale.'",
+    "options": ["è", "sia", "era", "sarebbe"],
+    "correct_answer": 1,
+    "explanation": "Con 'si dice che' si usa il congiuntivo: 'sia'. Indica un'affermazione di tipo generale/non verificata personalmente."
+  },
+  {
+    "id": 99,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Coniuga 'dormire' alla seconda persona plurale del presente.",
+    "options": ["dormono", "dormite", "dormate", "dormete"],
+    "correct_answer": 1,
+    "explanation": "I verbi in -ire del tipo 'dormire' (non isc-): tu dormi, voi dormite."
+  },
+  {
+    "id": 100,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Quale forma di 'stare' si usa nell'espressione 'I am studying'?",
+    "options": ["Sto studiando", "Sono studiando", "Ho studiato", "Studierò"],
+    "correct_answer": 0,
+    "explanation": "Il progressivo in italiano si forma con 'stare' + gerundio: 'sto studiando' = I am studying (right now)."
+  },
+  {
+    "id": 101,
+    "category": "prepositions",
+    "difficulty": "easy",
+    "day": 5,
+    "question": "Completa: 'Abito _____ Via Roma, 15.'",
+    "options": ["in", "a", "su", "di"],
+    "correct_answer": 0,
+    "explanation": "Per gli indirizzi si usa 'in': abito in Via Roma, in Corso Vittorio, ecc."
+  },
+  {
+    "id": 102,
+    "category": "prepositions",
+    "difficulty": "easy",
+    "day": 5,
+    "question": "Completa: 'Il treno parte _____ Roma _____ Milano.'",
+    "options": ["da / a", "di / per", "da / per", "in / a"],
+    "correct_answer": 2,
+    "explanation": "'Da' indica il punto di partenza, 'per' indica la destinazione: parte da Roma per Milano."
+  },
+  {
+    "id": 103,
+    "category": "prepositions",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Completa: 'Ho bisogno _____ un dizionario.'",
+    "options": ["di", "a", "per", "con"],
+    "correct_answer": 0,
+    "explanation": "'Avere bisogno di' è un'espressione fissa: ho bisogno di + sostantivo/infinito."
+  },
+  {
+    "id": 104,
+    "category": "prepositions",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Scegli la preposizione corretta: 'Questo libro è scritto _____ Umberto Eco.'",
+    "options": ["di", "da", "per", "a"],
+    "correct_answer": 1,
+    "explanation": "Nel passivo, l'agente è introdotto da 'da': 'scritto da Umberto Eco' = written by Umberto Eco."
+  },
+  {
+    "id": 105,
+    "category": "prepositions",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Completa: 'Studio _____ tre ore ogni giorno.'",
+    "options": ["per", "da", "di", "in"],
+    "correct_answer": 0,
+    "explanation": "'Per' indica la durata di un'azione nel passato o nel futuro: studio per tre ore = I study for three hours."
+  },
+  {
+    "id": 106,
+    "category": "prepositions",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Completa: 'Non vedo Marco _____ tre settimane.'",
+    "options": ["per", "da", "in", "di"],
+    "correct_answer": 1,
+    "explanation": "'Da' + durata temporale indica un'azione che è iniziata nel passato e continua nel presente: 'da tre settimane' = for three weeks (and still ongoing)."
+  },
+  {
+    "id": 107,
+    "category": "prepositions",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Quale preposizione si usa: 'un bicchiere _____ vino'?",
+    "options": ["per", "di", "da", "a"],
+    "correct_answer": 2,
+    "explanation": "Con i contenitori o recipienti, si usa 'da' per indicare l'uso o la capacità: un bicchiere da vino (= a wine glass), una tazza da tè."
+  },
+  {
+    "id": 108,
+    "category": "prepositions",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Completa: 'Sono _____ casa dalle 8.'",
+    "options": ["in", "a", "da", "di"],
+    "correct_answer": 1,
+    "explanation": "'Stare a casa' usa la preposizione 'a': sono a casa = I'm at home. Con 'stare' e luoghi abitativi si usa 'a'."
+  },
+  {
+    "id": 109,
+    "category": "prepositions",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Completa: 'Vado _____ medico domani.'",
+    "options": ["al", "dal", "nel", "per il"],
+    "correct_answer": 1,
+    "explanation": "Si usa 'dal' (da + il) per indicare che si va da una persona: vado dal medico, dal dentista, dal parrucchiere."
+  },
+  {
+    "id": 110,
+    "category": "prepositions",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Quale preposizione completa: 'Partiamo _____ vacanze la settimana prossima.'",
+    "options": ["in", "per le", "alle", "delle"],
+    "correct_answer": 1,
+    "explanation": "'Partire per le vacanze' = to leave for vacation. 'Per' indica la destinazione/scopo."
+  },
+  {
+    "id": 111,
+    "category": "prepositions",
+    "difficulty": "easy",
+    "day": 5,
+    "question": "Completa: '_____ solito mi sveglio alle 7.'",
+    "options": ["Di", "Al", "In", "Su"],
+    "correct_answer": 0,
+    "explanation": "'Di solito' è un'espressione avverbiale fissa che significa 'usually'. Non si usa articolo."
+  },
+  {
+    "id": 112,
+    "category": "prepositions",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Scegli la frase corretta:",
+    "options": ["Lavoro in una ditta di informatica.", "Lavoro a una ditta di informatica.", "Lavoro su una ditta di informatica.", "Lavoro per una ditta di informatica."],
+    "correct_answer": 3,
+    "explanation": "'Lavorare per' + organizzazione = to work for a company. 'Lavorare in' è anche possibile ma meno preciso per indicare il datore di lavoro."
+  },
+  {
+    "id": 113,
+    "category": "prepositions",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Completa: 'Mi siedo _____ Marco e Luca.'",
+    "options": ["tra", "dentro", "sopra", "sotto"],
+    "correct_answer": 0,
+    "explanation": "'Tra' (o 'fra') si usa per indicare una posizione intermedia tra due elementi: mi siedo tra Marco e Luca."
+  },
+  {
+    "id": 114,
+    "category": "prepositions",
+    "difficulty": "easy",
+    "day": 5,
+    "question": "Completa: 'Vivo _____ Francia da due anni.'",
+    "options": ["a", "in", "nella", "di"],
+    "correct_answer": 1,
+    "explanation": "Con i nomi di paesi (stati) si usa 'in': vivo in Francia, in Germania, in Italia."
+  },
+  {
+    "id": 115,
+    "category": "prepositions",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Completa: 'Il libro è _____ tavolo.'",
+    "options": ["al", "sul", "nel", "dal"],
+    "correct_answer": 1,
+    "explanation": "'Su + il = sul'. Si usa 'sul' per indicare la superficie di qualcosa: il libro è sul tavolo."
+  },
+  {
+    "id": 116,
+    "category": "prepositions",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Scegli la preposizione: 'Questo è un regalo _____ mio fratello.'",
+    "options": ["di", "per", "da", "a"],
+    "correct_answer": 0,
+    "explanation": "'Di' indica appartenenza o provenienza: un regalo di mio fratello = a gift from my brother / my brother's gift."
+  },
+  {
+    "id": 117,
+    "category": "prepositions",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Quale frase è corretta?",
+    "options": ["Sono esperta di cucina italiana.", "Sono esperta in cucina italiana.", "Sono esperta a cucina italiana.", "Sono esperta per cucina italiana."],
+    "correct_answer": 1,
+    "explanation": "'Essere esperto in' + campo = to be an expert in a field. Si usa 'in' con i campi di competenza: esperto in lingue, in medicina."
+  },
+  {
+    "id": 118,
+    "category": "prepositions",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Completa: 'Il negozio è aperto _____ lunedì _____ venerdì.'",
+    "options": ["da / a", "dal / al", "di / di", "da / per"],
+    "correct_answer": 1,
+    "explanation": "Per indicare un intervallo temporale si usa 'dal ... al': aperto dal lunedì al venerdì."
+  },
+  {
+    "id": 119,
+    "category": "prepositions",
+    "difficulty": "easy",
+    "day": 5,
+    "question": "Completa: 'Parliamo _____ vacanze?'",
+    "options": ["a", "di", "per", "con"],
+    "correct_answer": 1,
+    "explanation": "'Parlare di' = to talk about. Si usa 'di' per indicare l'argomento di una conversazione."
+  },
+  {
+    "id": 120,
+    "category": "prepositions",
+    "difficulty": "hard",
+    "day": 5,
+    "question": "Scegli la forma corretta: 'Dipende _____ te.'",
+    "options": ["di", "a", "da", "per"],
+    "correct_answer": 2,
+    "explanation": "'Dipendere da' = to depend on. 'Dipende da te' = It depends on you."
+  },
+  {
+    "id": 121,
+    "category": "pronouns",
+    "difficulty": "easy",
+    "day": 4,
+    "question": "Quale pronome diretto si usa per 'il film'?",
+    "options": ["lo", "la", "li", "le"],
+    "correct_answer": 0,
+    "explanation": "'Film' è maschile singolare. Il pronome diretto corrispondente è 'lo': Lo guardo stasera."
+  },
+  {
+    "id": 122,
+    "category": "pronouns",
+    "difficulty": "easy",
+    "day": 4,
+    "question": "Quale pronome si usa per sostituire 'a Marco'?",
+    "options": ["lo", "gli", "li", "le"],
+    "correct_answer": 1,
+    "explanation": "Il pronome indiretto per 'a lui' (Marco) è 'gli': Ho scritto a Marco → Gli ho scritto."
+  },
+  {
+    "id": 123,
+    "category": "pronouns",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Completa: '_____ sono piaciuti i tuoi occhi.'",
+    "options": ["Mi", "Ti", "Si", "Ci"],
+    "correct_answer": 0,
+    "explanation": "Usando 'piacere' in prima persona: '[qualcosa] mi è piaciuto/sono piaciuti' = I liked [something]. 'Mi sono piaciuti i tuoi occhi'."
+  },
+  {
+    "id": 124,
+    "category": "pronouns",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Scegli la frase corretta: 'Voglio comprare il libro.'",
+    "options": ["Voglio comprarlo.", "Voglio lo comprare.", "Lo voglio comprarlo.", "Voglio comprare lo."],
+    "correct_answer": 0,
+    "explanation": "Il pronome si attacca all'infinito (senza articolo): comprare + lo = comprarlo. In alternativa: Lo voglio comprare."
+  },
+  {
+    "id": 125,
+    "category": "pronouns",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Trasforma: 'Manda le lettere a Maria.' → 'Mandagliele!'",
+    "options": ["Mandagliele", "Mandalele", "Mandagliela", "Mandalela"],
+    "correct_answer": 0,
+    "explanation": "Pronome indiretto 'le' (a Maria) → 'glie' + pronome diretto 'le' (le lettere) = 'gliele': Mandagliele! (Send them to her!)"
+  },
+  {
+    "id": 126,
+    "category": "pronouns",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Completa: 'Marco _____ ha telefonato ieri.' (a noi)",
+    "options": ["ci", "vi", "li", "si"],
+    "correct_answer": 0,
+    "explanation": "Il pronome indiretto per 'a noi' è 'ci': Marco ci ha telefonato."
+  },
+  {
+    "id": 127,
+    "category": "pronouns",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Scegli la forma corretta del pronome riflessivo: 'Marco _____ è alzato tardi.'",
+    "options": ["mi", "si", "ti", "ci"],
+    "correct_answer": 1,
+    "explanation": "Il pronome riflessivo per la terza persona singolare è 'si': lui si è alzato."
+  },
+  {
+    "id": 128,
+    "category": "pronouns",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Quale frase è corretta?",
+    "options": ["Me lo dai?", "Mi lo dai?", "Lo mi dai?", "Dà lo mi?"],
+    "correct_answer": 0,
+    "explanation": "Quando 'mi' precede 'lo/la/li/le', diventa 'me': me lo, me la, me li, me le. 'Me lo dai?' = Will you give it to me?"
+  },
+  {
+    "id": 129,
+    "category": "pronouns",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Completa: 'Ho incontrato le ragazze e _____ ho salutate.'",
+    "options": ["li", "le", "la", "gli"],
+    "correct_answer": 1,
+    "explanation": "'Le ragazze' è femminile plurale. Pronome diretto: 'le'. Con avere al passato prossimo, il participio si accorda: 'le ho salutate'."
+  },
+  {
+    "id": 130,
+    "category": "pronouns",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Scegli: 'Ti piacciono queste scarpe?' → 'Sì, _____.'",
+    "options": ["mi piacciono molto", "mi piace molto", "le piacciono molto", "si piacciono molto"],
+    "correct_answer": 0,
+    "explanation": "'Queste scarpe' è plurale, quindi 'piacciono'. La prima persona singolare usa 'mi': mi piacciono molto."
+  },
+  {
+    "id": 131,
+    "category": "pronouns",
+    "difficulty": "easy",
+    "day": 4,
+    "question": "Quale pronome si usa dopo una preposizione (forma tonica)?",
+    "options": ["mi", "me", "mio", "io"],
+    "correct_answer": 1,
+    "explanation": "Dopo le preposizioni si usano i pronomi tonici: per me, con te, senza lui, da lei, grazie a noi."
+  },
+  {
+    "id": 132,
+    "category": "pronouns",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Completa: 'Luca _____ ha scritto una lettera.' (a me)",
+    "options": ["lo", "la", "mi", "gli"],
+    "correct_answer": 2,
+    "explanation": "Il pronome indiretto per 'a me' è 'mi': Luca mi ha scritto una lettera."
+  },
+  {
+    "id": 133,
+    "category": "pronouns",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Trasforma con i pronomi: 'Hai dato il libro a tuo fratello?'",
+    "options": ["Gliel'hai dato?", "Lo gli hai dato?", "L'hai dato gli?", "Hai datoglielo?"],
+    "correct_answer": 0,
+    "explanation": "Il libro → lo (ma davanti a 'hai' diventa 'l'hai'). A tuo fratello → gli → + lo = glielo. Davanti a vocale: gliel'hai dato."
+  },
+  {
+    "id": 134,
+    "category": "pronouns",
+    "difficulty": "medium",
+    "day": 4,
+    "question": "Scegli la posizione corretta del pronome: 'Devo parlare con Marco.'",
+    "options": ["Devo parlargli.", "Gli devo parlare.", "Entrambe sono corrette.", "Nessuna è corretta."],
+    "correct_answer": 2,
+    "explanation": "Con i verbi modali + infinito, il pronome può andare sia prima del verbo modale sia attaccato all'infinito: Devo parlargli / Gli devo parlare."
+  },
+  {
+    "id": 135,
+    "category": "pronouns",
+    "difficulty": "hard",
+    "day": 4,
+    "question": "Completa: 'Quanti libri hai comprato?' → 'Ne _____ comprati tre.'",
+    "options": ["ho", "sono", "hai", "avevo"],
+    "correct_answer": 0,
+    "explanation": "Il pronome 'ne' sostituisce 'di + nome'. Con 'avere' come ausiliare si usa 'ho'. Il participio si accorda con 'ne': ne ho comprati tre."
+  },
+  {
+    "id": 136,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Quale frase è grammaticalmente corretta?",
+    "options": ["Mi ha dato il libro ieri.", "Mi ha dato il libro ieri da lui.", "Ieri mi dato il libro.", "Il libro mi ha dato ieri."],
+    "correct_answer": 0,
+    "explanation": "La struttura corretta è: pronome indiretto (mi) + ausiliare (ha) + participio (dato) + complemento. 'Mi ha dato il libro ieri' è corretta."
+  },
+  {
+    "id": 137,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 9,
+    "question": "Completa il testo: 'Nonostante _____ (piovere) molto, siamo usciti lo stesso.'",
+    "options": ["pioveva", "piovesse", "piove", "ha piovuto"],
+    "correct_answer": 1,
+    "explanation": "'Nonostante' richiede il congiuntivo: 'piovesse' (congiuntivo imperfetto, per concordare con il passato)."
+  },
+  {
+    "id": 138,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Scegli la risposta corretta: 'Da quanto tempo studi l'italiano?'",
+    "options": ["Studio l'italiano per due anni.", "Studio l'italiano da due anni.", "Ho studiato l'italiano per due anni.", "Studierò l'italiano due anni."],
+    "correct_answer": 1,
+    "explanation": "Per azioni iniziate nel passato e che continuano nel presente, si usa il presente + 'da': 'Studio l'italiano da due anni'."
+  },
+  {
+    "id": 139,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 9,
+    "question": "Quale trasformazione al discorso indiretto è corretta? Marco ha detto: 'Vado a casa.'",
+    "options": ["Marco ha detto che va a casa.", "Marco ha detto che andava a casa.", "Marco ha detto che andrà a casa.", "Sia a che b sono possibili."],
+    "correct_answer": 3,
+    "explanation": "Nel discorso indiretto, dopo un passato: il presente può diventare imperfetto (more formal) o rimanere presente (informal). Entrambe 'che va' e 'che andava' sono usate."
+  },
+  {
+    "id": 140,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Completa: 'Sebbene _____ (essere) tardi, ho deciso di continuare a lavorare.'",
+    "options": ["era", "fosse", "è", "fu"],
+    "correct_answer": 1,
+    "explanation": "'Sebbene' è una congiunzione concessiva che richiede il congiuntivo: 'fosse' (congiuntivo imperfetto)."
+  },
+  {
+    "id": 141,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Quale connettivo indica una conclusione logica?",
+    "options": ["però", "quindi", "anche se", "mentre"],
+    "correct_answer": 1,
+    "explanation": "'Quindi' (= therefore/so) è un connettivo consecutivo che introduce una conclusione logica o una conseguenza."
+  },
+  {
+    "id": 142,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Completa: 'A meno che tu non _____ (venire) con noi, andremo da soli.'",
+    "options": ["viene", "venga", "venissi", "sei venuto"],
+    "correct_answer": 1,
+    "explanation": "'A meno che' è una congiunzione concessiva negativa che richiede il congiuntivo presente: 'venga'."
+  },
+  {
+    "id": 143,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 10,
+    "question": "Quale forma è corretta: 'Non c'è _____ che voglia aiutarmi.'",
+    "options": ["nessuno", "qualcuno", "nessuna", "ognuno"],
+    "correct_answer": 0,
+    "explanation": "Con 'non c'è' si usa 'nessuno' (nobody): Non c'è nessuno che voglia aiutarmi = There's nobody who wants to help me."
+  },
+  {
+    "id": 144,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Scegli la risposta corretta per il passivo: 'Qualcuno ha rubato la mia borsa.'",
+    "options": ["La mia borsa è stata rubata.", "La mia borsa ha stata rubata.", "La mia borsa fu rubata da qualcuno.", "Sia a che c sono corrette."],
+    "correct_answer": 3,
+    "explanation": "Il passivo del passato prossimo: 'è stata rubata'. Il passato remoto: 'fu rubata'. Entrambe sono grammaticalmente corrette, anche se in contesti diversi."
+  },
+  {
+    "id": 145,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Completa: 'Più studia, _____ capisce.'",
+    "options": ["meno", "più", "tanto", "poco"],
+    "correct_answer": 1,
+    "explanation": "La struttura 'più...più' indica una proporzione diretta: Più studia, più capisce = The more he studies, the more he understands."
+  },
+  {
+    "id": 146,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Quale frase esprime un rimpianto?",
+    "options": ["Avrei dovuto studiare di più.", "Dovrei studiare di più.", "Devo studiare di più.", "Avevo studiato di più."],
+    "correct_answer": 0,
+    "explanation": "Il condizionale passato (avrei dovuto) esprime un rimpianto o qualcosa che sarebbe stato meglio fare nel passato."
+  },
+  {
+    "id": 147,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Quale parola è un 'falso amico' con l'inglese?",
+    "options": ["attuale (= current, not actual)", "simpatico (= nice, not sympathetic)", "Entrambe sono falsi amici.", "Nessuna è un falso amico."],
+    "correct_answer": 2,
+    "explanation": "'Attuale' in italiano significa 'current/present', non 'actual'. 'Simpatico' significa 'nice/pleasant', non 'sympathetic'. Entrambe sono falsi amici."
+  },
+  {
+    "id": 148,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Scegli la frase in cui si usa correttamente il futuro anteriore:",
+    "options": ["Quando avrò finito, ti chiamo.", "Quando finirò, ti avrò chiamato.", "Avrei finito presto.", "Finirò prima di te."],
+    "correct_answer": 0,
+    "explanation": "Il futuro anteriore (avrò finito) si usa in proposizioni temporali/condizionali per indicare un'azione futura completata prima di un'altra: quando avrò finito (= when I will have finished)."
+  },
+  {
+    "id": 149,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Completa: 'Non _____ ancora deciso cosa fare.'",
+    "options": ["ho", "sono", "avevo", "avrei"],
+    "correct_answer": 0,
+    "explanation": "'Decidere' è un verbo transitivo che usa 'avere': non ho ancora deciso. 'Ancora' si mette tra l'ausiliare e il participio con la negazione."
+  },
+  {
+    "id": 150,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Quale delle seguenti è una frase scissa (cleft sentence) corretta in italiano?",
+    "options": ["È Marco che ha vinto.", "È che Marco ha vinto.", "Marco è che ha vinto.", "Che è Marco ha vinto."],
+    "correct_answer": 0,
+    "explanation": "La frase scissa in italiano si forma con 'è + elemento enfatizzato + che + resto della frase': 'È Marco che ha vinto' = It's Marco who won."
+  },
+  {
+    "id": 151,
+    "category": "reading",
+    "difficulty": "easy",
+    "day": 7,
+    "text_id": 1,
+    "question": "Qual è il tema principale del testo?",
+    "options": ["La vita universitaria di Marco", "Il sistema universitario italiano", "Come Bologna è famosa per la cucina", "La storia dell'Università di Bologna"],
+    "correct_answer": 0,
+    "explanation": "Il testo descrive la vita quotidiana di Marco come studente universitario a Bologna.",
+    "text": "Marco studia economia all'Università di Bologna, una delle più antiche del mondo. Durante la settimana frequenta le lezioni ogni mattina dalle nove alle tredici. Nel pomeriggio va in biblioteca a studiare e a fare i compiti. La sera cena con i suoi coinquilini nell'appartamento che condividono vicino all'università. Marco è soddisfatto della sua scelta: ama la città di Bologna, con la sua architettura medievale e la famosa cucina emiliana. Dice spesso che la 'mortadella di Bologna' è la migliore del mondo!"
+  },
+  {
+    "id": 152,
+    "category": "reading",
+    "difficulty": "easy",
+    "day": 7,
+    "text_id": 1,
+    "question": "A che ora finiscono le lezioni di Marco?",
+    "options": ["Alle nove", "Alle tredici", "Nel pomeriggio", "La sera"],
+    "correct_answer": 1,
+    "explanation": "Il testo dice che Marco frequenta le lezioni 'dalle nove alle tredici', quindi finiscono alle tredici."
+  },
+  {
+    "id": 153,
+    "category": "reading",
+    "difficulty": "medium",
+    "day": 7,
+    "text_id": 1,
+    "question": "Dove mangia Marco la sera?",
+    "options": ["In un ristorante del centro", "In mensa", "Nel suo appartamento con i coinquilini", "Alla cafeteria dell'università"],
+    "correct_answer": 2,
+    "explanation": "Il testo dice che Marco 'cena con i suoi coinquilini nell'appartamento che condividono'."
+  },
+  {
+    "id": 154,
+    "category": "reading",
+    "difficulty": "medium",
+    "day": 7,
+    "text_id": 2,
+    "question": "Secondo il testo, qual è il problema principale discusso?",
+    "options": ["La mancanza di lavoro per i giovani", "Il cambiamento climatico in Italia", "L'uso dei social media tra gli adolescenti", "Il costo della vita nelle città italiane"],
+    "correct_answer": 2,
+    "explanation": "Il testo riguarda l'uso dei social media tra gli adolescenti e i suoi effetti.",
+    "text": "Uno studio recente condotto da ricercatori italiani ha analizzato l'uso dei social media tra gli adolescenti. I risultati mostrano che il 78% dei giovani tra i 13 e i 17 anni trascorre più di tre ore al giorno sui propri dispositivi mobili. Gli esperti sono preoccupati per gli effetti che questo comportamento può avere sulla salute mentale e sulle relazioni sociali. Tuttavia, alcuni ricercatori sostengono che i social media possano anche avere effetti positivi, facilitando la comunicazione e la creazione di comunità online. La questione rimane aperta e controversa."
+  },
+  {
+    "id": 155,
+    "category": "reading",
+    "difficulty": "medium",
+    "day": 7,
+    "text_id": 2,
+    "question": "Quale percentuale di adolescenti usa i social media più di 3 ore al giorno?",
+    "options": ["13%", "17%", "78%", "Il testo non lo specifica"],
+    "correct_answer": 2,
+    "explanation": "Il testo afferma che '78% dei giovani tra i 13 e i 17 anni trascorre più di tre ore al giorno sui propri dispositivi mobili'."
+  },
+  {
+    "id": 156,
+    "category": "reading",
+    "difficulty": "hard",
+    "day": 7,
+    "text_id": 2,
+    "question": "Qual è il tono complessivo del testo?",
+    "options": ["Completamente negativo verso i social media", "Completamente positivo verso i social media", "Equilibrato, presentando sia rischi che benefici", "Ironico e critico verso i ricercatori"],
+    "correct_answer": 2,
+    "explanation": "Il testo presenta sia le preoccupazioni degli esperti ('effetti negativi') sia le opinioni di chi vede benefici ('effetti positivi'), concludendo che 'la questione rimane aperta'."
+  },
+  {
+    "id": 157,
+    "category": "reading",
+    "difficulty": "medium",
+    "day": 7,
+    "text_id": 3,
+    "question": "Qual è l'obiettivo principale del progetto descritto?",
+    "options": ["Costruire case per i poveri", "Promuovere l'agricoltura biologica", "Ridurre l'inquinamento nelle città", "Creare occupazione nelle zone rurali"],
+    "correct_answer": 1,
+    "explanation": "Il testo descrive un progetto di agricoltura biologica sostenibile.",
+    "text": "Il progetto 'Terra Verde' è un'iniziativa innovativa nata nel sud Italia con l'obiettivo di promuovere l'agricoltura biologica e sostenibile. Fondato da un gruppo di giovani agricoltori, il progetto utilizza tecniche tradizionali combinate con tecnologie moderne per coltivare frutta e verdura senza pesticidi chimici. I prodotti vengono venduti direttamente ai consumatori attraverso mercati settimanali e una piattaforma online. Il progetto ha già coinvolto più di cinquanta famiglie locali e ha ricevuto riconoscimenti a livello europeo per la sua attenzione all'ambiente e alla qualità dei prodotti."
+  },
+  {
+    "id": 158,
+    "category": "reading",
+    "difficulty": "hard",
+    "day": 7,
+    "text_id": 3,
+    "question": "Cosa si può dedurre dal testo riguardo al metodo di vendita?",
+    "options": ["I prodotti vengono venduti solo nei supermercati", "Vengono usati canali diretti, sia fisici che digitali", "La vendita avviene esclusivamente online", "I prodotti vengono esportati all'estero"],
+    "correct_answer": 1,
+    "explanation": "Il testo dice 'venduti direttamente ai consumatori attraverso mercati settimanali (fisici) e una piattaforma online (digitale)' — due canali diretti."
+  },
+  {
+    "id": 159,
+    "category": "reading",
+    "difficulty": "easy",
+    "day": 7,
+    "text_id": 3,
+    "question": "Quante famiglie ha già coinvolto il progetto?",
+    "options": ["Dieci", "Trenta", "Cinquanta", "Cento"],
+    "correct_answer": 2,
+    "explanation": "Il testo afferma che 'il progetto ha già coinvolto più di cinquanta famiglie locali'."
+  },
+  {
+    "id": 160,
+    "category": "reading",
+    "difficulty": "hard",
+    "day": 7,
+    "text_id": 4,
+    "question": "Qual è il significato di 'svolta' nel contesto del testo?",
+    "options": ["a turn in the road", "a turning point/breakthrough", "a completed task", "a departure"],
+    "correct_answer": 1,
+    "explanation": "Nel testo, 'svolta' è usata nel senso figurativo di 'turning point' o 'breakthrough', un cambiamento importante.",
+    "text": "L'intelligenza artificiale rappresenta una vera e propria svolta nella storia della tecnologia moderna. Negli ultimi anni, i progressi nel campo del machine learning hanno permesso lo sviluppo di sistemi capaci di riconoscere immagini, tradurre testi, diagnosticare malattie e persino creare opere d'arte. Tuttavia, questi sviluppi pongono anche interrogativi etici fondamentali: come garantire la privacy dei dati? Come evitare i pregiudizi algoritmici? Chi è responsabile quando un sistema di IA prende decisioni errate? I governi e le organizzazioni internazionali stanno cercando di rispondere a queste domande attraverso la creazione di regolamenti specifici."
+  },
+  {
+    "id": 161,
+    "category": "reading",
+    "difficulty": "medium",
+    "day": 7,
+    "text_id": 4,
+    "question": "Quale NON è menzionato come capacità dell'intelligenza artificiale nel testo?",
+    "options": ["Riconoscere immagini", "Tradurre testi", "Guidare veicoli autonomamente", "Creare opere d'arte"],
+    "correct_answer": 2,
+    "explanation": "Il testo menziona 'riconoscere immagini, tradurre testi, diagnosticare malattie e creare opere d'arte', ma non guidare veicoli autonomamente."
+  },
+  {
+    "id": 162,
+    "category": "reading",
+    "difficulty": "hard",
+    "day": 7,
+    "text_id": 4,
+    "question": "Cosa si intende con 'pregiudizi algoritmici'?",
+    "options": ["Preferenze personali dei programmatori", "Errori nei calcoli matematici", "Discriminazioni o distorsioni nei risultati dell'IA", "Problemi tecnici nel software"],
+    "correct_answer": 2,
+    "explanation": "'Pregiudizi algoritmici' si riferisce alle discriminazioni o distorsioni nei risultati prodotti dai sistemi di intelligenza artificiale, spesso riflettendo bias presenti nei dati di addestramento."
+  },
+  {
+    "id": 163,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Scegli la risposta grammaticalmente corretta: 'Quante persone _____ alla festa?'",
+    "options": ["c'erano", "c'era", "ci erano", "erano ci"],
+    "correct_answer": 0,
+    "explanation": "'Esserci' al plurale (molte persone) si coniuga 'c'erano': quante persone c'erano?"
+  },
+  {
+    "id": 164,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Completa con la forma verbale corretta: 'Vorrei che voi _____ (capire) la situazione.'",
+    "options": ["capite", "capiate", "capiste", "capireste"],
+    "correct_answer": 1,
+    "explanation": "Dopo 'vorrei che' + soggetto diverso, si usa il congiuntivo presente: 'capiate' (voi, congiuntivo pres. di capire)."
+  },
+  {
+    "id": 165,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Quale frase usa correttamente il ne partitivo?",
+    "options": ["Ne vado spesso.", "Ho comprato del pane e ne ho mangiato molto.", "Ne sono contento del risultato.", "Ci ne sono tanti."],
+    "correct_answer": 1,
+    "explanation": "'Ne' partitivo sostituisce 'di + nome'. 'Ho mangiato molto pane' → 'ne ho mangiato molto'. Corretto anche per quantità."
+  },
+  {
+    "id": 166,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Quale forma del congiuntivo imperfetto è corretta per 'avere' alla prima persona singolare?",
+    "options": ["avessi", "avevo", "abbia", "avrei"],
+    "correct_answer": 0,
+    "explanation": "Il congiuntivo imperfetto di 'avere': avessi, avessi, avesse, avessimo, aveste, avessero. Prima singolare: avessi."
+  },
+  {
+    "id": 167,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 8,
+    "question": "Scegli la forma corretta del superlativo assoluto: 'Questo film è _____ bello.'",
+    "options": ["molto", "bellissimo", "il più bello", "Sia molto bello che bellissimo sono corretti"],
+    "correct_answer": 3,
+    "explanation": "Il superlativo assoluto può formarsi con 'molto + aggettivo' o con '-issimo': 'molto bello' = 'bellissimo'. Entrambi sono corretti."
+  },
+  {
+    "id": 168,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Completa: 'Per _____ (andare) in treno, devi comprare il biglietto prima.'",
+    "options": ["andare", "andando", "essere andato", "vada"],
+    "correct_answer": 0,
+    "explanation": "Dopo la preposizione 'per' con valore finale (= in order to), si usa l'infinito: 'per andare'."
+  },
+  {
+    "id": 169,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Qual è il congiuntivo presente di 'dare' alla terza persona singolare?",
+    "options": ["dà", "daia", "dia", "deva"],
+    "correct_answer": 2,
+    "explanation": "Il congiuntivo presente di 'dare' è irregolare: dia, dia, dia, diamo, diate, diano. Terza singolare: dia."
+  },
+  {
+    "id": 170,
+    "category": "verbs",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Come si forma il futuro di 'essere'?",
+    "options": ["sarei, saresti...", "sarò, sarai, sarà...", "sono, sei, è...", "fossi, fossi..."],
+    "correct_answer": 1,
+    "explanation": "Il futuro di 'essere' è irregolare: sarò, sarai, sarà, saremo, sarete, saranno."
+  },
+  {
+    "id": 171,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Scegli la frase che esprime un'ipotesi nel futuro (1° tipo):",
+    "options": ["Se avessi tempo, viaggerei.", "Se avrò tempo, viaggerò.", "Se avevo tempo, viaggiavo.", "Se ho tempo, viaggio."],
+    "correct_answer": 1,
+    "explanation": "Il periodo ipotetico del 1° tipo (reale/possibile) usa: se + indicativo futuro, indicativo futuro. 'Se avrò tempo, viaggerò.'"
+  },
+  {
+    "id": 172,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Quale forma verbale completa correttamente: 'Benché _____ (studiare) molto, non ho superato l'esame.'",
+    "options": ["studiastasi", "abbia studiato", "ho studiato", "studiando"],
+    "correct_answer": 1,
+    "explanation": "'Benché' richiede il congiuntivo. Per indicare un'azione passata in relazione al verbo principale al passato, si usa il congiuntivo passato: 'abbia studiato'."
+  },
+  {
+    "id": 173,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Come si dice 'some friends' in italiano?",
+    "options": ["alcuni amici", "qualche amici", "certi amici", "Sia a che c sono corretti"],
+    "correct_answer": 3,
+    "explanation": "'Alcuni amici' e 'certi amici' significano entrambi 'some friends'. 'Qualche' si usa solo con il singolare: qualche amico."
+  },
+  {
+    "id": 174,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Quale forma è corretta? 'Mi _____ i capelli ogni mattina.'",
+    "options": ["lavo", "mi lavo", "lavo mi", "mi lavano"],
+    "correct_answer": 0,
+    "explanation": "I verbi riflessivi in italiano: il pronome riflessivo si mette prima del verbo. 'Mi lavo i capelli' - ma in questa domanda 'mi' è già incluso nella struttura, quindi 'lavo' completa correttamente."
+  },
+  {
+    "id": 175,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Cosa significa 'l'esodato'?",
+    "options": ["someone who has gone into exile", "worker who retired early but can't receive pension", "someone who emigrated", "a very exhausted person"],
+    "correct_answer": 1,
+    "explanation": "In italiano contemporaneo, 'esodato' indica un lavoratore che ha lasciato il lavoro anticipatamente ma che, a causa di cambiamenti legislativi, non può ancora ricevere la pensione. È diventato termine comune dopo la riforma Fornero."
+  },
+  {
+    "id": 176,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Quale avverbio di frequenza si colloca solitamente DOPO il verbo?",
+    "options": ["sempre", "mai", "spesso", "già"],
+    "correct_answer": 3,
+    "explanation": "'Già' (already) si colloca di norma dopo il verbo ausiliare o dopo il verbo: 'ho già mangiato', 'sono già partito'. Gli altri si mettono anche prima."
+  },
+  {
+    "id": 177,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Scegli la frase in cui l'accordo del participio è corretto:",
+    "options": ["Le ho viste al mercato.", "Le ho visto al mercato.", "Li ho vista al mercato.", "La ho viste al mercato."],
+    "correct_answer": 0,
+    "explanation": "Con i pronomi diretti femminili plurali 'le' + avere, il participio si accorda al femminile plurale: le ho viste."
+  },
+  {
+    "id": 178,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa vuol dire 'fare bella figura'?",
+    "options": ["to draw a nice figure", "to make a good impression", "to have a good figure/body", "to make a beautiful painting"],
+    "correct_answer": 1,
+    "explanation": "'Fare bella figura' è un'espressione idiomatica italiana che significa 'to make a good impression' in una situazione sociale."
+  },
+  {
+    "id": 179,
+    "category": "reading",
+    "difficulty": "hard",
+    "day": 7,
+    "text_id": 5,
+    "question": "Cosa suggerisce il testo riguardo alla dieta mediterranea?",
+    "options": ["È una moda recente senza basi scientifiche", "È stata riconosciuta come patrimonio culturale UNESCO", "È praticata solo in Italia", "È stata inventata da nutrizionisti americani"],
+    "correct_answer": 1,
+    "explanation": "Il testo menziona che la dieta mediterranea è stata riconosciuta come patrimonio culturale immateriale dell'UNESCO.",
+    "text": "La dieta mediterranea, patrimonio culturale immateriale dell'UNESCO dal 2010, non è semplicemente un regime alimentare, ma un vero e proprio stile di vita. Caratterizzata da un alto consumo di frutta, verdura, legumi, cereali integrali e olio d'oliva, con un consumo moderato di pesce e carni bianche, questa dieta è associata a numerosi benefici per la salute. Studi scientifici hanno dimostrato che chi segue la dieta mediterranea ha un rischio ridotto di malattie cardiovascolari, diabete di tipo 2 e alcune forme di cancro. La convivialità è un elemento fondamentale: i pasti sono momenti di condivisione sociale e culturale."
+  },
+  {
+    "id": 180,
+    "category": "reading",
+    "difficulty": "medium",
+    "day": 7,
+    "text_id": 5,
+    "question": "Secondo il testo, quale alimento è centrale nella dieta mediterranea?",
+    "options": ["La carne rossa", "Il pane bianco", "L'olio d'oliva", "Il latte"],
+    "correct_answer": 2,
+    "explanation": "Il testo specifica 'alto consumo di... olio d'oliva' come caratteristica principale della dieta mediterranea."
+  },
+  {
+    "id": 181,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Completa: 'Non so _____ fare in questa situazione.'",
+    "options": ["cosa", "che cosa", "che", "Sia a che b sono corretti"],
+    "correct_answer": 3,
+    "explanation": "'Cosa' e 'che cosa' sono entrambi interrogativi equivalenti con lo stesso significato ('what'). 'Che' da solo è meno comune in questo contesto ma accettato."
+  },
+  {
+    "id": 182,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 8,
+    "question": "Quale forma è corretta per 'the same'?",
+    "options": ["lo stesso / la stessa / gli stessi / le stesse", "il stesso / la stessa", "stesso / stessa", "uguale"],
+    "correct_answer": 0,
+    "explanation": "'Lo stesso/la stessa/gli stessi/le stesse' sono le forme corrette di 'the same' in italiano, concordando con il nome che accompagnano."
+  },
+  {
+    "id": 183,
+    "category": "vocabulary",
+    "difficulty": "easy",
+    "day": 6,
+    "question": "Come si dice 'meeting/appointment' in italiano nel contesto professionale?",
+    "options": ["la riunione", "il colloquio", "l'appuntamento", "Tutte e tre sono possibili a seconda del contesto"],
+    "correct_answer": 3,
+    "explanation": "'La riunione' (meeting/meeting), 'il colloquio' (interview/one-on-one) e 'l'appuntamento' (appointment) sono tutte valide nel contesto professionale, ciascuna con una sfumatura diversa."
+  },
+  {
+    "id": 184,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Completa: 'Prima _____ partire, controlla tutti i documenti.'",
+    "options": ["di", "che", "a", "per"],
+    "correct_answer": 0,
+    "explanation": "'Prima di + infinito' si usa quando il soggetto delle due azioni è lo stesso: Prima di partire (tu), controlla."
+  },
+  {
+    "id": 185,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Quale frase usa correttamente 'ci' con valore avverbiale di luogo?",
+    "options": ["Ci vedo bene senza occhiali.", "Vai a Roma? Sì, ci vado domani.", "Ci penso sempre.", "Ci siamo capiti."],
+    "correct_answer": 1,
+    "explanation": "'Ci' con valore avverbiale di luogo sostituisce un luogo menzionato: 'A Roma? Sì, ci vado' (= vado lì)."
+  },
+  {
+    "id": 186,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 5,
+    "question": "Completa: 'Finché non _____ finito, non posso uscire.'",
+    "options": ["ho", "abbia", "avevo", "avrò"],
+    "correct_answer": 3,
+    "explanation": "'Finché' con il futuro indica un limite temporale: 'finché non avrò finito' = until I have finished (future)."
+  },
+  {
+    "id": 187,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Cosa significa 'la patente di guida'?",
+    "options": ["driving test", "driving license", "driving school", "traffic fine"],
+    "correct_answer": 1,
+    "explanation": "'La patente di guida' = driving license. 'L'esame di guida' = driving test. 'La scuola guida' = driving school."
+  },
+  {
+    "id": 188,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Quale espressione indica 'in my opinion'?",
+    "options": ["secondo me", "per me", "a mio avviso", "Tutte sono corrette"],
+    "correct_answer": 3,
+    "explanation": "'Secondo me', 'per me' e 'a mio avviso' (più formale) esprimono tutti 'in my opinion' in italiano."
+  },
+  {
+    "id": 189,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Scegli la forma corretta del comparativo irregolare: 'Questo cibo è _____ quello che mangiavo da bambino.'",
+    "options": ["più buono di", "migliore di", "più meglio di", "buono più di"],
+    "correct_answer": 1,
+    "explanation": "'Buono' ha forma comparativa irregolare: 'migliore' (= better). 'Più buono' esiste ma 'migliore' è preferito nel registro standard."
+  },
+  {
+    "id": 190,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 9,
+    "question": "Completa: 'Ho comprato tre libri: due _____ piaciuti, uno no.'",
+    "options": ["mi sono", "mi hanno", "mi è", "ne sono"],
+    "correct_answer": 0,
+    "explanation": "'Piacere' usa essere: 'mi sono piaciuti' (due libri, plurale). 'Due libri mi sono piaciuti'."
+  },
+  {
+    "id": 191,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Scegli la traduzione corretta di 'I have been studying for two hours':",
+    "options": ["Ho studiato per due ore.", "Studio da due ore.", "Stavo studiando per due ore.", "Studiavo da due ore."],
+    "correct_answer": 1,
+    "explanation": "Per azioni iniziate nel passato e che continuano nel presente, in italiano si usa il presente + 'da': 'Studio da due ore'."
+  },
+  {
+    "id": 192,
+    "category": "vocabulary",
+    "difficulty": "hard",
+    "day": 6,
+    "question": "Cosa significa 'la resilienza' nel contesto psicologico?",
+    "options": ["resistance to disease", "ability to recover from difficulties", "mental flexibility", "social adaptability"],
+    "correct_answer": 1,
+    "explanation": "'La resilienza' in psicologia è la capacità di riprendersi da difficoltà, traumi o stress. Dal latino 'resilire' (rimbalzare indietro)."
+  },
+  {
+    "id": 193,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Quale delle seguenti è una proposizione relativa con congiuntivo?",
+    "options": ["Il libro che ho comprato è interessante.", "Cerco un appartamento che sia economico.", "La studentessa che studia è brava.", "Il film che guardo è noioso."],
+    "correct_answer": 1,
+    "explanation": "Il congiuntivo nelle relative si usa quando il riferimento è indefinito o ipotetico: 'cerco un appartamento che sia' (non so se esiste)."
+  },
+  {
+    "id": 194,
+    "category": "grammar",
+    "difficulty": "easy",
+    "day": 1,
+    "question": "Qual è la forma corretta di 'bello' con 'studente'?",
+    "options": ["bello studente", "bel studente", "bella studente", "bell'studente"],
+    "correct_answer": 0,
+    "explanation": "'Bello' segue le stesse regole degli articoli. Davanti a s+consonante (studente): bello studente. Davanti a vocale: bell'amico."
+  },
+  {
+    "id": 195,
+    "category": "grammar",
+    "difficulty": "medium",
+    "day": 2,
+    "question": "Come si dice 'I feel like going out'?",
+    "options": ["Mi sento di uscire.", "Ho voglia di uscire.", "Voglio uscire.", "Tutte sono corrette."],
+    "correct_answer": 3,
+    "explanation": "Tutte e tre le espressioni possono tradurre 'I feel like going out', con sfumature leggermente diverse ma tutte naturali in italiano."
+  },
+  {
+    "id": 196,
+    "category": "verbs",
+    "difficulty": "medium",
+    "day": 3,
+    "question": "Qual è il passato prossimo di 'nascere' alla prima persona singolare maschile?",
+    "options": ["ho nato", "sono nato", "nacqui", "nasco"],
+    "correct_answer": 1,
+    "explanation": "'Nascere' usa 'essere' al passato prossimo. Il participio concorda: sono nato (maschile), sono nata (femminile)."
+  },
+  {
+    "id": 197,
+    "category": "vocabulary",
+    "difficulty": "medium",
+    "day": 6,
+    "question": "Che cosa è 'l'Erasmus'?",
+    "options": ["An Italian philosopher", "EU student exchange program", "A type of Italian scholarship", "A university in Brussels"],
+    "correct_answer": 1,
+    "explanation": "'L'Erasmus' è il programma europeo di scambio universitario che permette agli studenti di studiare in un altro paese dell'UE."
+  },
+  {
+    "id": 198,
+    "category": "mixed",
+    "difficulty": "hard",
+    "day": 10,
+    "question": "Quale forma è richiesta dopo 'prima che'?",
+    "options": ["indicativo", "congiuntivo", "condizionale", "infinito"],
+    "correct_answer": 1,
+    "explanation": "'Prima che' + soggetto diverso richiede il congiuntivo: 'Prima che arrivi Marco, apparecchio la tavola'."
+  },
+  {
+    "id": 199,
+    "category": "grammar",
+    "difficulty": "hard",
+    "day": 8,
+    "question": "Identifica l'errore nella frase: 'Sono stato andato al cinema ieri.'",
+    "options": ["'Sono' dovrebbe essere 'ho'", "'stato' è superfluo — si dice 'Sono andato'", "'ieri' va all'inizio", "Non c'è nessun errore"],
+    "correct_answer": 1,
+    "explanation": "'Sono stato andato' non esiste in italiano. Il passato prossimo di 'andare' è semplicemente 'sono andato/a'."
+  },
+  {
+    "id": 200,
+    "category": "mixed",
+    "difficulty": "medium",
+    "day": 10,
+    "question": "Completa con il modo e il tempo corretti: 'Spero che tu _____ (riuscire) all'esame!'",
+    "options": ["riesci", "riesca", "riuscissi", "riuscirai"],
+    "correct_answer": 1,
+    "explanation": "'Sperare che' + soggetto diverso richiede il congiuntivo presente: 'riesca'. Esprime un desiderio riguardo al futuro."
+  }
+]

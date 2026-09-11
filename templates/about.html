@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Info sull'Esame — TOLC-ITA-L2{% endblock %}
+{% block meta_desc %}Informazioni utili sul test TOLC-ITA-L2 per stranieri: struttura, argomenti, punteggi e modalità di svolgimento.{% endblock %}
+
+{% block content %}
+<div class="page-content">
+  <div class="container container-sm">
+    <div class="section-header text-center">
+      <div class="section-label">Informazioni Utili</div>
+      <h1>Il Test TOLC-ITA-L2</h1>
+      <p>Tutto quello che devi sapere sulla Certificazione Internazionale di Lingua Italiana per accedere alle università italiane.</p>
+    </div>
+
+    <div class="card mb-8">
+      <div class="card-body" style="padding:var(--space-8);">
+        <h2 style="margin-bottom:var(--space-4);">Cos'è il TOLC-ITA-L2?</h2>
+        <p>Il <strong>TOLC-ITA-L2</strong> è un test online CISIA per la valutazione della conoscenza della lingua italiana degli studenti stranieri che vogliono iscriversi ai corsi di laurea nelle università italiane.</p>
+        
+        <div style="background:var(--info-bg);border:1px solid rgba(29,78,216,.2);padding:var(--space-4);border-radius:var(--radius-md);margin:var(--space-6) 0;">
+          <p style="margin:0;font-size:.9rem;color:var(--info);">
+            <strong>Importante:</strong> Questa piattaforma offre solo una <em>preparazione simulata</em>. Non è affiliata al CISIA e le domande presenti non sono quelle ufficiali. Per iscriversi al test reale, visita il sito <a href="https://www.cisiaonline.it" target="_blank" rel="noopener" style="color:var(--info);text-decoration:underline;">www.cisiaonline.it</a>.
+          </p>
+        </div>
+
+        <h3 style="margin:var(--space-6) 0 var(--space-4);">Struttura del Test Reale</h3>
+        <p>Il test ufficiale è solitamente composto da diverse sezioni per valutare le competenze linguistiche:</p>
+        
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-6);">
+          <li style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3);background:var(--surface-2);border-radius:var(--radius-md);">
+            <span style="font-size:1.5rem;" aria-hidden="true">📖</span>
+            <div>
+              <strong>Comprensione del testo</strong>
+              <p class="text-sm text-muted" style="margin:0;">Lettura di brani e domande di comprensione.</p>
+            </div>
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3);background:var(--surface-2);border-radius:var(--radius-md);">
+            <span style="font-size:1.5rem;" aria-hidden="true">📝</span>
+            <div>
+              <strong>Strutture linguistiche</strong>
+              <p class="text-sm text-muted" style="margin:0;">Domande di grammatica, sintassi e vocabolario inserite in brevi testi o frasi isolate.</p>
+            </div>
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3);background:var(--surface-2);border-radius:var(--radius-md);">
+            <span style="font-size:1.5rem;" aria-hidden="true">🎧</span>
+            <div>
+              <strong>Comprensione orale (se prevista)</strong>
+              <p class="text-sm text-muted" style="margin:0;">Ascolto di tracce audio e relative domande.</p>
+            </div>
+          </li>
+        </ul>
+
+        <h3 style="margin:var(--space-6) 0 var(--space-4);">Come usare questa piattaforma</h3>
+        <p>Questo sito è stato progettato per offrirti un <strong>piano intensivo di 10 giorni</strong> per ripassare i concetti chiave richiesti (livello B1/B2):</p>
+        <ol style="margin-left:var(--space-4);margin-bottom:var(--space-6);color:var(--text-secondary);">
+          <li style="margin-bottom:var(--space-2);">Segui il <strong>Piano di 10 Giorni</strong> completando una lezione al giorno.</li>
+          <li style="margin-bottom:var(--space-2);">Usa il <strong>Test Libero</strong> per concentrarti sulle aree in cui sei più debole.</li>
+          <li style="margin-bottom:var(--space-2);">Alla fine, prova la <strong>Simulazione Completa</strong> per abituarti a gestire il tempo.</li>
+        </ol>
+
+        <div class="text-center mt-8">
+          <a href="/plan" class="btn btn-primary btn-lg">Vai al Piano di Studio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

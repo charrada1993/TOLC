@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Pagina Non Trovata — TOLC-ITA-L2{% endblock %}
+{% block meta_desc %}La pagina che stai cercando non esiste.{% endblock %}
+
+{% block content %}
+<div class="page-content">
+  <div class="container container-sm text-center">
+    <div style="font-size:4rem;margin-bottom:var(--space-4);" aria-hidden="true">🗺️</div>
+    <h1 class="display-font" style="margin-bottom:var(--space-2);">404</h1>
+    <h2 style="margin-bottom:var(--space-6);">Pagina Non Trovata</h2>
+    <p class="text-muted" style="margin-bottom:var(--space-8);">
+      Ops! Sembra che tu ti sia perso. La pagina che cerchi non esiste o è stata spostata.
+    </p>
+    <a href="/" class="btn btn-primary btn-lg">🏠 Torna alla Dashboard</a>
+  </div>
+</div>
+{% endblock %}

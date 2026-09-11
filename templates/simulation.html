@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+
+{% block title %}Simulazione TOLC-ITA-L2 — Esame Finale{% endblock %}
+{% block meta_desc %}Simulazione completa del TOLC-ITA-L2: 50 domande, 60 minuti, navigazione domanda per domanda.{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/simulation.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="page-content" id="simPage">
+  <div class="container">
+
+    <!-- Pre-exam briefing -->
+    <div id="simBriefing">
+      <div style="max-width:680px;margin:0 auto;">
+        <div class="section-header text-center">
+          <div class="section-label">Esame simulato</div>
+          <h1>🏆 Simulazione TOLC-ITA-L2</h1>
+        </div>
+
+        <div style="background:var(--warning-bg);border:1px solid rgba(217,119,6,.25);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6);">
+          <p style="margin:0;font-size:.875rem;color:var(--warning);">
+            <strong>⚠️ Domande di pratica simulate</strong> — Questo test NON è un esame TOLC ufficiale.
+            Le domande sono create a scopo didattico. Per informazioni sull'esame reale, visita
+            <a href="https://www.cisiaonline.it" target="_blank" rel="noopener" style="color:var(--warning);">cisiaonline.it</a>.
+          </p>
+        </div>
+
+        <!-- Exam details -->
+        <div class="grid-3 mb-6">
+          <div class="stat-card text-center">
+            <div style="font-size:2rem;margin-bottom:var(--space-2);" aria-hidden="true">❓</div>
+            <div class="stat-value">50</div>
+            <div class="stat-label">Domande totali</div>
+          </div>
+          <div class="stat-card text-center">
+            <div style="font-size:2rem;margin-bottom:var(--space-2);" aria-hidden="true">⏱</div>
+            <div class="stat-value">60</div>
+            <div class="stat-label">Minuti disponibili</div>
+          </div>
+          <div class="stat-card text-center">
+            <div style="font-size:2rem;margin-bottom:var(--space-2);" aria-hidden="true">📊</div>
+            <div class="stat-value">4</div>
+            <div class="stat-label">Categorie</div>
+          </div>
+        </div>
+
+        <!-- Composition -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h3 style="margin:0;">Composizione della simulazione</h3>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+              <div class="flex-between">
+                <span>📝 Grammatica</span>
+                <div style="display:flex;align-items:center;gap:var(--space-3);">
+                  <div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:40%"></div></div>
+                  <span class="text-sm font-semibold">20 domande</span>
+                </div>
+              </div>
+              <div class="flex-between">
+                <span>📚 Vocabolario</span>
+                <div style="display:flex;align-items:center;gap:var(--space-3);">
+                  <div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:20%"></div></div>
+                  <span class="text-sm font-semibold">10 domande</span>
+                </div>
+              </div>
+              <div class="flex-between">
+                <span>🔤 Verbi & strutture</span>
+                <div style="display:flex;align-items:center;gap:var(--space-3);">
+                  <div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:20%"></div></div>
+                  <span class="text-sm font-semibold">10 domande</span>
+                </div>
+              </div>
+              <div class="flex-between">
+                <span>🔀 Misto & preposizioni</span>
+                <div style="display:flex;align-items:center;gap:var(--space-3);">
+                  <div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:20%"></div></div>
+                  <span class="text-sm font-semibold">10 domande</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="card mb-8">
+          <div class="card-header">
+            <h3 style="margin:0;">Istruzioni</h3>
+          </div>
+          <div class="card-body">
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-3);">
+              <li style="display:flex;gap:var(--space-3);">
+                <span>⏱</span> <span>Hai <strong>60 minuti</strong> per completare tutte le domande. Il timer inizia subito.</span>
+              </li>
+              <li style="display:flex;gap:var(--space-3);">
+                <span>🔀</span> <span>Puoi navigare tra le domande con i pulsanti <strong>Precedente/Successiva</strong>.</span>
+              </li>
+              <li style="display:flex;gap:var(--space-3);">
+                <span>🚩</span> <span>Usa il pulsante <strong>"Segna per revisione"</strong> sulle domande incerte.</span>
+              </li>
+              <li style="display:flex;gap:var(--space-3);">
+                <span>✅</span> <span>Alla fine, clicca <strong>"Consegna esame"</strong> per vedere il risultato.</span>
+              </li>
+              <li style="display:flex;gap:var(--space-3);">
+                <span>⚠️</span> <span>Il test si invia automaticamente allo scadere del tempo.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <button id="startSimBtn" class="btn btn-accent btn-lg btn-full">
+          🏆 Inizia la simulazione
+        </button>
+      </div>
+    </div>
+
+    <!-- Exam interface (hidden until started) -->
+    <div id="simExam" class="hidden">
+      <!-- Sticky header -->
+      <div style="position:sticky;top:var(--nav-height);z-index:100;background:var(--bg);padding:var(--space-3) 0;margin-bottom:var(--space-4);">
+        <div class="exam-header">
+          <div class="exam-counter">
+            Domanda <span id="simQCurrent">1</span> / <span id="simQTotal">50</span>
+          </div>
+          <div class="flex-center gap-4">
+            <div class="progress-bar" style="width:200px;">
+              <div class="progress-fill" id="simProgress" style="width:0%"></div>
+            </div>
+            <span id="simAnsweredCount" class="text-sm text-muted">0 risposte</span>
+          </div>
+          <div class="exam-timer" id="simTimer" aria-live="polite" aria-label="Tempo restante">
+            ⏱ <span id="simTimerVal">60:00</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 260px;gap:var(--space-6);align-items:start;">
+        <!-- Question area -->
+        <div>
+          <div id="simQuestionCard" class="question-card">
+            <div class="question-meta">
+              <span class="badge badge-neutral" id="simQBadge">Domanda 1</span>
+              <span class="badge" id="simDiffBadge">—</span>
+              <span class="badge badge-neutral" id="simCatBadge" style="text-transform:capitalize;">—</span>
+            </div>
+            <p class="question-text" id="simQuestionText">Caricamento...</p>
+            <div class="options-list" id="simOptionsList" role="radiogroup" aria-label="Seleziona risposta"></div>
+          </div>
+
+          <!-- Nav buttons -->
+          <div class="exam-nav">
+            <button onclick="SimEngine.prev()" class="btn btn-ghost" id="simPrevBtn" disabled>← Precedente</button>
+            <button onclick="SimEngine.flag()" class="btn btn-ghost" id="simFlagBtn">🚩 Segna per revisione</button>
+            <button onclick="SimEngine.next()" class="btn btn-primary" id="simNextBtn">Successiva →</button>
+          </div>
+
+          <!-- Submit button -->
+          <div style="margin-top:var(--space-6);">
+            <button onclick="SimEngine.confirmSubmit()" class="btn btn-accent btn-full btn-lg" id="simSubmitBtn">
+              📤 Consegna esame
+            </button>
+          </div>
+        </div>
+
+        <!-- Navigator panel -->
+        <div style="position:sticky;top:calc(var(--nav-height) + 80px);">
+          <div class="card">
+            <div class="card-header">
+              <h4 style="margin:0;font-size:.875rem;">Navigatore domande</h4>
+            </div>
+            <div class="card-body" style="padding:var(--space-4);">
+              <div class="question-navigator" id="simNavigator" role="navigation" aria-label="Navigazione domande"></div>
+              <div style="margin-top:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);">
+                <div style="display:flex;align-items:center;gap:var(--space-2);font-size:.75rem;color:var(--text-muted);">
+                  <div style="width:14px;height:14px;background:var(--primary);border-radius:3px;"></div> Risposta data
+                </div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);font-size:.75rem;color:var(--text-muted);">
+                  <div style="width:14px;height:14px;background:var(--warning-bg);border:1.5px solid var(--warning);border-radius:3px;"></div> Segnata
+                </div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);font-size:.75rem;color:var(--text-muted);">
+                  <div style="width:14px;height:14px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:3px;"></div> Non risposta
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results screen -->
+    <div id="simResults" class="hidden" role="main" aria-label="Risultati simulazione">
+      <div style="max-width:720px;margin:0 auto;">
+        <div class="text-center mb-8">
+          <div style="font-size:4rem;margin-bottom:var(--space-4);" aria-hidden="true" id="simResultEmoji">🎓</div>
+          <h1>SIMULAZIONE COMPLETATA</h1>
+          <p style="font-size:1.1rem;" id="simResultSubtitle">Ecco i tuoi risultati.</p>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-body text-center" style="padding:var(--space-8);">
+            <!-- Score circle -->
+            <div class="score-circle" style="margin:0 auto var(--space-6);">
+              <svg width="160" height="160" viewBox="0 0 160 160" aria-hidden="true">
+                <circle cx="80" cy="80" r="70" fill="none" stroke="var(--surface-2)" stroke-width="12"/>
+                <circle cx="80" cy="80" r="70" fill="none" stroke="var(--primary)" stroke-width="12"
+                  stroke-dasharray="439.8" id="simScoreArc" stroke-dashoffset="439.8"
+                  stroke-linecap="round"/>
+              </svg>
+              <div class="score-circle-value" id="simScoreValue">0</div>
+              <div class="score-circle-label">%</div>
+            </div>
+
+            <div style="font-size:1.6rem;font-weight:700;margin-bottom:var(--space-2);">
+              <span id="simCorrect">0</span> / <span id="simTotal">50</span> risposte corrette
+            </div>
+            <div class="grade-text" id="simGrade" style="margin-bottom:var(--space-6);">—</div>
+
+            <!-- Readiness indicator -->
+            <div style="background:var(--surface-2);border-radius:var(--radius-md);padding:var(--space-5);text-align:left;margin-bottom:var(--space-6);">
+              <h4 style="margin-bottom:var(--space-3);">La tua preparazione</h4>
+              <div class="progress-bar progress-bar-xl mb-4">
+                <div class="progress-fill" id="simReadiness" style="width:0%"></div>
+              </div>
+              <p class="text-muted text-sm" id="simReadinessText">Elaborazione...</p>
+            </div>
+
+            <!-- Category breakdown -->
+            <div class="category-breakdown text-left mb-6" id="simBreakdown"></div>
+          </div>
+        </div>
+
+        <!-- Weak areas -->
+        <div class="card mb-6" id="simWeakCard" style="display:none;">
+          <div class="card-header">
+            <h3 style="margin:0;">Aree da migliorare</h3>
+          </div>
+          <div class="card-body">
+            <div class="weakness-list" id="simWeakList"></div>
+            <p class="text-muted text-sm mt-4" id="simWeakAdvice"></p>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="display:flex;gap:var(--space-4);flex-wrap:wrap;justify-content:center;">
+          <button onclick="location.reload()" class="btn btn-outline">🔄 Rifai la simulazione</button>
+          <a href="/test" class="btn btn-primary">✏️ Test mirato</a>
+          <a href="/" class="btn btn-ghost">🏠 Dashboard</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm submit modal -->
+    <div class="modal-overlay" id="submitModal" role="dialog" aria-modal="true" aria-labelledby="submitModalTitle">
+      <div class="modal-box">
+        <h2 class="modal-title" id="submitModalTitle">📤 Consegna esame</h2>
+        <p id="submitModalBody">Sei sicuro di voler consegnare? Hai ancora <strong id="unansweredCount">0</strong> domande senza risposta.</p>
+        <div class="modal-actions">
+          <button onclick="SimEngine.closeModal()" class="btn btn-ghost">Annulla</button>
+          <button onclick="SimEngine.submit()" class="btn btn-accent">Consegna →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block title %}Giorno {{ day_number }}: {{ day_data.title }} — TOLC-ITA-L2{% endblock %}
+{% block meta_desc %}Lezione del Giorno {{ day_number }}: {{ day_data.title }}. Studia, pratica e completa gli esercizi interattivi.{% endblock %}
+
+{% block content %}
+<div class="page-content">
+  <div class="container container-sm">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Percorso di navigazione" style="margin-bottom:var(--space-6);">
+      <div style="display:flex;align-items:center;gap:var(--space-2);font-size:.85rem;color:var(--text-muted);">
+        <a href="/" style="color:var(--text-muted);">Dashboard</a>
+        <span>›</span>
+        <a href="/plan" style="color:var(--text-muted);">Piano</a>
+        <span>›</span>
+        <span style="color:var(--primary);font-weight:600;">Giorno {{ day_number }}</span>
+      </div>
+    </nav>
+
+    <!-- Day header -->
+    <div style="background:linear-gradient(135deg,{{ day_data.color }},{{ day_data.color }}cc);border-radius:var(--radius-xl);padding:var(--space-8);color:white;margin-bottom:var(--space-8);" role="banner">
+      <div style="display:flex;align-items:flex-start;gap:var(--space-4);flex-wrap:wrap;">
+        <div style="flex:1;">
+          <div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:.8;margin-bottom:var(--space-2);">Giorno {{ day_number }} di 10</div>
+          <h1 style="color:white;margin-bottom:var(--space-3);">{{ day_data.icon }} {{ day_data.title }}</h1>
+          <p style="color:rgba(255,255,255,.85);margin-bottom:var(--space-5);">{{ day_data.subtitle }}</p>
+
+          <!-- Day progress bar -->
+          <div style="max-width:340px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2);">
+              <span style="font-size:.8rem;opacity:.85;">Progresso della sessione</span>
+              <span id="dayProgressPct" style="font-size:.8rem;font-weight:700;">0%</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,.2);border-radius:999px;overflow:hidden;">
+              <div id="dayProgressFill" style="height:100%;width:0%;background:rgba(255,255,255,.85);border-radius:999px;transition:width .5s ease;"></div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:4rem;opacity:.9;" aria-hidden="true">{{ day_data.icon }}</div>
+      </div>
+    </div>
+
+    <!-- Topics overview -->
+    <div class="card mb-6">
+      <div class="card-header">
+        <h3 style="margin:0;">📋 Argomenti del Giorno {{ day_number }}</h3>
+        <span class="badge badge-neutral">{{ day_data.topics|length }} argomenti</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--space-3);">
+          {% for topic in day_data.topics %}
+          <div style="display:flex;align-items:center;gap:var(--space-2);">
+            <div style="width:8px;height:8px;border-radius:50%;background:{{ day_data.color }};flex-shrink:0;"></div>
+            <span class="text-sm" style="color:var(--text-secondary);">{{ topic }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Lesson sections -->
+    {% for section in day_data.sections %}
+    <div class="lesson-section open mb-6" role="region" aria-label="{{ section.title }}">
+      <div class="lesson-section-header" onclick="toggleSection(this.parentElement)" role="button" tabindex="0" aria-expanded="true" aria-label="Espandi/chiudi {{ section.title }}" onkeydown="if(event.key==='Enter'||event.key===' ')toggleSection(this.parentElement)">
+        <span style="font-size:1.2rem;" aria-hidden="true">
+          {% if section.type == 'learn' %}📖
+          {% elif section.type == 'practice' %}✏️
+          {% else %}⚡{% endif %}
+        </span>
+        <div>
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:2px;">
+            {% if section.type == 'learn' %}Studia
+            {% elif section.type == 'practice' %}Pratica
+            {% else %}Approfondimento{% endif %}
+          </div>
+          <h3 style="margin:0;">{{ section.title }}</h3>
+        </div>
+        <span class="section-toggle" aria-hidden="true">▼</span>
+      </div>
+
+      <div class="lesson-section-body">
+        {% if section.content %}
+        <div class="grammar-rule">
+          <p>{{ section.content | replace('\n', '<br>') | safe }}</p>
+        </div>
+        {% endif %}
+
+        {% if section.examples %}
+        <h4 style="margin:var(--space-5) 0 var(--space-3);font-size:.9rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Esempi</h4>
+        <div class="example-block">
+          {% for ex in section.examples %}
+          <div class="example-item">
+            <div class="example-italian">{{ ex.italian }}</div>
+            <div class="example-english">{{ ex.english }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if section.extended_explanation %}
+        <div style="background:var(--primary-light);border:1px solid rgba(26,127,75,.2);border-radius:var(--radius-md);padding:var(--space-5);margin-top:var(--space-6);">
+          <h4 style="margin:0 0 var(--space-3);font-size:.9rem;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.5px;">💡 Approfondimento (Extended Explanation)</h4>
+          <p style="margin:0;font-size:0.95rem;line-height:1.6;color:var(--primary-dark);">{{ section.extended_explanation | replace('\n', '<br>') | safe }}</p>
+        </div>
+        {% endif %}
+
+        {% if section.youtube_links %}
+        <div class="youtube-resources">
+          <h4 style="margin:var(--space-3) 0 0;font-size:.9rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">🎥 Risorse Video</h4>
+          {% for link in section.youtube_links %}
+          <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="youtube-btn">
+            <span style="font-size:1.2rem;color:#ff0000;" aria-hidden="true">▶</span>
+            {{ link.title }}
+          </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- Practice questions -->
+    <div class="lesson-section open mb-6" id="practiceSection" role="region" aria-label="Esercizi di pratica">
+      <div class="lesson-section-header" onclick="toggleSection(this.parentElement)" role="button" tabindex="0" aria-expanded="true" onkeydown="if(event.key==='Enter'||event.key===' ')toggleSection(this.parentElement)">
+        <span style="font-size:1.2rem;" aria-hidden="true">✏️</span>
+        <div>
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:2px;">Pratica guidata</div>
+          <h3 style="margin:0;">Esercizi del Giorno {{ day_number }}</h3>
+        </div>
+        <span class="section-toggle" aria-hidden="true">▼</span>
+      </div>
+
+      <div class="lesson-section-body">
+        <div id="practiceContainer">
+          <!-- Questions loaded by JS -->
+          <div class="flex-center" style="padding:var(--space-8);">
+            <button onclick="loadPracticeQuestions()" class="btn btn-primary">▶ Carica esercizi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Challenge -->
+    <div class="card mb-8" style="border:2px solid var(--warning);background:var(--warning-bg);">
+      <div class="card-body">
+        <div style="display:flex;align-items:flex-start;gap:var(--space-4);">
+          <span style="font-size:2rem;" aria-hidden="true">⚡</span>
+          <div>
+            <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--warning);margin-bottom:var(--space-2);">Sfida del Giorno</div>
+            <h3 style="margin:0 0 var(--space-2);">{{ day_data.challenge_description }}</h3>
+            <p class="text-muted text-sm" style="margin:0;">Completa tutti gli esercizi per sbloccare la sfida.</p>
+          </div>
+          <a href="/test?category=mixed&day={{ day_number }}&difficulty=hard&limit=10" class="btn btn-sm" style="background:var(--warning);color:white;white-space:nowrap;margin-left:auto;">⚡ Inizia sfida</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation buttons -->
+    <div style="display:flex;gap:var(--space-4);justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:var(--space-8);">
+      {% if day_number > 1 %}
+      <a href="/day/{{ day_number - 1 }}" class="btn btn-ghost">← Giorno {{ day_number - 1 }}</a>
+      {% else %}
+      <div></div>
+      {% endif %}
+
+      <button id="completeBtn" onclick="completeDay({{ day_number }})"
+              class="btn btn-primary btn-lg {% if is_completed %}btn-ghost{% endif %}"
+              {% if is_completed %}style="border:2px solid var(--success);color:var(--success);background:var(--success-bg);"{% endif %}>
+        {% if is_completed %}
+        ✅ Giorno {{ day_number }} completato!
+        {% else %}
+        ✓ Completa il Giorno {{ day_number }}
+        {% endif %}
+      </button>
+
+      {% if day_number < 10 %}
+      <a href="/day/{{ day_number + 1 }}" class="btn btn-outline">Giorno {{ day_number + 1 }} →</a>
+      {% else %}
+      <a href="/simulation" class="btn btn-accent">🏆 Simulazione finale →</a>
+      {% endif %}
+    </div>
+
+    <!-- Motivation -->
+    <div style="text-align:center;padding:var(--space-6);background:var(--primary-light);border-radius:var(--radius-lg);margin-bottom:var(--space-6);">
+      <p style="font-style:italic;font-size:1.1rem;margin:0;color:var(--primary-dark);">"{{ day_data.motivation }}"</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Pass practice questions from Flask to JS
+const DAY_QUESTIONS = {{ practice_questions | safe }};
+const DAY_NUMBER    = {{ day_number }};
+let practiceAnswered = 0;
+let practiceTotal    = DAY_QUESTIONS.length;
+let practiceCorrect  = 0;
+
+function updateDayProgress() {
+  const pct = practiceTotal ? Math.round((practiceAnswered / practiceTotal) * 100) : 0;
+  document.getElementById('dayProgressFill').style.width = pct + '%';
+  document.getElementById('dayProgressPct').textContent  = pct + '%';
+}
+
+function toggleSection(el) {
+  el.classList.toggle('open');
+  const header = el.querySelector('.lesson-section-header');
+  const expanded = el.classList.contains('open');
+  header.setAttribute('aria-expanded', expanded);
+}
+
+function loadPracticeQuestions() {
+  const container = document.getElementById('practiceContainer');
+  if (!DAY_QUESTIONS.length) {
+    container.innerHTML = `<p class="text-muted text-center" style="padding:var(--space-6);">Nessun esercizio disponibile per questo giorno. Prova il <a href="/test">test libero</a>.</p>`;
+    return;
+  }
+
+  let html = `<div id="practiceQuestions">`;
+  DAY_QUESTIONS.forEach((q, idx) => {
+    const letters = ['A','B','C','D'];
+    html += `
+    <div class="question-card" id="pq-${idx}" style="margin-bottom:var(--space-4);" role="group" aria-label="Domanda ${idx+1}">
+      <div class="question-meta">
+        <span class="badge badge-neutral">Domanda ${idx+1} / ${DAY_QUESTIONS.length}</span>
+        <span class="badge badge-${q.difficulty}">${q.difficulty === 'easy' ? 'Facile' : q.difficulty === 'medium' ? 'Medio' : 'Difficile'}</span>
+        <span class="badge badge-neutral" style="text-transform:capitalize;">${q.category}</span>
+      </div>
+      <p class="question-text">${q.question}</p>
+      <div class="options-list" role="radiogroup" aria-label="Opzioni di risposta">
+        ${q.options.map((opt, i) => `
+        <button class="option-btn" onclick="answerPractice(${idx}, ${i}, ${q.correct_answer})" id="pq-${idx}-opt-${i}" role="radio" aria-checked="false" aria-label="Opzione ${letters[i]}: ${opt}">
+          <span class="option-letter" aria-hidden="true">${letters[i]}</span>
+          <span>${opt}</span>
+        </button>`).join('')}
+      </div>
+      <div class="explanation-box" id="pq-exp-${idx}">
+        <span class="explanation-icon" aria-hidden="true"></span>
+        <div><strong id="pq-exp-title-${idx}"></strong><br><span id="pq-exp-text-${idx}">${q.explanation}</span></div>
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+  practiceTotal = DAY_QUESTIONS.length;
+  updateDayProgress();
+}
+
+function answerPractice(qIdx, selectedIdx, correctIdx) {
+  const q = DAY_QUESTIONS[qIdx];
+  // Disable all buttons for this question
+  for (let i = 0; i < q.options.length; i++) {
+    const btn = document.getElementById(`pq-${qIdx}-opt-${i}`);
+    if (btn) {
+      btn.disabled = true;
+      btn.setAttribute('aria-checked', i === selectedIdx ? 'true' : 'false');
+      if (i === correctIdx) btn.classList.add('revealed-correct');
+    }
+  }
+  const selected = document.getElementById(`pq-${qIdx}-opt-${selectedIdx}`);
+  const expBox   = document.getElementById(`pq-exp-${qIdx}`);
+  const expTitle = document.getElementById(`pq-exp-title-${qIdx}`);
+  const expIcon  = expBox.querySelector('.explanation-icon');
+
+  const wasCorrect = selectedIdx === correctIdx;
+  if (wasCorrect) {
+    selected.classList.add('correct');
+    expBox.classList.add('show', 'correct-exp');
+    expIcon.textContent = '✅';
+    expTitle.textContent = 'Corretto! ';
+    practiceCorrect++;
+  } else {
+    selected.classList.add('incorrect');
+    expBox.classList.add('show', 'incorrect-exp');
+    expIcon.textContent = '❌';
+    expTitle.textContent = 'Risposta sbagliata. ';
+  }
+
+  practiceAnswered++;
+  updateDayProgress();
+
+  // Record attempt
+  Progress.recordAttempt(q.id, wasCorrect);
+}
+
+async function completeDay(dayNum) {
+  try {
+    const res = await fetch('/api/progress/day', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({day_number: dayNum})
+    });
+    if (res.ok) {
+      const btn = document.getElementById('completeBtn');
+      btn.textContent = '✅ Giorno ' + dayNum + ' completato!';
+      btn.style = 'border:2px solid var(--success);color:var(--success);background:var(--success-bg);';
+      showToast('🎉 Giorno ' + dayNum + ' completato! Ottimo lavoro!', 'success');
+      setTimeout(() => {
+        if (dayNum < 10) {
+          if (confirm('Vuoi passare al Giorno ' + (dayNum+1) + '?')) {
+            window.location.href = '/day/' + (dayNum+1);
+          }
+        } else {
+          if (confirm('Hai completato tutti i 10 giorni! Vuoi fare la simulazione finale?')) {
+            window.location.href = '/simulation';
+          }
+        }
+      }, 800);
+    }
+  } catch(e) {
+    showToast('Errore durante il salvataggio.', 'error');
+  }
+}
+</script>
+{% endblock %}

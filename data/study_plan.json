@@ -1,0 +1,416 @@
+{
+  "days": [
+    {
+      "day": 1,
+      "title": "Valutazione + Fondamenti",
+      "subtitle": "Inizia il tuo percorso con un test diagnostico e le basi della grammatica italiana.",
+      "icon": "🧪",
+      "color": "#2E7D32",
+      "topics": [
+        "Test diagnostico iniziale",
+        "Articoli determinativi e indeterminativi",
+        "Genere e numero dei nomi",
+        "Verbi essere e avere",
+        "Presente indicativo (verbi regolari)",
+        "Vocabolario di base"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Gli Articoli",
+          "content": "In italiano, gli articoli cambiano in base al genere (maschile/femminile) e al numero (singolare/plurale).\n\n**Articoli determinativi:**\n- il / i (maschile, es: il libro / i libri)\n- la / le (femminile, es: la casa / le case)\n- lo / gli (maschile + s+cons., z, ps, gn: lo studente / gli studenti)\n- l' (prima di vocale: l'amico / gli amici, l'amica / le amiche)\n\n**Articoli indeterminativi:**\n- un / uno (maschile: un amico, uno studente)\n- una / un' (femminile: una ragazza, un'amica)",
+          "examples": [
+            { "italian": "Il professore spiega la lezione.", "english": "The professor explains the lesson." },
+            { "italian": "Una studentessa legge un libro.", "english": "A (female) student reads a book." },
+            { "italian": "Gli studenti vanno all'università.", "english": "The students go to university." }
+          ],
+          "extended_explanation": "Gli articoli in italiano concordano sempre in genere (maschile/femminile) e numero (singolare/plurale) con il sostantivo a cui si riferiscono. L'uso corretto dell'articolo determinativo dipende dalla lettera iniziale della parola che segue: si usa 'lo' o 'gli' davanti a parole che iniziano per 's + consonante', 'z', 'ps', 'gn', 'y'. L'articolo indeterminativo maschile 'un' non vuole mai l'apostrofo, mentre quello femminile 'un'' lo richiede se la parola seguente inizia per vocale.",
+          "youtube_links": [
+            { "title": "Italian Definite Articles Explained", "url": "https://www.youtube.com/watch?v=Gk6d0-m3w0E" },
+            { "title": "Italian Indefinite Articles Explained", "url": "https://www.youtube.com/watch?v=uK8S8X2YvD4" }
+          ]
+        },
+        {
+          "type": "learn",
+          "title": "Essere e Avere",
+          "content": "**ESSERE** (to be):\nio sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono\n\n**AVERE** (to have):\nio ho, tu hai, lui/lei ha, noi abbiamo, voi avete, loro hanno\n\nQuesti verbi sono fondamentali: servono anche come ausiliari per formare i tempi composti.",
+          "examples": [
+            { "italian": "Io sono italiano. Lei è studentessa.", "english": "I am Italian. She is a student." },
+            { "italian": "Abbiamo un esame domani.", "english": "We have an exam tomorrow." },
+            { "italian": "Hanno fame. Sei stanco?", "english": "They are hungry. Are you tired?" }
+          ],
+          "extended_explanation": "I verbi 'essere' e 'avere' sono i verbi più importanti della lingua italiana. Non solo hanno un significato proprio ('to be' e 'to have'), ma fungono anche da verbi ausiliari per formare i tempi composti (come il passato prossimo). È fondamentale memorizzare la loro coniugazione irregolare al presente indicativo, in quanto non seguono le regole standard dei verbi in -ere.",
+          "youtube_links": [
+            { "title": "Essere and Avere Conjugation", "url": "https://www.youtube.com/watch?v=kYJv8y6_D60" }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 10,
+        "vocabulary": 10,
+        "reading": 1
+      },
+      "challenge_description": "Completa il test diagnostico per identificare le tue aree più deboli.",
+      "motivation": "Ogni grande viaggio inizia con un primo passo. Sei pronto!"
+    },
+    {
+      "day": 2,
+      "title": "Verbi e Strutture",
+      "subtitle": "Padroneggia il presente indicativo, i verbi irregolari e la struttura della frase.",
+      "icon": "📝",
+      "color": "#1565C0",
+      "topics": [
+        "Presente indicativo (verbi irregolari)",
+        "Verbi modali: dovere, potere, volere",
+        "La negazione",
+        "Strutture interrogative",
+        "Verbi comuni: andare, venire, fare, dire"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Verbi Irregolari al Presente",
+          "content": "Alcuni dei verbi più usati in italiano sono irregolari al presente:\n\n**ANDARE** (to go): vado, vai, va, andiamo, andate, vanno\n**VENIRE** (to come): vengo, vieni, viene, veniamo, venite, vengono\n**FARE** (to do/make): faccio, fai, fa, facciamo, fate, fanno\n**DIRE** (to say): dico, dici, dice, diciamo, dite, dicono\n**USCIRE** (to go out): esco, esci, esce, usciamo, uscite, escono\n**SAPERE** (to know): so, sai, sa, sappiamo, sapete, sanno\n**POTERE** (can): posso, puoi, può, possiamo, potete, possono\n**DOVERE** (must): devo, devi, deve, dobbiamo, dovete, devono\n**VOLERE** (to want): voglio, vuoi, vuole, vogliamo, volete, vogliono",
+          "examples": [
+            { "italian": "Devo studiare per l'esame.", "english": "I must study for the exam." },
+            { "italian": "Vuoi venire con noi?", "english": "Do you want to come with us?" },
+            { "italian": "Cosa fate stasera?", "english": "What are you doing tonight?" }
+          ]
+        },
+        {
+          "type": "learn",
+          "title": "La Negazione e le Domande",
+          "content": "**La negazione:** si forma mettendo 'non' prima del verbo.\n- Io non capisco. (I don't understand.)\n- Lei non viene. (She is not coming.)\n\n**Le domande:** in italiano si possono formare:\n1. Con l'intonazione: Parli italiano?\n2. Con la parola interrogativa: Dove abiti? Come stai? Quando arrivi? Perché studi? Chi sei? Quanto costa? Quale libro?\n\n**Domande con verbi modali:**\n- Puoi aiutarmi? (Can you help me?)\n- Devi uscire? (Do you have to leave?)",
+          "examples": [
+            { "italian": "Non so dove si trova la biblioteca.", "english": "I don't know where the library is." },
+            { "italian": "Perché non vieni alla festa?", "english": "Why aren't you coming to the party?" },
+            { "italian": "Quando parte il treno?", "english": "When does the train leave?" }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 12,
+        "vocabulary": 8,
+        "reading": 1
+      },
+      "challenge_description": "Coniuga correttamente 10 verbi irregolari in frasi complete.",
+      "motivation": "Stai costruendo le fondamenta. I verbi irregolari sono il cuore dell'italiano!"
+    },
+    {
+      "day": 3,
+      "title": "Il Passato",
+      "subtitle": "Impara a raccontare eventi passati con il passato prossimo e l'imperfetto.",
+      "icon": "⏰",
+      "color": "#6A1B9A",
+      "topics": [
+        "Passato prossimo",
+        "Imperfetto",
+        "Verbi ausiliari (essere vs avere)",
+        "Participi passati irregolari",
+        "Passato prossimo vs Imperfetto"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Passato Prossimo",
+          "content": "Il **passato prossimo** si usa per azioni completate nel passato.\n\n**Formazione:** ausiliare (avere o essere) + participio passato\n\n**Con AVERE:** mangiare → ho mangiato, hai mangiato, ha mangiato...\n**Con ESSERE:** andare → sono andato/a, sei andato/a, è andato/a...\n\n**Verbi con ESSERE:** verbi di movimento (andare, venire, tornare, partire, arrivare, uscire), verbi di stato (stare, essere, rimanere), verbi riflessivi, e altri (nascere, morire, diventare).\n\n**Participi irregolari comuni:**\n- essere → stato/a\n- fare → fatto\n- dire → detto\n- vedere → visto\n- prendere → preso\n- leggere → letto\n- scrivere → scritto\n- aprire → aperto\n- venire → venuto\n- nascere → nato\n- morire → morto",
+          "examples": [
+            { "italian": "Ieri ho mangiato la pizza.", "english": "Yesterday I ate pizza." },
+            { "italian": "Maria è andata al supermercato.", "english": "Maria went to the supermarket." },
+            { "italian": "Abbiamo visto un bel film.", "english": "We saw a good film." }
+          ]
+        },
+        {
+          "type": "learn",
+          "title": "Imperfetto vs Passato Prossimo",
+          "content": "**L'IMPERFETTO** si usa per:\n1. Azioni abituali nel passato (Da piccolo giocavo a calcio.)\n2. Descrizioni nel passato (Era una bella giornata.)\n3. Azioni in corso quando ne è accaduta un'altra (Dormivo quando è arrivato.)\n4. Stati mentali/fisici nel passato (Avevo fame. Ero stanco.)\n\n**Formazione imperfetto:**\n- parlare → parlavo, parlavi, parlava, parlavamo, parlavate, parlavano\n- essere → ero, eri, era, eravamo, eravate, erano\n\n**REGOLA CHIAVE:**\n- Passato prossimo = azione completata, momento specifico\n- Imperfetto = azione abituale, descrizione, background\n\nEsempio: 'Quando ero bambino (imperfetto), ho visto (passato prossimo) il mare per la prima volta.'",
+          "examples": [
+            { "italian": "Ogni estate andavamo al mare.", "english": "Every summer we used to go to the seaside." },
+            { "italian": "Stavo studiando quando hai telefonato.", "english": "I was studying when you called." },
+            { "italian": "Ieri ho incontrato Marco che camminava nel parco.", "english": "Yesterday I met Marco who was walking in the park." }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 15,
+        "vocabulary": 5,
+        "reading": 1
+      },
+      "challenge_description": "Scegli tra passato prossimo e imperfetto in 10 frasi ambigue.",
+      "motivation": "Il passato è il capitolo più importante della grammatica italiana. Ce la fai!"
+    },
+    {
+      "day": 4,
+      "title": "I Pronomi",
+      "subtitle": "Usa i pronomi per rendere il tuo italiano più fluido e naturale.",
+      "icon": "🔗",
+      "color": "#E65100",
+      "topics": [
+        "Pronomi diretti (lo, la, li, le, mi, ti, ci, vi)",
+        "Pronomi indiretti (gli, le, mi, ti, ci, vi)",
+        "Pronomi riflessivi",
+        "Combinazioni di pronomi",
+        "Pronomi tonici"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Pronomi Diretti",
+          "content": "I **pronomi diretti** sostituiscono il complemento oggetto diretto.\n\n| Persona | Singolare | Plurale |\n|---------|-----------|--------|\n| 1ª | mi (me) | ci (us) |\n| 2ª | ti (you) | vi (you all) |\n| 3ª masc. | lo (him/it) | li (them) |\n| 3ª femm. | la (her/it) | le (them) |\n\n**Posizione:** prima del verbo coniugato, o attaccato all'infinito.\n- Lo vedo. (I see him.)\n- Voglio vederlo. / Lo voglio vedere. (I want to see him.)\n\n**Con i tempi composti:** il participio concorda con il pronome!\n- Ho comprato il libro → L'ho comprato.\n- Ho comprato la torta → L'ho comprata.",
+          "examples": [
+            { "italian": "Chiami Maria? Sì, la chiamo subito.", "english": "Are you calling Maria? Yes, I'm calling her right away." },
+            { "italian": "Hai letto i libri? Sì, li ho letti.", "english": "Did you read the books? Yes, I read them." },
+            { "italian": "Mi aiuti, per favore?", "english": "Can you help me, please?" }
+          ]
+        },
+        {
+          "type": "learn",
+          "title": "Pronomi Indiretti",
+          "content": "I **pronomi indiretti** sostituiscono il complemento di termine (a + persona).\n\n| Persona | Forma |\n|---------|-------|\n| mi | a me (to me) |\n| ti | a te (to you) |\n| gli | a lui (to him) |\n| le | a lei (to her) |\n| ci | a noi (to us) |\n| vi | a voi (to you all) |\n| gli/loro | a loro (to them) |\n\n**Verbi comuni con pronomi indiretti:**\nscrivere, telefonare, rispondere, dire, dare, mandare, spiegare, piacere\n\n**PIACERE:** usa pronomi indiretti!\n- Mi piace la pasta. (Pasta pleases me = I like pasta.)\n- Gli piacciono i film. (Films please him = He likes films.)",
+          "examples": [
+            { "italian": "Le scrivo un'email domani.", "english": "I'll write her an email tomorrow." },
+            { "italian": "Ci ha detto la verità.", "english": "He told us the truth." },
+            { "italian": "Ti piace studiare l'italiano?", "english": "Do you like studying Italian?" }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 12,
+        "vocabulary": 8,
+        "reading": 1
+      },
+      "challenge_description": "Sostituisci le parole sottolineate con il pronome corretto.",
+      "motivation": "I pronomi danno fluidità all'italiano. Stai facendo ottimi progressi!"
+    },
+    {
+      "day": 5,
+      "title": "Preposizioni e Connettivi",
+      "subtitle": "Collegare le idee con preposizioni e connettivi è fondamentale per la coerenza del testo.",
+      "icon": "🔀",
+      "color": "#00695C",
+      "topics": [
+        "Preposizioni semplici: di, a, da, in, con, su, per, tra/fra",
+        "Preposizioni articolate",
+        "Connettivi temporali e causali",
+        "Connettivi avversativi e concessivi",
+        "Uso di però, quindi, perché, anche se, mentre, poiché"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Preposizioni Semplici",
+          "content": "**DI:** possesso, argomento, provenienza, materiale\n- Il libro di Marco. / Parlo di te. / Sono di Roma. / Un tavolo di legno.\n\n**A:** destinazione, modo, stato in luogo (città), ora\n- Vado a Roma. / Studio a casa. / Alle otto.\n\n**DA:** provenienza, agente passivo, durata, scopo\n- Vengo da Milano. / Scritto da Dante. / Abito qui da 5 anni. / Un bicchiere da vino.\n\n**IN:** stato in luogo (paesi, regioni), mezzo di trasporto, tempo\n- Vivo in Italia. / In macchina. / In estate.\n\n**CON:** compagnia, mezzo\n- Vado con Maria. / Scrivo con la penna.\n\n**SU:** sopra, argomento\n- Il libro è sul tavolo. / Un film su Roma.\n\n**PER:** scopo, destinazione, durata, causa\n- Studio per l'esame. / Parto per Parigi. / Per due ore.\n\n**TRA/FRA:** posizione, tempo futuro\n- Siedo tra Marco e Luca. / Arrivo fra dieci minuti.",
+          "examples": [
+            { "italian": "Il professore di matematica viene dal Brasile.", "english": "The math professor comes from Brazil." },
+            { "italian": "Studio in biblioteca per tre ore.", "english": "I study in the library for three hours." },
+            { "italian": "Parto tra una settimana.", "english": "I'm leaving in a week." }
+          ]
+        },
+        {
+          "type": "learn",
+          "title": "Connettivi Essenziali",
+          "content": "**Temporali:** quando, mentre, dopo che, prima che, appena, finché\n**Causali:** perché, poiché, siccome, dato che, visto che\n**Avversativi:** ma, però, tuttavia, eppure, anzi\n**Concessivi:** anche se, sebbene, nonostante, benché\n**Consecutivi:** quindi, dunque, allora, perciò\n**Aggiuntivi:** e, anche, inoltre, oltre a\n**Esplicativi:** cioè, ovvero, in altre parole\n\n**Attenzione:** 'perché' può significare 'because' (causa) o 'so that' (scopo) a seconda del modo verbale!\n- Non vengo perché sono stanco. (because = indicativo)\n- Ti telefono perché tu possa prepararti. (so that = congiuntivo)",
+          "examples": [
+            { "italian": "Studio molto, però non capisco la grammatica.", "english": "I study a lot, but I don't understand grammar." },
+            { "italian": "Siccome piove, resto a casa.", "english": "Since it's raining, I'm staying home." },
+            { "italian": "Anche se è difficile, non mi arrendo.", "english": "Even if it's difficult, I won't give up." }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 12,
+        "vocabulary": 5,
+        "reading": 1
+      },
+      "challenge_description": "Riempi 15 spazi con la preposizione o il connettivo corretto.",
+      "motivation": "Le preposizioni sono spesso il tallone d'Achille degli studenti — tu le stai dominando!"
+    },
+    {
+      "day": 6,
+      "title": "Vocabolario Tematico",
+      "subtitle": "Espandi il tuo vocabolario nei temi più rilevanti per il TOLC-ITA-L2.",
+      "icon": "📚",
+      "color": "#558B2F",
+      "topics": [
+        "Università e istruzione",
+        "Lavoro e professioni",
+        "Famiglia e relazioni",
+        "Vita quotidiana",
+        "Viaggi e trasporti",
+        "Cibo e ristoranti",
+        "Salute e corpo",
+        "Tecnologia e società"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Università e Istruzione",
+          "content": "**Luoghi:** l'università, la facoltà, la biblioteca, l'aula, il laboratorio, il dormitorio, la mensa\n\n**Persone:** il professore/la professoressa, lo studente/la studentessa, il rettore, il tutor\n\n**Attività:** iscriversi, frequentare le lezioni, sostenere un esame, laurearsi, studiare, prendere appunti, fare ricerca\n\n**Documenti:** il libretto universitario, la tesi, il diploma, il voto, la laurea triennale/magistrale/dottorato\n\n**Espressioni:** essere fuori corso, dare un esame, prendere 30 e lode, bocciare, iscriversi a un corso",
+          "examples": [
+            { "italian": "Mi sono iscritta alla facoltà di Lettere.", "english": "I enrolled in the Faculty of Humanities." },
+            { "italian": "Devo sostenere l'esame di storia domani.", "english": "I have to take the history exam tomorrow." },
+            { "italian": "Ha preso 28 su 30 all'esame di linguistica.", "english": "She got 28 out of 30 in the linguistics exam." }
+          ]
+        },
+        {
+          "type": "learn",
+          "title": "Lavoro e Vita Quotidiana",
+          "content": "**Professioni:** il medico, l'avvocato, l'ingegnere, l'insegnante, il commerciante, il programmatore, l'impiegato, il giornalista\n\n**Lavoro:** il colloquio, il contratto, lo stipendio, il licenziamento, le ferie, lo smart working, la carriera\n\n**Vita quotidiana:** fare la spesa, cucinare, pulire, andare in palestra, incontrarsi con gli amici, guardare la TV, navigare in internet\n\n**Cibo:** il ristorante, il menù, il piatto principale, il contorno, il dolce, l'antipasto, la ricevuta, il conto, la mancia",
+          "examples": [
+            { "italian": "Ha trovato lavoro come ingegnere informatico.", "english": "He found a job as a software engineer." },
+            { "italian": "Ogni mattina faccio colazione e poi vado al lavoro.", "english": "Every morning I have breakfast and then go to work." },
+            { "italian": "Il cameriere ci ha portato il conto sbagliato.", "english": "The waiter brought us the wrong bill." }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 5,
+        "vocabulary": 20,
+        "reading": 1
+      },
+      "challenge_description": "Abbina 20 parole alle loro definizioni o traduzioni.",
+      "motivation": "Più parole conosci, più sei libero di esprimerti. Continua!"
+    },
+    {
+      "day": 7,
+      "title": "Comprensione della Lettura",
+      "subtitle": "Sviluppa le strategie di lettura per affrontare testi accademici e quotidiani.",
+      "icon": "📖",
+      "color": "#0277BD",
+      "topics": [
+        "Trovare l'idea principale",
+        "Identificare dettagli specifici",
+        "Dedurre il significato dal contesto",
+        "Domande vero/falso",
+        "Domande a scelta multipla",
+        "Struttura del testo"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Strategie di Lettura",
+          "content": "**Prima di leggere (pre-reading):**\n1. Guarda il titolo e i sottotitoli\n2. Osserva le immagini, i grafici, la struttura\n3. Anticipa l'argomento\n\n**Durante la lettura:**\n1. Leggi prima velocemente per capire il tema generale (skimming)\n2. Poi leggi più attentamente per trovare informazioni specifiche (scanning)\n3. Sottolinea le parole chiave\n4. Identifica i connettivi logici\n\n**Tipi di domanda tipici:**\n- Vero/Falso/Non si dice\n- Scelta multipla (4 opzioni)\n- Completamento di frasi\n- Domande aperte brevi\n- Abbinamento\n\n**Strategie per le domande:**\n- Leggi sempre la domanda PRIMA di cercare la risposta nel testo\n- Le risposte seguono spesso l'ordine del testo\n- Attenzione ai negatori (non, mai, nessuno)\n- 'Non si dice' significa che l'informazione non è nel testo, non che sia falsa",
+          "examples": [
+            { "italian": "Il testo afferma che... / Secondo l'autore... / In base al testo...", "english": "The text states that... / According to the author... / Based on the text..." },
+            { "italian": "Qual è il tema principale del testo?", "english": "What is the main theme of the text?" },
+            { "italian": "Cosa significa la parola 'approvvigionamento' nel contesto?", "english": "What does the word 'supply' mean in context?" }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 0,
+        "vocabulary": 5,
+        "reading": 3
+      },
+      "challenge_description": "Leggi un testo di 300 parole e rispondi a 10 domande di comprensione.",
+      "motivation": "La lettura è una finestra sul mondo. Ogni testo che capisci è una vittoria!"
+    },
+    {
+      "day": 8,
+      "title": "Ripasso Grammaticale Intensivo",
+      "subtitle": "Consolida tutti i punti grammaticali con esercizi misti e ripassi mirati.",
+      "icon": "🔄",
+      "color": "#C62828",
+      "topics": [
+        "Coniugazione verbale (tutti i tempi)",
+        "Articoli e accordo",
+        "Preposizioni articolate",
+        "Sistema pronominale completo",
+        "Struttura della frase",
+        "Errori comuni da evitare"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Preposizioni Articolate",
+          "content": "Le preposizioni **di, a, da, in, su** si fondono con gli articoli:\n\n| | il | lo | la | l' | i | gli | le |\n|---|---|---|---|---|---|---|---|\n| **di** | del | dello | della | dell' | dei | degli | delle |\n| **a** | al | allo | alla | all' | ai | agli | alle |\n| **da** | dal | dallo | dalla | dall' | dai | dagli | dalle |\n| **in** | nel | nello | nella | nell' | nei | negli | nelle |\n| **su** | sul | sullo | sulla | sull' | sui | sugli | sulle |\n\nNote: **con** si fonde raramente (col, coi - informale), **per, tra, fra** non si fondono mai.",
+          "examples": [
+            { "italian": "Il libro è sul tavolo della biblioteca.", "english": "The book is on the library table." },
+            { "italian": "Vado al supermercato con degli amici.", "english": "I'm going to the supermarket with some friends." },
+            { "italian": "Nell'estate del 2020 siamo rimasti a casa.", "english": "In the summer of 2020 we stayed home." }
+          ]
+        },
+        {
+          "type": "learn",
+          "title": "Errori Comuni da Evitare",
+          "content": "**Errore 1:** Confondere essere/avere come ausiliari\n✗ Ho andato → ✓ Sono andato\n✗ Sono mangiato → ✓ Ho mangiato\n\n**Errore 2:** Sbagliare il genere dei nomi\n✗ il problema granda → ✓ il problema grande (problema è maschile!)\n\n**Errore 3:** Usare indicativo dopo 'che' (con necessità di congiuntivo)\n✗ Penso che hai ragione → ✓ Penso che tu abbia ragione\n\n**Errore 4:** Sbagliare la posizione dei pronomi\n✗ Voglio lo fare → ✓ Voglio farlo / Lo voglio fare\n\n**Errore 5:** Confondere passato prossimo e imperfetto\n✗ Quando ero giovane, ho abitavo in campagna\n✓ Quando ero giovane, abitavo in campagna",
+          "examples": [
+            { "italian": "Sono arrivato tardi perché c'era traffico.", "english": "I arrived late because there was traffic." },
+            { "italian": "Mi ha detto che voleva venire.", "english": "He told me he wanted to come." },
+            { "italian": "Non riesco a farlo da solo.", "english": "I can't do it by myself." }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 20,
+        "vocabulary": 5,
+        "reading": 1
+      },
+      "challenge_description": "Test misto di 20 domande su tutti gli argomenti affrontati.",
+      "motivation": "Sei nell'ultima fase! La grammatica sta diventando automatica per te."
+    },
+    {
+      "day": 9,
+      "title": "Test di Pratica Completo",
+      "subtitle": "Affronta un test cronometrato completo per simulare le condizioni del TOLC-ITA-L2.",
+      "icon": "⏱️",
+      "color": "#4527A0",
+      "topics": [
+        "Grammatica mista",
+        "Vocabolario tematico",
+        "Comprensione scritta",
+        "Strutture linguistiche",
+        "Test a tempo (45 minuti)"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Preparazione al Test",
+          "content": "Oggi affronterai un test di pratica completo. Ecco alcuni consigli:\n\n**Gestione del tempo:**\n- Leggi attentamente ogni domanda\n- Non perdere troppo tempo su una singola domanda\n- Torna alle domande difficili alla fine\n- Controlla le risposte se hai tempo\n\n**Strategia per le scelte multiple:**\n- Elimina prima le risposte chiaramente sbagliate\n- Tra le rimanenti, scegli quella più precisa\n- Fida del tuo istinto se non sei sicuro\n- Non cambiare risposta a meno di essere certo\n\n**Attenzione a:**\n- Le doppie negazioni\n- I falsi amici con l'inglese\n- Il tempo verbale richiesto dal contesto\n- L'accordo di genere e numero\n- La posizione degli aggettivi",
+          "examples": [
+            { "italian": "Leggi la domanda due volte prima di rispondere.", "english": "Read the question twice before answering." },
+            { "italian": "Usa il processo di eliminazione per le domande difficili.", "english": "Use the elimination process for difficult questions." }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 15,
+        "vocabulary": 10,
+        "reading": 2
+      },
+      "challenge_description": "Test cronometrato di 40 domande miste in 45 minuti.",
+      "motivation": "Penultimo giorno! Sei pronto per la simulazione finale. Forza!"
+    },
+    {
+      "day": 10,
+      "title": "Simulazione Finale TOLC-ITA-L2",
+      "subtitle": "La simulazione completa dell'esame. Dimostra tutto quello che hai imparato!",
+      "icon": "🏆",
+      "color": "#F57F17",
+      "topics": [
+        "Simulazione completa dell'esame",
+        "Analisi dei risultati",
+        "Identificazione delle aree deboli",
+        "Raccomandazioni finali",
+        "Sei pronto!"
+      ],
+      "sections": [
+        {
+          "type": "learn",
+          "title": "Prima della Simulazione",
+          "content": "Oggi è il grande giorno. Ecco come prepararti:\n\n**Prima del test:**\n- Riposati bene\n- Fai colazione\n- Elimina le distrazioni\n- Trova un posto tranquillo\n\n**Durante la simulazione:**\n- Tratta questo test come se fosse quello vero\n- Non interrompere il timer\n- Rispondi a tutte le domande\n- Segna le domande incerte per rivederle\n\n**Il TOLC-ITA-L2 reale:**\n- Il test reale si svolge su computer\n- Verifica sempre le istruzioni ufficiali sul sito CISIA\n- Questo strumento è per la preparazione, non un test ufficiale\n- Le domande qui sono 'domande di pratica simulate'",
+          "examples": [
+            { "italian": "La concentrazione è fondamentale. Respira e affronta ogni domanda con calma.", "english": "Concentration is key. Breathe and approach each question calmly." }
+          ]
+        }
+      ],
+      "exercises": {
+        "grammar": 20,
+        "vocabulary": 15,
+        "reading": 3
+      },
+      "challenge_description": "Simulazione completa TOLC-ITA-L2: 50 domande in 60 minuti.",
+      "motivation": "Hai completato il percorso di 10 giorni! Sei pronto. In bocca al lupo! 🎉"
+    }
+  ]
+}

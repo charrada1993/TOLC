@@ -1,0 +1,592 @@
+{% extends "base.html" %}
+
+{% block title %}Esame — TOLC-ITA-L2{% endblock %}
+{% block meta_desc %}Test interattivo di italiano con domande a scelta multipla, spiegazioni e punteggio.{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── Exam page overrides ── */
+.exam-page-bg {
+  min-height: 100vh;
+  padding-top: calc(var(--nav-height) + var(--space-6));
+  padding-bottom: var(--space-16);
+  background: var(--bg);
+}
+
+/* ── Sticky header bar ── */
+.exam-sticky-bar {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  margin-bottom: var(--space-6);
+}
+.exam-sticky-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.exam-q-counter {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.exam-q-counter strong {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--text-primary);
+}
+.exam-progress-wrap {
+  flex: 1;
+  min-width: 120px;
+  max-width: 240px;
+}
+.exam-score-pills {
+  display: flex;
+  gap: var(--space-2);
+}
+.pill-correct, .pill-wrong {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+.pill-correct { background: var(--success-bg); color: var(--success); }
+.pill-wrong   { background: var(--error-bg); color: var(--error); }
+.exam-timer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  transition: all 0.3s;
+}
+.exam-timer-pill.warning { background: var(--warning-bg); color: var(--warning); border-color: var(--warning); }
+.exam-timer-pill.danger  { background: var(--error-bg);   color: var(--error);   border-color: var(--error); animation: pulse 1s infinite; }
+
+/* ── Container ── */
+.exam-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* ── Category badge row ── */
+.exam-badge-row {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+/* ── Question Card ── */
+.question-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: var(--space-5);
+  animation: qSlideIn .3s cubic-bezier(.2,.8,.4,1);
+}
+@keyframes qSlideIn {
+  from { opacity:0; transform: translateY(16px) scale(.99); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+
+.question-card-top {
+  padding: var(--space-6) var(--space-8) var(--space-5);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--surface), var(--surface-2));
+}
+.question-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+.question-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.65;
+  margin: 0;
+}
+.question-text em {
+  background: rgba(26,127,75,.12);
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.question-card-options {
+  padding: var(--space-5) var(--space-8) var(--space-6);
+}
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Enhanced option buttons ── */
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: left;
+}
+.option-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  transform: translateX(4px);
+}
+.option-btn.correct {
+  border-color: var(--success);
+  background: var(--success-bg);
+  color: var(--success);
+  transform: translateX(4px);
+}
+.option-btn.incorrect {
+  border-color: var(--error);
+  background: var(--error-bg);
+  color: var(--error);
+}
+.option-btn.revealed-correct {
+  border-color: var(--success);
+  background: var(--success-bg);
+  color: var(--success);
+}
+.option-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  font-size: 0.85rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: all 0.18s;
+}
+.option-btn:hover:not(:disabled) .option-letter { background: var(--primary); color: white; }
+.option-btn.correct   .option-letter { background: var(--success); color: white; }
+.option-btn.incorrect .option-letter { background: var(--error);   color: white; }
+.option-btn.revealed-correct .option-letter { background: var(--success); color: white; }
+
+/* ── Explanation ── */
+.explanation-box {
+  margin: 0 var(--space-8) var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  display: none;
+  align-items: flex-start;
+  gap: var(--space-3);
+  animation: fadeIn .3s ease;
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.explanation-box.show { display: flex; }
+.explanation-box.correct-exp {
+  background: var(--success-bg);
+  border: 1px solid rgba(26,127,75,.25);
+  color: var(--text-primary);
+}
+.explanation-box.incorrect-exp {
+  background: var(--error-bg);
+  border: 1px solid rgba(206,43,55,.2);
+  color: var(--text-primary);
+}
+.explanation-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+.explanation-result { font-weight: 700; }
+.explanation-result.correct-label { color: var(--success); }
+.explanation-result.wrong-label   { color: var(--error); }
+
+/* ── Nav bar ── */
+.exam-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.nav-dots-wrap {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.nav-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.nav-dot.current  { transform: scale(1.4); border-color: var(--primary); background: var(--primary); }
+.nav-dot.correct  { background: var(--success); border-color: var(--success); }
+.nav-dot.wrong    { background: var(--error);   border-color: var(--error); }
+
+/* ── Loading state ── */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: var(--space-4);
+}
+.loading-spinner {
+  width: 48px; height: 48px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Completion screen ── */
+.completion-screen {
+  animation: fadeInUp .5s cubic-bezier(.2,.8,.4,1);
+}
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(24px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.completion-card {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.completion-header {
+  padding: var(--space-10) var(--space-10) var(--space-6);
+  text-align: center;
+  background: linear-gradient(160deg, var(--surface), var(--surface-2));
+  border-bottom: 1px solid var(--border);
+}
+.completion-emoji {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: var(--space-3);
+  animation: pop .4s cubic-bezier(.2,1.4,.4,1) .2s both;
+}
+@keyframes pop { from{transform:scale(0) rotate(-15deg)} to{transform:scale(1) rotate(0deg)} }
+
+.completion-header h2 {
+  font-size: 2rem;
+  margin-bottom: var(--space-2);
+}
+
+/* Score circle */
+.score-circle {
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: var(--space-6) auto;
+  position: relative;
+}
+.score-circle svg {
+  position: absolute;
+  top: 0; left: 0;
+  transform: rotate(-90deg);
+}
+.score-circle-value {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+.score-circle-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.score-fraction {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+}
+.grade-text {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: var(--space-4);
+}
+.grade-text.excellent { color: var(--success); }
+.grade-text.good      { color: var(--primary); }
+.grade-text.average   { color: var(--warning); }
+.grade-text.poor      { color: var(--error); }
+
+/* completion body */
+.completion-body {
+  padding: var(--space-6) var(--space-8) var(--space-8);
+}
+
+/* Breakdown */
+.breakdown-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+}
+.cat-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 56px;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+.cat-row-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+.cat-row-pct {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-align: right;
+}
+
+/* Weak areas */
+.weak-box {
+  background: var(--warning-bg);
+  border: 1px solid rgba(217,119,6,.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+.weak-box h4 { color: var(--warning); margin-bottom: var(--space-3); font-size: 0.9rem; }
+.weak-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid rgba(217,119,6,.12);
+  font-size: 0.875rem;
+}
+.weak-item:last-child { border-bottom: none; }
+.weak-item-cat  { font-weight: 600; text-transform: capitalize; }
+.weak-item-pct  { font-weight: 800; color: var(--error); }
+
+/* Action buttons */
+.completion-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Confetti canvas */
+#confettiCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@media (max-width: 768px) {
+  .question-card-top,
+  .question-card-options,
+  .explanation-box { padding-left: var(--space-5); padding-right: var(--space-5); }
+  .exam-sticky-inner { padding: var(--space-3) var(--space-4); }
+  .exam-container { padding: 0 var(--space-4); }
+  .completion-header { padding: var(--space-6) var(--space-5) var(--space-5); }
+  .completion-body { padding: var(--space-5); }
+  .cat-row { grid-template-columns: 100px 1fr 50px; gap: var(--space-3); }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/test.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="exam-page-bg" id="examPage">
+
+  <!-- Sticky header (hidden until loaded) -->
+  <div class="exam-sticky-bar hidden" id="examStickyBar">
+    <div class="exam-sticky-inner">
+      <div class="exam-q-counter">
+        Domanda <strong id="qCurrent">1</strong> / <strong id="qTotal">20</strong>
+      </div>
+      <div class="exam-progress-wrap">
+        <div class="progress-bar">
+          <div class="progress-fill" id="examProgress" style="width:0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <div class="exam-score-pills">
+        <span class="pill-correct" id="scoreCorrect">✓ 0</span>
+        <span class="pill-wrong"   id="scoreWrong">✗ 0</span>
+      </div>
+      <div class="exam-timer-pill hidden" id="timerDisplay" aria-live="polite">
+        ⏱ <span id="timerValue">--:--</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="exam-container">
+    <div class="loading-state" id="loadingState">
+      <div class="loading-spinner"></div>
+      <p style="color:var(--text-muted);font-weight:500;">Caricamento domande...</p>
+    </div>
+  </div>
+
+  <!-- Exam body (hidden until loaded) -->
+  <div class="exam-container hidden" id="examBody">
+
+    <!-- Category badge row -->
+    <div class="exam-badge-row" id="categoryBadge">
+      <span class="badge badge-info" id="catLabel"></span>
+      <span class="badge badge-neutral" id="diffLabel"></span>
+    </div>
+
+    <!-- Question card -->
+    <div class="question-card hidden" id="questionCard">
+      <div class="question-card-top">
+        <div class="question-meta">
+          <span class="badge badge-neutral" id="qBadge"></span>
+          <span class="badge" id="diffBadge"></span>
+          <span class="badge badge-neutral text-xs" id="catBadge" style="text-transform:capitalize;"></span>
+        </div>
+        <p class="question-text" id="questionText"></p>
+      </div>
+      <div class="question-card-options">
+        <div class="options-list" id="optionsList" role="radiogroup" aria-label="Seleziona una risposta"></div>
+      </div>
+      <div class="explanation-box" id="explanationBox">
+        <span class="explanation-icon" id="expIcon"></span>
+        <div>
+          <div class="explanation-result" id="expTitle"></div>
+          <div id="expText" style="margin-top:4px;color:var(--text-secondary);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="exam-nav hidden" id="examNav">
+      <button id="prevBtn" class="btn btn-ghost" onclick="TestEngine.prev()" disabled aria-label="Domanda precedente">← Prec.</button>
+      <div class="nav-dots-wrap" id="navDots"></div>
+      <button id="nextBtn" class="btn btn-primary" onclick="TestEngine.next()" aria-label="Prossima domanda">Prossima →</button>
+    </div>
+
+  </div>
+
+  <!-- ── Completion Screen ── -->
+  <div class="exam-container hidden" id="completionScreen">
+    <div class="completion-screen">
+      <div class="completion-card">
+
+        <!-- Header -->
+        <div class="completion-header">
+          <span class="completion-emoji" id="resultEmoji">🎉</span>
+          <h2>TEST COMPLETATO!</h2>
+
+          <!-- Score circle -->
+          <div class="score-circle" aria-label="Punteggio">
+            <svg width="180" height="180" viewBox="0 0 180 180" aria-hidden="true">
+              <circle cx="90" cy="90" r="78" fill="none" stroke="var(--surface-2)" stroke-width="14"/>
+              <circle cx="90" cy="90" r="78" fill="none" stroke="var(--primary)" stroke-width="14"
+                stroke-dasharray="490.1" id="scoreArc" stroke-dashoffset="490.1"
+                stroke-linecap="round" style="transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1), stroke .4s;"/>
+            </svg>
+            <div class="score-circle-value" id="scoreValue">0</div>
+            <div class="score-circle-label">%</div>
+          </div>
+
+          <div class="score-fraction">
+            <span id="correctCount">0</span> / <span id="totalCount">0</span> corrette
+          </div>
+          <div class="grade-text" id="gradeText">...</div>
+        </div>
+
+        <!-- Body -->
+        <div class="completion-body">
+
+          <!-- Category breakdown -->
+          <div id="breakdownWrap" style="margin-bottom:var(--space-6);">
+            <div class="breakdown-title">📊 Risultati per categoria</div>
+            <div id="breakdown"></div>
+          </div>
+
+          <!-- Weak areas -->
+          <div id="weakAreasResult"></div>
+
+          <!-- Action buttons -->
+          <div class="completion-actions">
+            <button onclick="TestEngine.restart()" class="btn btn-outline">🔄 Ripeti test</button>
+            <a href="/results" class="btn btn-primary">📊 Analisi completa</a>
+            <a href="/test" class="btn btn-ghost">⚙️ Nuovo test</a>
+            <a href="/" class="btn btn-ghost">🏠 Dashboard</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Confetti canvas -->
+<canvas id="confettiCanvas"></canvas>
+
+<!-- Config passed from Flask -->
+<script>
+window.EXAM_CONFIG = {
+  category:   '{{ category }}',
+  difficulty: '{{ difficulty }}',
+  limit:      {{ limit }},
+  timed:      {{ timed | lower }},
+  time_limit: {{ time_limit }}
+};
+</script>
+{% endblock %}

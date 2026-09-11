@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — Preparati al TOLC-ITA-L2{% endblock %}
+{% block meta_desc %}La tua dashboard per prepararti al TOLC-ITA-L2 in 10 giorni. Grammatica, vocabolario, comprensione e simulazioni d'esame.{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero" aria-label="Benvenuto">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-label">
+        <span>🇮🇹</span>
+        <span>Domande di pratica simulate — Non domande ufficiali TOLC</span>
+      </div>
+      <h1 class="display-font">Preparati al TOLC-ITA-L2<br>in <em style="color:#a8e6c3;font-style:normal;">10 Giorni</em></h1>
+      <p class="subtitle">
+        Un percorso intensivo di italiano: grammatica, vocabolario, comprensione
+        e simulazioni per arrivare preparato al test.
+      </p>
+
+      <!-- Progress indicator -->
+      <div style="background:rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-8);max-width:480px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3);">
+          <span style="color:rgba(255,255,255,.9);font-weight:600;font-size:.9rem;">Giorno {{ current_day }} / 10</span>
+          <span style="color:rgba(255,255,255,.9);font-weight:700;">{{ progress_pct }}%</span>
+        </div>
+        <div style="height:10px;background:rgba(255,255,255,.2);border-radius:999px;overflow:hidden;">
+          <div style="height:100%;width:{{ progress_pct }}%;background:rgba(255,255,255,.85);border-radius:999px;transition:width .8s cubic-bezier(.4,0,.2,1);"></div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="/day/{{ current_day }}" class="btn btn-white btn-lg">
+          ▶ Inizia il Giorno {{ current_day }}
+        </a>
+        <a href="/test" class="btn btn-outline-white btn-lg">
+          ✏️ Testa il tuo livello
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page-content" style="padding-top:var(--space-8);">
+  <div class="container">
+
+    <!-- Motivation banner -->
+    {% if stats.streak > 0 or stats.total_questions > 0 %}
+    <div class="motivation-banner" role="alert">
+      <span style="font-size:1.5rem;" aria-hidden="true">💬</span>
+      <p>{{ motivation }}</p>
+      {% if stats.streak > 1 %}
+      <div class="streak-badge" style="margin-left:auto;white-space:nowrap;">🔥 {{ stats.streak }} giorni</div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Stats grid -->
+    <div class="section-header">
+      <div class="section-label">Il tuo progresso</div>
+      <h2>Le tue statistiche</h2>
+    </div>
+
+    <div class="grid-4 mb-8" role="region" aria-label="Statistiche di studio">
+      <div class="stat-card">
+        <span class="stat-icon" aria-hidden="true">📅</span>
+        <div class="stat-value">{{ stats.days_completed }}<span style="font-size:1.2rem;color:var(--text-muted)">/10</span></div>
+        <div class="stat-label">Giorni completati</div>
+        <div class="progress-bar mt-4">
+          <div class="progress-fill" style="width:{{ stats.days_completed * 10 }}%" role="progressbar" aria-valuenow="{{ stats.days_completed * 10 }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-icon" aria-hidden="true">❓</span>
+        <div class="stat-value">{{ stats.total_questions }}</div>
+        <div class="stat-label">Domande risposte</div>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-icon" aria-hidden="true">🎯</span>
+        <div class="stat-value">{{ stats.accuracy }}<span style="font-size:1.2rem;color:var(--text-muted)">%</span></div>
+        <div class="stat-label">Precisione media</div>
+        <div class="progress-bar mt-4 {% if stats.accuracy < 60 %}progress-bar-accent{% elif stats.accuracy < 80 %}progress-bar-warning{% endif %}">
+          <div class="progress-fill" style="width:{{ stats.accuracy }}%"></div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-icon" aria-hidden="true">🏅</span>
+        <div class="stat-value">{{ stats.best_score }}<span style="font-size:1.2rem;color:var(--text-muted)">%</span></div>
+        <div class="stat-label">Miglior punteggio</div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="section-header">
+      <div class="section-label">Azioni rapide</div>
+      <h2>Cosa vuoi fare oggi?</h2>
+    </div>
+
+    <div class="grid-2 mb-8">
+      <a href="/day/{{ current_day }}" class="card card-interactive" style="border-left:4px solid var(--primary);text-decoration:none;">
+        <div class="card-body flex-between">
+          <div>
+            <div class="badge badge-success mb-4">Giorno {{ current_day }} / 10</div>
+            <h3>Continua il percorso</h3>
+            <p style="margin-top:var(--space-2);">
+              {% if current_day <= 10 %}
+                {{ plan[current_day-1].title }}
+              {% endif %}
+            </p>
+            <span class="btn btn-primary btn-sm mt-4">▶ Inizia →</span>
+          </div>
+          <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">
+            {% if current_day <= 10 %}{{ plan[current_day-1].icon }}{% else %}🏆{% endif %}
+          </span>
+        </div>
+      </a>
+
+      <a href="/test" class="card card-interactive" style="border-left:4px solid #1d4ed8;text-decoration:none;">
+        <div class="card-body flex-between">
+          <div>
+            <div class="badge badge-info mb-4">Test libero</div>
+            <h3>Testa il tuo italiano</h3>
+            <p style="margin-top:var(--space-2);">Scegli categoria, difficoltà e numero di domande</p>
+            <span class="btn btn-sm mt-4" style="background:var(--info);color:white;">✏️ Inizia test →</span>
+          </div>
+          <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">✏️</span>
+        </div>
+      </a>
+
+      <a href="/results" class="card card-interactive" style="border-left:4px solid var(--warning);text-decoration:none;">
+        <div class="card-body flex-between">
+          <div>
+            <div class="badge badge-warning mb-4">Analisi</div>
+            <h3>Rivedi i risultati</h3>
+            <p style="margin-top:var(--space-2);">Vedi il tuo ultimo test e le aree da migliorare</p>
+            <span class="btn btn-sm mt-4" style="background:var(--warning);color:white;">📊 Vedi risultati →</span>
+          </div>
+          <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">📊</span>
+        </div>
+      </a>
+
+      <a href="/simulation" class="card card-interactive" style="border-left:4px solid var(--accent);text-decoration:none;">
+        <div class="card-body flex-between">
+          <div>
+            <div class="badge badge-error mb-4">Esame simulato</div>
+            <h3>Simulazione finale</h3>
+            <p style="margin-top:var(--space-2);">50 domande in 60 minuti — come il vero esame</p>
+            <span class="btn btn-sm mt-4" style="background:var(--accent);color:white;">🏆 Inizia simulazione →</span>
+          </div>
+          <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">🏆</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Weakness detector -->
+    {% if weak_areas %}
+    <div class="section-header">
+      <div class="section-label">Analisi personalizzata</div>
+      <h2>Le tue aree da migliorare</h2>
+    </div>
+
+    <div class="card mb-8">
+      <div class="card-body">
+        <div class="weakness-list" role="list">
+          {% for area in weak_areas %}
+          <div class="weakness-item" role="listitem">
+            <div class="weakness-dot {% if area.accuracy < 60 %}red{% elif area.accuracy < 75 %}orange{% else %}green{% endif %}"></div>
+            <span style="font-weight:600;text-transform:capitalize;">{{ area.category }}</span>
+            <div class="progress-bar" style="flex:1;">
+              <div class="progress-fill {% if area.accuracy < 60 %}{% elif area.accuracy < 75 %}progress-bar-warning{% endif %}" style="width:{{ area.accuracy }}%"></div>
+            </div>
+            <span style="font-weight:700;font-size:.875rem;min-width:40px;text-align:right;color:{% if area.accuracy < 60 %}var(--error){% elif area.accuracy < 75 %}var(--warning){% else %}var(--success){% endif %}">{{ area.accuracy }}%</span>
+            <a href="/test?category={{ area.category }}" class="btn btn-sm btn-outline">Ripassa</a>
+          </div>
+          {% endfor %}
+        </div>
+        {% if weak_areas %}
+        <p class="text-muted mt-4">
+          💡 Ti consigliamo di ripassare
+          <strong>{{ weak_areas[0].category }}</strong> prima di continuare.
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- 10-day plan preview -->
+    <div class="section-header">
+      <div class="section-label">Il tuo percorso</div>
+      <h2>Piano dei 10 giorni</h2>
+      <p>Clicca su un giorno per iniziare o continuare la lezione.</p>
+    </div>
+
+    <div class="grid-2 mb-8">
+      {% for day_item in plan %}
+      <a href="/day/{{ day_item.day }}" class="day-card {% if day_item.day in completed_days %}completed{% endif %} {% if day_item.day > (stats.days_completed + 1) %}locked{% endif %}" style="text-decoration:none;display:block;" aria-label="Giorno {{ day_item.day }}: {{ day_item.title }}{% if day_item.day in completed_days %} (completato){% endif %}">
+        {% if day_item.day in completed_days %}
+        <div class="completed-check" aria-label="Completato" title="Completato">✓</div>
+        {% endif %}
+
+        <div class="day-card-header">
+          <div class="day-number-badge" style="background:{{ day_item.color }};">{{ day_item.day }}</div>
+          <div>
+            <div class="text-muted text-xs" style="margin-bottom:2px;">Giorno {{ day_item.day }}</div>
+            <h4 style="margin:0;">{{ day_item.title }}</h4>
+          </div>
+          <span class="day-card-icon" style="margin-left:auto;" aria-hidden="true">{{ day_item.icon }}</span>
+        </div>
+
+        <div class="day-card-body">
+          <ul class="topic-list">
+            {% for topic in day_item.topics[:3] %}
+            <li>{{ topic }}</li>
+            {% endfor %}
+            {% if day_item.topics|length > 3 %}
+            <li style="color:var(--text-muted);">+{{ day_item.topics|length - 3 }} altri argomenti</li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <div class="day-card-footer">
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+            {% if day_item.exercises.grammar > 0 %}
+            <span class="badge badge-neutral">{{ day_item.exercises.grammar }} grammatica</span>
+            {% endif %}
+            {% if day_item.exercises.vocabulary > 0 %}
+            <span class="badge badge-neutral">{{ day_item.exercises.vocabulary }} vocabolario</span>
+            {% endif %}
+            {% if day_item.exercises.reading > 0 %}
+            <span class="badge badge-neutral">{{ day_item.exercises.reading }} lettura</span>
+            {% endif %}
+          </div>
+          {% if day_item.day in completed_days %}
+          <span class="badge badge-success">✓ Completato</span>
+          {% elif day_item.day == current_day %}
+          <span class="badge badge-info">In corso</span>
+          {% else %}
+          <span class="text-muted text-xs">→</span>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- Reset button -->
+    <div class="text-center">
+      <button onclick="resetProgress()" class="btn btn-ghost btn-sm" aria-label="Azzera progressi">
+        🔄 Azzera tutti i progressi
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+async function resetProgress() {
+  if (!confirm('Sei sicuro di voler azzerare tutti i progressi? Questa azione non può essere annullata.')) return;
+  try {
+    const res = await fetch('/api/reset', { method: 'POST' });
+    if (res.ok) {
+      showToast('Progressi azzerati.', 'info');
+      setTimeout(() => location.reload(), 1200);
+    }
+  } catch(e) {
+    showToast('Errore durante il reset.', 'error');
+  }
+}
+</script>
+{% endblock %}
