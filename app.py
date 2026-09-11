@@ -397,6 +397,12 @@ def about():
 def conversazione():
     return render_template("conversazione.html")
 
+@app.route("/testo")
+@app.route("/text")
+def testo():
+    return render_template("testo.html")
+
+
 # ─── API Endpoints ────────────────────────────────────────────────────────────
 @app.route("/api/questions")
 def api_questions():

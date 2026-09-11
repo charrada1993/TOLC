@@ -1,0 +1,819 @@
+{% extends "base.html" %}
+
+{% block title %}Comprensione del Testo — TOLC-ITA-L2{% endblock %}
+{% block meta_desc %}Esercitati sulla comprensione del testo per il TOLC-ITA-L2: brani autentici in italiano, audio-lettura, vocabolario interattivo e quesiti ufficiali con spiegazioni.
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── Hero ──────────────────────────────────────────────────── */
+.text-hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #1e3a8a 100%);
+  padding: var(--space-16) 0 var(--space-12);
+  position: relative; overflow: hidden; color: #fff;
+}
+.text-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.15), transparent 50%);
+}
+.text-hero-inner { position: relative; z-index: 1; }
+.text-hero h1 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: var(--space-4); }
+.text-hero p  { color: rgba(255, 255, 255, 0.85); font-size: 1.15rem; max-width: 620px; margin-bottom: var(--space-6); }
+
+/* Filter pills */
+.topic-pills { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-6); }
+.topic-pill {
+  padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700;
+  cursor: pointer; border: 2px solid rgba(255, 255, 255, 0.2); transition: all 0.25s;
+  background: rgba(255, 255, 255, 0.1); color: #fff;
+}
+.topic-pill.active { background: #fff; color: #312e81; border-color: #fff; shadow: var(--shadow-md); }
+.topic-pill:hover:not(.active) { background: rgba(255, 255, 255, 0.2); }
+
+/* ── Passage Selection Cards Grid ───────────────────────────── */
+.passages-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6); padding: var(--space-8) 0 var(--space-10);
+}
+.passage-card {
+  background: var(--surface); border-radius: var(--radius-xl);
+  border: 2px solid var(--border); box-shadow: var(--shadow-sm);
+  padding: var(--space-6); transition: all 0.25s ease; cursor: pointer;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.passage-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow-xl); border-color: var(--primary);
+}
+.passage-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
+.passage-tag {
+  display: inline-block; padding: 4px 12px; border-radius: var(--radius-full);
+  font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.tag-a2 { background: #fef3c7; color: #d97706; }
+.tag-b1 { background: #fee2e2; color: #dc2626; }
+.tag-b2 { background: #dcfce7; color: #15803d; }
+.tag-c1 { background: #f3e8ff; color: #7e22ce; }
+
+.passage-card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: var(--space-2); line-height: 1.3; }
+.passage-card-excerpt { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: var(--space-5); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.passage-card-meta { display: flex; gap: var(--space-4); font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+
+/* ── Split Reading & Questions Workspace ────────────────────── */
+.workspace-container { display: none; margin-top: var(--space-6); margin-bottom: var(--space-12); }
+.workspace-container.active { display: block; }
+
+.workspace-top-bar {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);
+  background: var(--surface-2); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--border); margin-bottom: var(--space-6);
+}
+.workspace-title-wrap { display: flex; align-items: center; gap: var(--space-3); }
+.back-to-library-btn {
+  background: var(--surface); border: 1px solid var(--border); padding: 6px 14px;
+  border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  transition: all 0.2s; color: var(--text-primary);
+}
+.back-to-library-btn:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+
+.reading-split-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: start;
+}
+
+/* Left Pane: Text Reader */
+.text-reader-pane {
+  background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--border);
+  box-shadow: var(--shadow-md); padding: var(--space-6); position: sticky; top: 90px;
+  max-height: calc(100vh - 120px); display: flex; flex-direction: column; overflow: hidden;
+}
+.reader-toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: var(--space-4); border-bottom: 1px solid var(--border); margin-bottom: var(--space-4);
+  gap: var(--space-2); flex-wrap: wrap;
+}
+.tool-group { display: flex; align-items: center; gap: 6px; }
+.tool-btn {
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 4px 10px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.tool-btn:hover { background: var(--primary-light); color: var(--primary); }
+.tool-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+.reader-content-body {
+  overflow-y: auto; padding-right: var(--space-3); font-size: 1.05rem; line-height: 1.8;
+  color: var(--text-primary); font-family: 'Playfair Display', serif, Georgia;
+}
+.reader-content-body p { margin-bottom: var(--space-4); position: relative; text-indent: 1.5em; }
+.line-num {
+  position: absolute; left: -2.2em; font-family: var(--font-sans); font-size: 0.75rem;
+  color: var(--text-muted); user-select: none; font-weight: 600; opacity: 0.7;
+}
+
+/* Vocabulary tooltip span */
+.vocab-term {
+  background: rgba(99, 102, 241, 0.12); color: var(--primary); border-bottom: 2px dotted var(--primary);
+  padding: 0 4px; border-radius: 4px; cursor: pointer; transition: all 0.2s; font-weight: 600;
+}
+.vocab-term:hover { background: var(--primary); color: #fff; }
+
+/* Glossary Drawer Popover */
+.glossary-card {
+  margin-top: var(--space-4); padding: var(--space-4); background: var(--primary-light);
+  border-left: 4px solid var(--primary); border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  display: none; font-family: var(--font-sans); font-size: 0.875rem;
+}
+.glossary-card.show { display: block; animation: fadeIn 0.3s ease; }
+.glossary-word { font-weight: 700; color: var(--primary); font-size: 0.95rem; }
+
+/* Right Pane: Question Workspace */
+.question-pane {
+  background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--border);
+  box-shadow: var(--shadow-md); padding: var(--space-6); min-height: 500px;
+}
+.q-header-meta {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3); border-bottom: 1px solid var(--border);
+}
+.q-pills-nav { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-6); }
+.q-pill {
+  width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center; font-weight: 700;
+  font-size: 0.85rem; cursor: pointer; transition: all 0.2s; background: var(--surface-2);
+}
+.q-pill.active { border-color: var(--primary); background: var(--primary); color: #fff; }
+.q-pill.answered-correct { background: var(--success); border-color: var(--success); color: #fff; }
+.q-pill.answered-wrong { background: var(--error); border-color: var(--error); color: #fff; }
+
+.q-text-prompt { font-size: 1.1rem; font-weight: 700; margin-bottom: var(--space-5); line-height: 1.4; }
+.q-options-list { display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-6); }
+.q-option-btn {
+  background: var(--surface-2); border: 2px solid var(--border); border-radius: var(--radius-md);
+  padding: var(--space-4); text-align: left; cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: flex-start; gap: var(--space-3); font-size: 0.95rem;
+}
+.q-option-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+.q-option-btn.selected-correct { background: var(--success-bg); border-color: var(--success); color: var(--success); font-weight: 600; }
+.q-option-btn.selected-wrong { background: var(--error-bg); border-color: var(--error); color: var(--error); }
+.q-option-letter {
+  width: 24px; height: 24px; border-radius: 50%; border: 2px solid currentColor;
+  display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0;
+}
+
+.q-explanation-box {
+  background: var(--surface-2); border-radius: var(--radius-md); padding: var(--space-4);
+  border-left: 4px solid var(--primary); font-size: 0.88rem; line-height: 1.6; display: none;
+  margin-bottom: var(--space-5);
+}
+.q-explanation-box.show { display: block; }
+
+.q-nav-footer { display: flex; justify-content: space-between; align-items: center; }
+
+/* Score Summary Modal */
+.score-summary-card {
+  text-align: center; padding: var(--space-8); display: none;
+}
+.score-summary-card.show { display: block; }
+.score-trophy { font-size: 3.5rem; margin-bottom: var(--space-3); }
+
+@media(max-width: 900px){
+  .reading-split-grid { grid-template-columns: 1fr; }
+  .text-reader-pane { position: static; max-height: 450px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ════════════════ HERO ══════════════════════════════════ -->
+<section class="text-hero">
+  <div class="container text-hero-inner">
+    <div class="hero-label" style="background:rgba(255,255,255,0.15);color:#fff;margin-bottom:var(--space-4);">
+      <span>📖</span><span>Comprensione del Testo e Lettura Critica</span>
+    </div>
+    <h1 class="display-font">Impara a Analizzare i <em style="color:#a5f3fc;font-style:normal;">Testi</em> in Italiano</h1>
+    <p>Leggi brani di saggistica, letteratura, scienza e attualità selezionati per il TOLC-ITA-L2. Esercitati sulla comprensione immediata, vocaboli e quesiti d'esame.</p>
+
+    <div class="topic-pills" role="tablist" aria-label="Filtra brani per argomento">
+      <button class="topic-pill active" onclick="filterPassages('all')" id="tpill-all">🌍 Tutti i Brani</button>
+      <button class="topic-pill" onclick="filterPassages('storia')" id="tpill-storia">🏛️ Storia & Cultura</button>
+      <button class="topic-pill" onclick="filterPassages('scienza')" id="tpill-scienza">🧪 Scienza & Natura</button>
+      <button class="topic-pill" onclick="filterPassages('societa')" id="tpill-societa">💻 Società & Tecnologia</button>
+      <button class="topic-pill" onclick="filterPassages('letteratura')" id="tpill-letteratura">📚 Letteratura & Arte</button>
+    </div>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+
+    <!-- ════════════════ PASSAGES LIBRARY SELECTION ════════════════ -->
+    <div id="librarySection">
+      <div class="section-header" style="padding-top: var(--space-6);">
+        <div class="section-label">Biblioteca dei Brani</div>
+        <h2>Scegli un Testo da Analizzare</h2>
+        <p>Seleziona un brano per avviare la lettura guidata e la sessione di quesiti.</p>
+      </div>
+
+      <div class="passages-grid" id="passagesGrid"></div>
+    </div>
+
+    <!-- ════════════════ SPLIT WORKSPACE ════════════════ -->
+    <div class="workspace-container" id="workspaceContainer">
+
+      <div class="workspace-top-bar">
+        <div class="workspace-title-wrap">
+          <button class="back-to-library-btn" onclick="backToLibrary()">← Biblioteca Brani</button>
+          <h3 id="currentPassageTitle" style="font-weight:700;font-size:1.1rem;margin:0;">Titolo del Brano</h3>
+        </div>
+        <div style="display:flex;gap:var(--space-4);align-items:center;font-size:0.85rem;color:var(--text-muted);">
+          <span>⏱️ Tempo di lettura: <strong id="readingTimerDisplay">00:00</strong></span>
+          <span>⚡ WPM: <strong id="wpmDisplay">0</strong></span>
+        </div>
+      </div>
+
+      <div class="reading-split-grid">
+        
+        <!-- Left Pane: Text Reader -->
+        <div class="text-reader-pane">
+          <div class="reader-toolbar">
+            <div class="tool-group">
+              <span style="font-size:0.75rem;font-weight:700;color:var(--text-muted);">TESTO:</span>
+              <button class="tool-btn" onclick="changeFontSize(1)">A+</button>
+              <button class="tool-btn" onclick="changeFontSize(-1)">A-</button>
+            </div>
+            <div class="tool-group">
+              <button class="tool-btn" id="ttsPlayBtn" onclick="toggleTTS()">▶ Ascolta (Audio)</button>
+              <button class="tool-btn" id="lineNumsBtn" onclick="toggleLineNumbers()"># Righe</button>
+            </div>
+          </div>
+
+          <div class="reader-content-body" id="readerContentBody"></div>
+
+          <!-- Glossary tooltip popover box -->
+          <div class="glossary-card" id="glossaryCard">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span class="glossary-word" id="glossaryWord">Termine</span>
+              <span style="font-size:0.7rem;color:var(--text-muted);" id="glossaryLang">🇮🇹 Vocabolario</span>
+            </div>
+            <div id="glossaryDef" style="color:var(--text-secondary);">Definizione...</div>
+          </div>
+        </div>
+
+        <!-- Right Pane: Question Workspace -->
+        <div class="question-pane">
+          <div id="questionContentArea">
+            <div class="q-header-meta">
+              <span style="font-size:0.8rem;font-weight:800;color:var(--primary);" id="qCountBadge">Quesito 1 di 4</span>
+              <span class="passage-tag tag-b2" id="qDiffBadge">B2</span>
+            </div>
+
+            <div class="q-pills-nav" id="qPillsNav"></div>
+
+            <div class="q-text-prompt" id="qTextPrompt">Domanda di comprensione...</div>
+
+            <div class="q-options-list" id="qOptionsList"></div>
+
+            <div class="q-explanation-box" id="qExplanationBox"></div>
+
+            <div class="q-nav-footer">
+              <button class="btn btn-ghost btn-sm" onclick="prevQuestion()" id="prevQBtn">← Precedente</button>
+              <button class="btn btn-primary btn-sm" onclick="nextQuestion()" id="nextQBtn">Prossima →</button>
+            </div>
+          </div>
+
+          <!-- Score Summary Card -->
+          <div class="score-summary-card" id="scoreSummaryCard">
+            <div class="score-trophy">🏆</div>
+            <h3 style="font-size:1.4rem;margin-bottom:var(--space-2);">Analisi del Testo Completata!</h3>
+            <p style="color:var(--text-secondary);margin-bottom:var(--space-6);" id="scoreSummaryText"></p>
+            <div style="display:flex;gap:var(--space-3);justify-content:center;">
+              <button class="btn btn-primary" onclick="backToLibrary()">← Altri Brani</button>
+              <button class="btn btn-outline" onclick="restartPassageQuiz()">↩ Riprova Questo Testo</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════ JS LOGIC ════════════════ -->
+<script>
+/* ── Structured Dataset of Passages ─────────────────────────── */
+const PASSAGES = [
+  {
+    id: "dante_lingua",
+    title: "L'Evoluzione della Lingua Italiana: Da Dante all'Era Digitale",
+    topic: "storia",
+    level: "B2",
+    readTime: "3 min",
+    wordCount: 260,
+    excerpt: "La lingua italiana possiede una storia peculiare rispetto ad altri idiomi europei. Nata dalla straordinaria sintesi letteraria del trecento toscano, è rimasta per secoli una lingua prevalentemente scritta e colta...",
+    textHTML: `<p>La lingua italiana possiede una storia peculiare rispetto ad altri idiomi europei. Nata dalla straordinaria sintesi letteraria del Trecento toscano guidata da <span class="vocab-term" onclick="showGlossary('Dante Alighieri')">Dante Alighieri</span>, Francesco Petrarca e Giovanni Boccaccio, l'italiano è rimasto per secoli un idioma <span class="vocab-term" onclick="showGlossary('prevalentemente')">prevalentemente</span> scritto e colto, parlato soltanto da un'esigua minoranza della popolazione.</p>
+    <p>Mentre in Paesi come la Francia o l'Inghilterra l'unificazione linguistica è stata promossa precocemente dalla centralizzazione statale e dalla corte reale, in Italia la frammentazione politica ha favorito la sopravvivenza di una vivace varietà di <span class="vocab-term" onclick="showGlossary('dialetti')">dialetti</span> regionali. Soltanto con l'Unità d'Italia nel 1861 e, successivamente, con la diffusione dei mezzi di comunicazione di massa nel Novecento, la lingua italiana è diventata patrimonio condiviso di tutti i cittadini.</p>
+    <p>Oggi, nell'era della comunicazione digitale e dei social media, l'italiano affronta nuove sfide: la rapida assimilazione di <span class="vocab-term" onclick="showGlossary('anglicismi')">anglicismi</span> tecnologici e la semplificazione delle strutture sintattiche. Ciononostante, la ricchezza del suo patrimonio lessicale continua ad adattarsi con flessibilità alle esigenze contemporanee.</p>`,
+    glossary: {
+      "Dante Alighieri": "Sommo poeta fiorentino (1265-1321), padre della lingua italiana e autore della Divina Commedia.",
+      "prevalentemente": "Principalmente, nella maggior parte dei casi (en: predominantly).",
+      "dialetti": "Varietà linguistiche locali parlate in specifiche regioni geografiche.",
+      "anglicismi": "Parole o espressioni mutuate dalla lingua inglese nella lingua italiana."
+    },
+    questions: [
+      {
+        prompt: "Quale caratteristica distingue la storia dell'italiano rispetto ad altre lingue europee?",
+        options: [
+          "È stata imposta subito da un re centrale nell'antichità",
+          "È rimasta a lungo una lingua scritta coltivata principalmente da dotti e letterati",
+          "È derivata direttamente dall'inglese medievale",
+          "Non ha mai avuto dialetti regionali"
+        ],
+        correct: 1,
+        explanation: "Nel testo (paragrafo 1) si evidenzia che l'italiano è rimasto per secoli un idioma prevalentemente scritto e colto, diversamente da nazioni centralizzate."
+      },
+      {
+        prompt: "Quali eventi storico-sociali hanno favorito la diffusione dell'italiano parlato tra tutti i cittadini?",
+        options: [
+          "L'Unità d'Italia nel 1861 e i mass media del Novecento",
+          "La caduta dell'Impero Romano",
+          "L'invenzione dei social network nel Trecento",
+          "La scomparsa completa dei termini inglesi"
+        ],
+        correct: 0,
+        explanation: "Il secondo paragrafo cita esplicitamente l'Unità d'Italia nel 1861 e i mezzi di comunicazione di massa del Novecento."
+      },
+      {
+        prompt: "Nel terzo paragrafo, cosa si intende per 'assimilazione di anglicismi'?",
+        options: [
+          "La traduzione di libri italiani in inglese",
+          "L'adozione di termini inglesi nel vocabolario quotidiano e tecnologico italiano",
+          "L'obbligo di parlare inglese nelle scuole italiane",
+          "La cancellazione della grammatica latina"
+        ],
+        correct: 1,
+        explanation: "Gli anglicismi sono prestiti linguistici dalla lingua inglese (es. computer, link, e-mail)."
+      }
+    ]
+  },
+  {
+    id: "biodiversita_italia",
+    title: "La Transizione Ecologica e la Biodiversità in Italia",
+    topic: "scienza",
+    level: "B2",
+    readTime: "4 min",
+    wordCount: 290,
+    excerpt: "L'Italia è considerata uno dei punti caldi di biodiversità più ricchi dell'intero bacino mediterraneo. La sua straordinaria variabilità geografica, dalle alpi alle coste marittime...",
+    textHTML: `<p>L'Italia è riconosciuta dalla comunità scientifica internazionale come un vero e proprio <span class="vocab-term" onclick="showGlossary('hotspot')">hotspot</span> di biodiversità. La sua straordinaria conformazione geografica — che si estende dalle vette alpine fino al cuore del bacino mediterraneo — offre un mosaico unico di microclimi e <span class="vocab-term" onclick="showGlossary('habitat')">habitat</span> naturali.</p>
+    <p>In Italia vivono oltre un terzo della fauna europea e la metà della flora continentale. Tuttavia, la pressione antropica, l'urbanizzazione incontrollata e l'innalzamento delle temperature medie globali minacciano la sopravvivenza di numerose specie <span class="vocab-term" onclick="showGlossary('emiche')">endemiche</span>. La perdita di habitat e l'ingresso di specie alieni invasive rappresentano sfide ecologiche urgenti.</p>
+    <p>Per contrastare questo degrado, il piano di transizione ecologica promuove la creazione di <span class="vocab-term" onclick="showGlossary('corridoi ecologici')">corridoi ecologici</span> protetti, il rimboschimento urbano e l'agricoltura sostenibile. Preservare il capitale naturale non è soltanto un dovere etico, ma una condizione indispensabile per la resilienza economica del Paese.</p>`,
+    glossary: {
+      "hotspot": "Area geografica ricchissima di biodiversità ma minacciata dall'attività umana.",
+      "habitat": "Ambiente naturale in cui vive e si sviluppa una determinata specie animale o vegetale.",
+      "emiche": "Specie che vivono esclusivamente in un determinato territorio geografico limitato.",
+      "corridoi ecologici": "Zone di collegamento tra aree naturali protette per permettere lo spostamento della fauna."
+    },
+    questions: [
+      {
+        prompt: "Perché l'Italia presenta una biodiversità particolarmente ricca?",
+        options: [
+          "Perché è il Paese più esteso al mondo",
+          "Grazie alla sua conformazione geografica e alla varietà di microclimi dall'Alpi al Mediterraneo",
+          "Perché non vi sono città o industrie nel territorio",
+          "Perché le temperature sono sempre fredde"
+        ],
+        correct: 1,
+        explanation: "Il primo paragrafo sottolinea come la variabilità geografica (dalle Alpi al Mediterraneo) crei microclimi favorevoli."
+      },
+      {
+        prompt: "Quale tra le seguenti NON è citata come minaccia per la fauna e flora italiane?",
+        options: [
+          "Pressione antropica e urbanizzazione",
+          "Cambiamento climatico e aumento delle temperature",
+          "L'introduzione di specie aliene invasive",
+          "L'assenza totale di leggi ambientali nel Trecento"
+        ],
+        correct: 3,
+        explanation: "L'assenza di leggi nel Trecento non è menzionata tra le minacce attuali descritte nel secondo paragrafo."
+      },
+      {
+        prompt: "Qual è lo scopo principale dei 'corridoi ecologici' citati nel testo?",
+        options: [
+          "Costruire autostrade veloci per automobili elettriche",
+          "Collegare le aree naturali protette consentendo la circolazione delle specie selvatiche",
+          "Separare le città dai mari",
+          "Creare nuovi centri commerciali"
+        ],
+        correct: 1,
+        explanation: "I corridoi ecologici consentono agli animali di spostarsi tra riserve naturali senza rimanere isolati."
+      }
+    ]
+  },
+  {
+    id: "rinascimento_firenze",
+    title: "Il Rinascimento Fiorentino e la Riscoperta dell'Uomo",
+    topic: "letteratura",
+    level: "B1",
+    readTime: "3 min",
+    wordCount: 230,
+    excerpt: "Tra il Quattrocento e il Cinquecento, la città di Firenze divenne la culla di un movimento culturale ed artistico destinato a rivoluzionare la storia dell'umanità: l'Umanesimo e il Rinascimento...",
+    textHTML: `<p>Tra il Quattrocento e il Cinquecento, la città di Firenze si trasformò nel centro pulsante dell'<span class="vocab-term" onclick="showGlossary('Umanesimo')">Umanesimo</span> e del Rinascimento. Questa straordinaria stagione culturale pose al centro dell'universo la figura dell'uomo, inteso come artefice del proprio destino, in contrasto con la visione Teocentrica medievale.</p>
+    <p>Grandi maestri come Leonardo da Vinci, Michelangelo Buonarroti e Filippo Brunelleschi ripresero i canoni estetici dell'antichità classica greco-romana, unendoli al rigore scientifico della prospettiva e dello studio dell'anatomia.</p>
+    <p>Il mecenatismo della famiglia de' <span class="vocab-term" onclick="showGlossary('Medici')">Medici</span> garantì risorse finanziarie ed un clima di libertà intellettuale che attrasse filosofi, artisti e scienziati da tutta Europa.</p>`,
+    glossary: {
+      "Umanesimo": "Movimento culturale che riscopre i classici e valorizza la dignità e le capacità dell'uomo.",
+      "Medici": "Celebre dinastia di banchieri e signori di Firenze, grandi mecenati d'arte nel Rinascimento."
+    },
+    questions: [
+      {
+        prompt: "Cosa caratterizza il passaggio dal Medioevo al Rinascimento secondo il testo?",
+        options: [
+          "Il rifiuto completo di ogni forma d'arte",
+          "La centralità dell'uomo capace di forgiare il proprio destino al posto della visione teocentrica",
+          "La chiusura delle botteghe artistiche",
+          "La scomparsa della pittura a olio"
+        ],
+        correct: 1,
+        explanation: "Nel primo paragrafo si afferma che l'Umanesimo pone l'uomo al centro dell'universo (antropocentrismo)."
+      },
+      {
+        prompt: "Quale ruolo svolse la famiglia de' Medici a Firenze?",
+        options: [
+          "Guidò l'esercito contro l'antichità classica",
+          "Finanziò gli artisti e garantì un clima di libertà intellettuale grazie al mecenatismo",
+          "Proibì la scultura e la prospettiva",
+          "Costruì soltanto navi commerciali"
+        ],
+        correct: 1,
+        explanation: "Il mecenatismo dei Medici finanziò le opere d'arte e attrasse i più grandi geni dell'epoca."
+      }
+    ]
+  },
+  {
+    id: "ia_universita",
+    title: "L'Impatto dell'Intelligenza Artificiale sullo Studio Universitario",
+    topic: "societa",
+    level: "C1",
+    readTime: "4 min",
+    wordCount: 280,
+    excerpt: "L'avvento dei modelli linguistici di intelligenza artificiale generativa sta ridefinendo in profondità le metodologie didattiche e l'apprendimento nel contesto universitario...",
+    textHTML: `<p>L'avvento dei modelli di intelligenza artificiale generativa sta <span class="vocab-term" onclick="showGlossary('ridefinendo')">ridefinendo</span> in profondità le metodologie pedagogiche e le modalità di fruizione della conoscenza nel contesto accademico. Da un lato, questi strumenti offrono un supporto personalizzato straordinario, fungendo da tutor virtuali capaci di chiarire concetti complessi in tempo reale.</p>
+    <p>Dall'altro lato, la comunità accademica solleva legittimi interrogativi di natura <span class="vocab-term" onclick="showGlossary('deontologica')">deontologica</span> relativi all'integrità della valutazione e allo sviluppo del pensiero critico autonomo. Il rischio che gli studenti deleghino la fase di rielaborazione analitica agli algoritmi impone un ripensamento delle modalità d'esame tradizionale.</p>
+    <p>La sfida per gli atenei del futuro non risiede nel proibire l'IA, bensì nell'integrarla consapevolmente nei curricula, educando gli studenti ad un'alfabetizzazione digitale etica e critica.</p>`,
+    glossary: {
+      "ridefinendo": "Riformulando, trasformando da cima a fondo (en: redefining).",
+      "deontologica": "Relativa ai doveri morali ed etici nell'esercizio di una professione o attività accademica."
+    },
+    questions: [
+      {
+        prompt: "Qual è il duplice aspetto dell'IA nell'ambito universitario descritto nel testo?",
+        options: [
+          "È utile solo per la grafica ma inutile per i testi",
+          "Fornisce un tutoraggio personalizzato, ma pone dubbi sull'integrità e sul pensiero critico autonomo",
+          "Ha sostituito completamente tutti i professori umani",
+          "È usata solo negli esami di educazione fisica"
+        ],
+        correct: 1,
+        explanation: "Il testo contrappone i benefici del tutoraggio virtuale ai rischi etici e alla potenziale perdita di pensiero critico."
+      },
+      {
+        prompt: "Qual è la soluzione auspicata dal testo per le università del futuro?",
+        options: [
+          "Bannare e proibire del tutto i computer negli atenei",
+          "Integrare l'IA nei percorsi formativi promuovendo un uso etico e critico",
+          "Eliminare gli esami e i diplomi di laurea",
+          "Usare l'IA solo per accendere i condizionatori nelle aule"
+        ],
+        correct: 1,
+        explanation: "L'ultimo paragrafo invita a non proibire ma a educare all'uso consapevole ed etico della tecnologia."
+      }
+    ]
+  }
+];
+
+/* ── State variables ────────────────────────────────────────── */
+const DONE_TEXTS_KEY = 'tolc_done_texts_v1';
+let doneTexts  = JSON.parse(localStorage.getItem(DONE_TEXTS_KEY) || '{}');
+let activePassage = null;
+let currentQIdx = 0;
+let userAnswers = []; // [{qIdx, selected, correct}]
+let timerInterval = null;
+let timerSeconds = 0;
+let fontSizePx = 17;
+let lineNumsVisible = false;
+let isTTSPlaying = false;
+let currentSpeechUtterance = null;
+
+/* ── Init & Render Passages Grid ────────────────────────────── */
+function renderLibrary(topicFilter = 'all'){
+  const grid = document.getElementById('passagesGrid');
+  grid.innerHTML = '';
+
+  const list = topicFilter === 'all'
+    ? PASSAGES
+    : PASSAGES.filter(p => p.topic === topicFilter);
+
+  list.forEach(p => {
+    const isDone = !!doneTexts[p.id];
+    const card = document.createElement('div');
+    card.className = 'passage-card';
+    card.onclick = () => openWorkspace(p.id);
+
+    const levelClass = {A2:'tag-a2', B1:'tag-b1', B2:'tag-b2', C1:'tag-c1'}[p.level] || 'tag-b2';
+
+    card.innerHTML = `
+      <div>
+        <div class="passage-card-header">
+          <span class="passage-tag ${levelClass}">Livello ${p.level}</span>
+          ${isDone ? '<span style="color:var(--success);font-weight:700;font-size:0.8rem;">✓ Completato</span>' : ''}
+        </div>
+        <div class="passage-card-title">${p.title}</div>
+        <div class="passage-card-excerpt">${p.excerpt}</div>
+      </div>
+      <div class="passage-card-meta">
+        <span>⏱️ ${p.readTime}</span>
+        <span>📝 ${p.questions.length} Quesiti</span>
+        <span>💬 ${p.wordCount} Parole</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterPassages(topic){
+  document.querySelectorAll('.topic-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.id === 'tpill-' + topic);
+  });
+  renderLibrary(topic);
+}
+
+/* ── Open Workspace ─────────────────────────────────────────── */
+function openWorkspace(passageId){
+  activePassage = PASSAGES.find(p => p.id === passageId);
+  if(!activePassage) return;
+
+  currentQIdx = 0;
+  userAnswers = new Array(activePassage.questions.length).fill(null);
+
+  document.getElementById('librarySection').style.display = 'none';
+  const ws = document.getElementById('workspaceContainer');
+  ws.classList.add('active');
+  document.getElementById('scoreSummaryCard').classList.remove('show');
+  document.getElementById('questionContentArea').style.display = 'block';
+
+  document.getElementById('currentPassageTitle').textContent = activePassage.title;
+  document.getElementById('readerContentBody').innerHTML = activePassage.textHTML;
+  document.getElementById('glossaryCard').classList.remove('show');
+
+  startTimer();
+  renderQuestionPills();
+  loadQuestion(0);
+}
+
+function backToLibrary(){
+  stopTimer();
+  stopTTS();
+  document.getElementById('workspaceContainer').classList.remove('active');
+  document.getElementById('librarySection').style.display = 'block';
+  renderLibrary('all');
+}
+
+/* ── Reading Timer & WPM Tracker ───────────────────────────── */
+function startTimer(){
+  stopTimer();
+  timerSeconds = 0;
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+    const secs = String(timerSeconds % 60).padStart(2, '0');
+    document.getElementById('readingTimerDisplay').textContent = `${mins}:${secs}`;
+
+    // WPM calculation
+    if(activePassage && timerSeconds > 0){
+      const wpm = Math.round((activePassage.wordCount / timerSeconds) * 60);
+      document.getElementById('wpmDisplay').textContent = wpm;
+    }
+  }, 1000);
+}
+
+function stopTimer(){
+  if(timerInterval) clearInterval(timerInterval);
+}
+
+/* ── Text Reader Controls ───────────────────────────────────── */
+function changeFontSize(delta){
+  fontSizePx = Math.min(24, Math.max(13, fontSizePx + delta * 2));
+  document.getElementById('readerContentBody').style.fontSize = fontSizePx + 'px';
+}
+
+function toggleLineNumbers(){
+  lineNumsVisible = !lineNumsVisible;
+  const btn = document.getElementById('lineNumsBtn');
+  btn.classList.toggle('active', lineNumsVisible);
+
+  const ps = document.querySelectorAll('#readerContentBody p');
+  ps.forEach((p, idx) => {
+    let existing = p.querySelector('.line-num');
+    if(lineNumsVisible && !existing){
+      const numSpan = document.createElement('span');
+      numSpan.className = 'line-num';
+      numSpan.textContent = `R.${(idx + 1) * 5}`;
+      p.prepend(numSpan);
+    } else if(!lineNumsVisible && existing){
+      existing.remove();
+    }
+  });
+}
+
+function showGlossary(term){
+  if(!activePassage || !activePassage.glossary) return;
+  const def = activePassage.glossary[term] || "Definizione non disponibile nel glossario.";
+  document.getElementById('glossaryWord').textContent = term;
+  document.getElementById('glossaryDef').textContent  = def;
+  document.getElementById('glossaryCard').classList.add('show');
+}
+
+/* ── Text to Speech Audio Player ────────────────────────────── */
+function toggleTTS(){
+  if(!('speechSynthesis' in window)){
+    alert("L'audio-lettura non è supportata da questo browser.");
+    return;
+  }
+
+  const btn = document.getElementById('ttsPlayBtn');
+  if(isTTSPlaying){
+    stopTTS();
+    btn.textContent = "▶ Ascolta (Audio)";
+    btn.classList.remove('active');
+  } else {
+    const rawText = document.getElementById('readerContentBody').innerText;
+    currentSpeechUtterance = new SpeechSynthesisUtterance(rawText);
+    currentSpeechUtterance.lang = 'it-IT';
+    currentSpeechUtterance.rate = 0.95;
+
+    currentSpeechUtterance.onend = () => {
+      isTTSPlaying = false;
+      btn.textContent = "▶ Ascolta (Audio)";
+      btn.classList.remove('active');
+    };
+
+    window.speechSynthesis.speak(currentSpeechUtterance);
+    isTTSPlaying = true;
+    btn.textContent = "⏸️ Pausa Audio";
+    btn.classList.add('active');
+  }
+}
+
+function stopTTS(){
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+  }
+  isTTSPlaying = false;
+  const btn = document.getElementById('ttsPlayBtn');
+  if(btn){
+    btn.textContent = "▶ Ascolta (Audio)";
+    btn.classList.remove('active');
+  }
+}
+
+/* ── Question Workspace Logic ───────────────────────────────── */
+function renderQuestionPills(){
+  const nav = document.getElementById('qPillsNav');
+  nav.innerHTML = '';
+  activePassage.questions.forEach((_, idx) => {
+    const pill = document.createElement('div');
+    pill.className = 'q-pill' + (idx === currentQIdx ? ' active' : '');
+    pill.id = `qpill-${idx}`;
+    pill.textContent = idx + 1;
+    pill.onclick = () => loadQuestion(idx);
+    nav.appendChild(pill);
+  });
+}
+
+function loadQuestion(idx){
+  currentQIdx = idx;
+  const q = activePassage.questions[idx];
+
+  document.getElementById('qCountBadge').textContent = `Quesito ${idx + 1} di ${activePassage.questions.length}`;
+  document.getElementById('qDiffBadge').textContent = activePassage.level;
+  document.getElementById('qTextPrompt').textContent = q.prompt;
+
+  // Update pills active state
+  activePassage.questions.forEach((_, i) => {
+    const p = document.getElementById(`qpill-${i}`);
+    if(p){
+      p.classList.toggle('active', i === currentQIdx);
+    }
+  });
+
+  // Render options
+  const list = document.getElementById('qOptionsList');
+  list.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const ans = userAnswers[idx];
+
+  q.options.forEach((opt, oIdx) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-option-btn';
+
+    if(ans !== null){
+      btn.disabled = true;
+      if(oIdx === q.correct){
+        btn.classList.add('selected-correct');
+      } else if(oIdx === ans.selected && !ans.isCorrect){
+        btn.classList.add('selected-wrong');
+      }
+    }
+
+    btn.innerHTML = `<span class="q-option-letter">${letters[oIdx]}</span><span>${opt}</span>`;
+    btn.onclick = () => selectOption(oIdx);
+    list.appendChild(btn);
+  });
+
+  // Explanation box
+  const expBox = document.getElementById('qExplanationBox');
+  if(ans !== null){
+    expBox.innerHTML = `<strong>💡 Spiegazione:</strong> ${q.explanation}`;
+    expBox.classList.add('show');
+  } else {
+    expBox.classList.remove('show');
+  }
+
+  // Prev / Next buttons
+  document.getElementById('prevQBtn').disabled = (idx === 0);
+  const nextBtn = document.getElementById('nextQBtn');
+  nextBtn.textContent = (idx === activePassage.questions.length - 1) ? "Vedi Risultati 🎉" : "Prossima →";
+}
+
+function selectOption(oIdx){
+  const q = activePassage.questions[currentQIdx];
+  const isCorrect = (oIdx === q.correct);
+
+  userAnswers[currentQIdx] = { selected: oIdx, isCorrect: isCorrect };
+
+  // Update pill status
+  const pill = document.getElementById(`qpill-${currentQIdx}`);
+  if(pill){
+    pill.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  }
+
+  loadQuestion(currentQIdx);
+}
+
+function prevQuestion(){
+  if(currentQIdx > 0) loadQuestion(currentQIdx - 1);
+}
+
+function nextQuestion(){
+  if(currentQIdx < activePassage.questions.length - 1){
+    loadQuestion(currentQIdx + 1);
+  } else {
+    showScoreSummary();
+  }
+}
+
+/* ── Score Summary & Saving ─────────────────────────────────── */
+function showScoreSummary(){
+  stopTimer();
+  stopTTS();
+
+  const total = activePassage.questions.length;
+  const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+  const scorePct = Math.round((correctCount / total) * 100);
+
+  doneTexts[activePassage.id] = true;
+  localStorage.setItem(DONE_TEXTS_KEY, JSON.stringify(doneTexts));
+
+  document.getElementById('questionContentArea').style.display = 'none';
+  const summaryCard = document.getElementById('scoreSummaryCard');
+  summaryCard.classList.add('show');
+
+  document.getElementById('scoreSummaryText').innerHTML =
+    `Hai risposto correttamente a <strong>${correctCount} su ${total}</strong> quesiti (${scorePct}%).<br>Tempo totale di analisi: <strong>${document.getElementById('readingTimerDisplay').textContent}</strong>.`;
+
+  // Post test result to backend API
+  fetch('/api/submit-result', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      category: 'reading',
+      difficulty: activePassage.level,
+      total_questions: total,
+      correct_answers: correctCount,
+      score_percent: scorePct,
+      question_log: userAnswers.map((a, i) => ({ id: i+100, was_correct: a ? a.isCorrect : false }))
+    })
+  }).catch(e => console.log('Result save note:', e));
+}
+
+function restartPassageQuiz(){
+  openWorkspace(activePassage.id);
+}
+
+/* ── DOM Ready Init ─────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderLibrary('all');
+});
+</script>
+{% endblock %}

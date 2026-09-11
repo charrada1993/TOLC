@@ -281,6 +281,7 @@
       <button class="level-pill" onclick="filterLevel('A2')" id="tab-A2">🟨 A2 — Elementare</button>
       <button class="level-pill" onclick="filterLevel('B1')" id="tab-B1">🟧 B1 — Intermedio</button>
       <button class="level-pill" onclick="filterLevel('B2')" id="tab-B2">🟥 B2 — Avanzato</button>
+      <button class="level-pill" onclick="filterLevel('C1')" id="tab-C1">🟪 C1 — Esperto</button>
     </div>
   </div>
 </section>
@@ -309,7 +310,7 @@
         <strong id="builderTarget" style="font-size:1rem;color:var(--text-primary);"></strong>
       </div>
       <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:var(--space-2);">
-        Esercizio <span id="builderIdxLabel">1</span> / 6
+        Esercizio <span id="builderIdxLabel">1</span> / <span id="builderTotalLabel">12</span>
       </div>
 
       <div class="word-bank" id="wordBank" aria-label="Banco delle parole" role="group"></div>
@@ -337,12 +338,14 @@
       </div>
 
       <div class="vocab-tabs" role="tablist" aria-label="Categorie vocabolario">
-        <button class="vocab-tab active" onclick="showVocabCat('saluti')"    id="vtab-saluti"    >👋 Saluti</button>
-        <button class="vocab-tab"        onclick="showVocabCat('numeri')"    id="vtab-numeri"    >🔢 Numeri</button>
-        <button class="vocab-tab"        onclick="showVocabCat('negozio')"   id="vtab-negozio"   >🛍️ Negozio</button>
+        <button class="vocab-tab active" onclick="showVocabCat('saluti')"     id="vtab-saluti"    >👋 Saluti</button>
+        <button class="vocab-tab"        onclick="showVocabCat('numeri')"     id="vtab-numeri"    >🔢 Numeri</button>
+        <button class="vocab-tab"        onclick="showVocabCat('negozio')"    id="vtab-negozio"   >🛍️ Negozio</button>
         <button class="vocab-tab"        onclick="showVocabCat('ristorante')" id="vtab-ristorante">🍕 Ristorante</button>
-        <button class="vocab-tab"        onclick="showVocabCat('direzioni')" id="vtab-direzioni" >🗺️ Direzioni</button>
-        <button class="vocab-tab"        onclick="showVocabCat('lavoro')"    id="vtab-lavoro"    >💼 Lavoro</button>
+        <button class="vocab-tab"        onclick="showVocabCat('direzioni')"  id="vtab-direzioni" >🗺️ Direzioni</button>
+        <button class="vocab-tab"        onclick="showVocabCat('lavoro')"     id="vtab-lavoro"    >💼 Lavoro</button>
+        <button class="vocab-tab"        onclick="showVocabCat('universita')" id="vtab-universita">🎓 Università</button>
+        <button class="vocab-tab"        onclick="showVocabCat('burocrazia')" id="vtab-burocrazia">📜 Burocrazia</button>
       </div>
       <div class="flashcard-grid" id="flashcardGrid"></div>
     </div>
@@ -665,6 +668,278 @@ const SCENARIOS = [
       ]},
     ]
   },
+  {
+    id:'stazione', level:'A1', emoji:'🚆',
+    title:'Alla Stazione dei Treni',
+    desc:'Acquista un biglietto del treno per Roma o Milano e chiedi da quale binario parte.',
+    from:'#e0f2fe', to:'#f0f9ff',
+    minutes:4, phrases:8,
+    speaker:{name:'Bigliettaio', avatar:'👨‍✈️'},
+    vocab:[
+      {it:'Un biglietto per…', fr:'Un billet pour…'},
+      {it:'Solo andata / Andata e ritorno', fr:'Aller simple / Aller-retour'},
+      {it:'Da quale binario parte?', fr:'De quel quai part-il?'},
+      {it:'In ritardo', fr:'En retard'},
+    ],
+    steps:[
+      {side:'them', text:'Buongiorno! Desidera un biglietto?', trans:'Good morning! Would you like a ticket?'},
+      {side:'me', prompt:'Chiedi un biglietto:', choices:[
+        {text:'Vorrei un biglietto di andata e ritorno per Milano, per favore.', correct:true, tip:'✓ "Andata e ritorno" = round trip ticket — formula impeccabile'},
+        {text:'Voglio andare a casa mia.', correct:false, tip:'❌ Troppo generico per lo sportello della stazione'},
+        {text:'Dove mangio la pizza?', correct:false, tip:'❌ Sei allo sportello dei biglietti del treno'},
+      ]},
+      {side:'them', text:'Prima o seconda classe? Il treno parte alle 14:30.', trans:'First or second class? The train leaves at 2:30 PM.'},
+      {side:'me', prompt:'Scegli la classe:', choices:[
+        {text:'Seconda classe, grazie. Da quale binario parte?', correct:true, tip:'✓ Rispondi alla classe e chiedi il binario ("platform")'},
+        {text:'Preferisco andare in aereo.', correct:false, tip:'❌ Ma sei in stazione ferroviaria!'},
+        {text:'Non voglio pagare.', correct:false, tip:'❌ Devi acquistare il biglietto!'},
+      ]},
+      {side:'them', text:'Parte dal binario 4. Ricordi di convalidare il biglietto prima di salire!', trans:'It leaves from platform 4. Remember to validate your ticket before boarding!'},
+      {side:'me', prompt:'Ringrazia e chiedi conferma:', choices:[
+        {text:'Molte grazie per l\'informazione! Buona giornata.', correct:true, tip:'✓ "Molte grazie" + "Buona giornata" = massima cortesia'},
+        {text:'Non ho il biglietto.', correct:false, tip:'❌ Ma l\'hai appena acquistato!'},
+        {text:'Cos\'è un binario?', correct:false, tip:'❌ Meglio seguire le istruzioni del bigliettaio'},
+      ]},
+    ]
+  },
+  {
+    id:'universita', level:'A2', emoji:'🎓',
+    title:'Iscrizione all\'Università',
+    desc:'Informati presso la Segreteria Studenti su corsi, documenti e tasse universitarie.',
+    from:'#e0f7fa', to:'#e1f5fe',
+    minutes:5, phrases:9,
+    speaker:{name:'Dott.ssa Moretti (Segreteria)', avatar:'👩‍💼'},
+    vocab:[
+      {it:'Segreteria studenti', fr:'Secrétariat des étudiants'},
+      {it:'Piano di studi', fr:'Plan d\'études'},
+      {it:'Immatricolazione', fr:'Inscription universitaria'},
+      {it:'Tasse universitarie', fr:'Frais de scolarité'},
+    ],
+    steps:[
+      {side:'them', text:'Salve! Benvenuto in Segreteria Studenti. Come posso aiutarla?', trans:'Hello! Welcome to the Student Secretariat. How can I help you?'},
+      {side:'me', prompt:'Spiega perché sei lì:', choices:[
+        {text:'Buongiorno! Vorrei informazioni sull\'immatricolazione al corso di laurea in Economia.', correct:true, tip:'✓ "Immatricolazione" = university enrollment — perfetto per l\'università'},
+        {text:'Cerco un tavolo libero per pranzare.', correct:false, tip:'❌ La segreteria non è la mensa universitaria!'},
+        {text:'Quanto costa un caffè qui?', correct:false, tip:'❌ Non sei al bar del campus!'},
+      ]},
+      {side:'them', text:'Ha già sostenuto la prova d\'ingresso TOLC-ITA?', trans:'Have you already taken the TOLC-ITA entrance test?'},
+      {side:'me', prompt:'Rispondi sul test:', choices:[
+        {text:'Sì, l\'ho sostenuta la settimana scorsa e ho superato il punteggio minimo.', correct:true, tip:'✓ Risposta chiara e positiva riguardo al TOLC'},
+        {text:'Non so cosa sia l\'università.', correct:false, tip:'❌ Sei al punto di informazione universitaria!'},
+        {text:'No, non mi piace studiare.', correct:false, tip:'❌ Risposta inappropriata in segreteria'},
+      ]},
+      {side:'them', text:'Perfetto! Deve caricare il suo diploma e la ricevuta del pagamento delle tasse sul portale.', trans:'Perfect! You need to upload your diploma and fee receipt on the portal.'},
+      {side:'me', prompt:'Chiedi la scadenza:', choices:[
+        {text:'Capito. Qual è la scadenza ultima per completare la procedura?', correct:true, tip:'✓ "Scadenza ultima" = final deadline — fondamentale in ambito universitario'},
+        {text:'Posso farlo tra tre anni?', correct:false, tip:'❌ Troppo tardi per l\'anno accademico in corso!'},
+        {text:'Non uso il computer.', correct:false, tip:'❌ Le procedure universitarie sono ormai online'},
+      ]},
+    ]
+  },
+  {
+    id:'museo', level:'A2', emoji:'🏛️',
+    title:'Visita al Museo d\'Arte',
+    desc:'Acquista biglietti per una mostra d\'arte e chiedi informazioni sull\'audioguida.',
+    from:'#fff3e0', to:'#fff8e1',
+    minutes:4, phrases:8,
+    speaker:{name:'Guida del Museo', avatar:'🧔‍♂️'},
+    vocab:[
+      {it:'Biglietto ridotto (studenti)', fr:'Billet tarif réduit (étudiants)'},
+      {it:'Mostra temporanea', fr:'Exposition temporaire'},
+      {it:'Audioguida in italiano', fr:'Audioguide en italien'},
+      {it:'Vietato scattare foto', fr:'Photos interdites'},
+    ],
+    steps:[
+      {side:'them', text:'Benvenuto alla Galleria degli Uffizi! Biglietto intero o ridotto?', trans:'Welcome to the Uffizi Gallery! Full price or reduced ticket?'},
+      {side:'me', prompt:'Richiedi il biglietto:', choices:[
+        {text:'Un biglietto ridotto studenti, per favore. Ecco il mio tesserino universitario.', correct:true, tip:'✓ "Ridotto studenti" + mostra tesserino = sconto valido!'},
+        {text:'Voglio entrare gratis senza pagare.', correct:false, tip:'❌ Il biglietto è obbligatorio!'},
+        {text:'Dov\'è la stazione?', correct:false, tip:'❌ Sei all\'ingresso del museo'},
+      ]},
+      {side:'them', text:'Ecco il biglietto. Desidera anche l\'audioguida in italiano?', trans:'Here is your ticket. Would you like the audio guide in Italian?'},
+      {side:'me', prompt:'Rispondi sull\'audioguida:', choices:[
+        {text:'Sì, grazie! È inclusa nel prezzo o c\'è un supplemento?', correct:true, tip:'✓ Chiedere se c\'è un "supplemento" (extra fee) dimostra ottima padronanza'},
+        {text:'Non mi piace ascoltare niente.', correct:false, tip:'❌ Un po\' brusco come rifiuto'},
+        {text:'Posso comprare un quadro?', correct:false, tip:'❌ Le opere del museo non sono in vendita!'},
+      ]},
+      {side:'them', text:'Costa 3 euro in più. Le ricordo che nelle sale principali è vietato l\'uso del flash.', trans:'It costs 3 euros extra. Remember that flash photography is prohibited.'},
+      {side:'me', prompt:'Conferma e ringrazia:', choices:[
+        {text:'D\'accordo, farò attenzione. La ringrazio per la spiegazione!', correct:true, tip:'✓ "Farò attenzione" = I\'ll be careful — molto educato'},
+        {text:'Scatterò foto con il flash lo stesso.', correct:false, tip:'❌ È vietato dal regolamento del museo!'},
+        {text:'Dove posso comprare una pizza nel museo?', correct:false, tip:'❌ Fuori tema nell\'area espositiva'},
+      ]},
+    ]
+  },
+  {
+    id:'casa_affitto', level:'B1', emoji:'🏠',
+    title:'Cercare una Stanza in Affitto',
+    desc:'Contatta un proprietario per una stanza in appartamento condiviso con altri studenti.',
+    from:'#f1f8e9', to:'#f9fbe7',
+    minutes:5, phrases:10,
+    speaker:{name:'Signor Rinaldi (Proprietario)', avatar:'👨‍💼'},
+    vocab:[
+      {it:'Stanza singola / doppia', fr:'Chambre individuelle / double'},
+      {it:'Spese condominiali incluse', fr:'Charges de copropriété incluses'},
+      {it:'Contratto di locazione', fr:'Contrat de location'},
+      {it:'Caparra confirmatoria', fr:'Caution / Dépôt de garantie'},
+    ],
+    steps:[
+      {side:'them', text:'Pronto! Chiama per l\'annuncio della stanza in Via Garibaldi?', trans:'Hello! Are you calling about the room listing on Via Garibaldi?'},
+      {side:'me', prompt:'Rispondi all\'annuncio:', choices:[
+        {text:'Sì, buongiorno! Sono uno studente universitario e volevo sapere se la stanza singola è ancora disponibile.', correct:true, tip:'✓ Presentazione completa e cortese: chi sei + cosa cerchi'},
+        {text:'Voglio la casa subito senza vederla.', correct:false, tip:'❌ È sempre necessario visitare l\'immobile prima'},
+        {text:'Quanto dista da Parigi?', correct:false, tip:'❌ La casa è in Italia!'},
+      ]},
+      {side:'them', text:'Sì, è disponibile da mese prossimo. L\'affitto è di 350 euro al mese, spese escluse.', trans:'Yes, it\'s available next month. Rent is €350/month excluding utilities.'},
+      {side:'me', prompt:'Chiedi dettagli sulle spese:', choices:[
+        {text:'A quanto ammontano mediamente le spese di riscaldamento e internet?', correct:true, tip:'✓ "A quanto ammontano mediamente" = how much do they average — domanda da B1+'},
+        {text:'Non voglio pagare le bollette.', correct:false, tip:'❌ Le utenze vanno sempre saldate'},
+        {text:'Mi regali la stanza?', correct:false, tip:'❌ Non professionale'},
+      ]},
+      {side:'them', text:'Circa 50 euro al mese. Se vuole, possiamo fissare un appuntamento per una visita domani.', trans:'About €50 per month. If you like, we can arrange a viewing tomorrow.'},
+      {side:'me', prompt:'Fissa l\'appuntamento:', choices:[
+        {text:'Perfetto! Per me va bene domani nel pomeriggio, verso le 16:00.', correct:true, tip:'✓ Proposta di orario precisa e formale'},
+        {text:'No, non ho tempo per vedere appartamenti.', correct:false, tip:'❌ Se cerchi casa devi fare i sopralluoghi!'},
+        {text:'Arrivo tra cinque minuti a notte fonda.', correct:false, tip:'❌ Orario inappropriato per una visita'},
+      ]},
+    ]
+  },
+  {
+    id:'banca', level:'B1', emoji:'🏦',
+    title:'In Ufficio Postale e Banca',
+    desc:'Apri un conto corrente universitario e compila un bollettino di pagamento.',
+    from:'#e8eaf6', to:'#f3e5f5',
+    minutes:5, phrases:9,
+    speaker:{name:'Impiegato Postale', avatar:'👨‍💼'},
+    vocab:[
+      {it:'Conto corrente universitario', fr:'Compte courant étudiant'},
+      {it:'Compilare un modulo', fr:'Remplir un formulaire'},
+      {it:'Documento d\'identità e codice fiscale', fr:'Pièce d\'identité et code fiscal'},
+      {it:'Carta di debito / Bancomat', fr:'Carte de débit / Carte bancaire'},
+    ],
+    steps:[
+      {side:'them', text:'Sportello numero 3, buongiorno! Che operazione deve effettuare?', trans:'Counter number 3, good morning! What service do you need?'},
+      {side:'me', prompt:'Spiega la tua richiesta:', choices:[
+        {text:'Buongiorno! Dovrei aprire un conto corrente per studenti ed effettuare un bonifico.', correct:true, tip:'✓ "Dovrei aprire" (condizionale di cortesia) + richiesta precisa'},
+        {text:'Voglio tutti i soldi della banca.', correct:false, tip:'❌ Sembra una rapina! 😅'},
+        {text:'Non so perché mi trovo qui.', correct:false, tip:'❌ Ricorda di preparare lo scopo della visita'},
+      ]},
+      {side:'them', text:'Ha portato con sé un documento d\'identità valido e il codice fiscale italiano?', trans:'Did you bring a valid ID and your Italian fiscal code?'},
+      {side:'me', prompt:'Mostra i documenti:', choices:[
+        {text:'Sì, certamente. Ecco il passaporto e la tessera del codice fiscale.', correct:true, tip:'✓ Documenti pronti = pratica gestita in pochi minuti'},
+        {text:'Ho dimenticato tutto a casa.', correct:false, tip:'❌ Senza documenti non è possibile aprire un conto bancario'},
+        {text:'Cosa significa codice fiscale?', correct:false, tip:'❌ Il codice fiscale è il codice d\'identificazione tributaria in Italia'},
+      ]},
+      {side:'them', text:'Benissimo. Firmi qui in calce al modulo per la privacy e riceverà la carta a casa entro una settimana.', trans:'Great. Sign here at the bottom of the privacy form and your card will arrive by post.'},
+      {side:'me', prompt:'Conferma e ringrazia:', choices:[
+        {text:'Perfetto, ho firmato. La ringrazio per la disponibilità e la cortesia!', correct:true, tip:'✓ "Firmi in calce" = sign at the bottom — chiusura impeccabile'},
+        {text:'Non voglio firmare niente.', correct:false, tip:'❌ La firma è necessaria per autorizzare il conto'},
+        {text:'Dove sono i miei soldi?', correct:false, tip:'❌ Il conto è in fase di attivazione'},
+      ]},
+    ]
+  },
+  {
+    id:'questura', level:'B1', emoji:'📜',
+    title:'Permesso di Soggiorno & Burocrazia',
+    desc:'Richiedi informazioni in Questura sul rinnovo del permesso di soggiorno per studio.',
+    from:'#efebe9', to:'#fbe9e7',
+    minutes:6, phrases:10,
+    speaker:{name:'Funzionario di Polizia', avatar:'👮‍♂️'},
+    vocab:[
+      {it:'Permesso di soggiorno per studio', fr:'Titre de séjour pour études'},
+      {it:'Rinnovo del documento', fr:'Renouvellement du document'},
+      {it:'Marca da bollo', fr:'Timbre fiscal'},
+      {it:'Ricevuta dell\'assicurazione sanitaria', fr:'Reçu d\'assurance maladie'},
+    ],
+    steps:[
+      {side:'them', text:'Sportello Immigrazione. Mostri la ricevuta dell\'appuntamento spedita tramite il kit postale.', trans:'Immigration office. Please show your appointment receipt sent via the postal kit.'},
+      {side:'me', prompt:'Presenta la ricevuta:', choices:[
+        {text:'Buongiorno signor funzionario. Ecco la ricevuta delle Poste e la convocazione odierna.', correct:true, tip:'✓ "Convocazione odierna" = today\'s appointment notice — registro formale B1/B2'},
+        {text:'Sono venuto a fare una passeggiata.', correct:false, tip:'❌ In Questura si va solo per motivi istituzionali'},
+        {text:'Non parlo con la polizia.', correct:false, tip:'❌ Bisogna collaborare con i funzionari dello sportello'},
+      ]},
+      {side:'them', text:'La documentazione è quasi completa. Manca l\'attestazione del superamento di almeno un esame universitario.', trans:'Your paperwork is almost complete. Proof of passing at least one exam is missing.'},
+      {side:'me', prompt:'Fornisci il certificato:', choices:[
+        {text:'Ho qui il certificato di iscrizione con lo storico degli esami approvati dall\'ateneo.', correct:true, tip:'✓ "Storico degli esami" = academic transcript — risolve subito l\'obiezione'},
+        {text:'Non ho mai fatto esami.', correct:false, tip:'❌ Per il rinnovo studio occorre dimostrare il profitto accademico!'},
+        {text:'Gli esami sono inutili.', correct:false, tip:'❌ La normativa richiede il superamento degli esami'},
+      ]},
+      {side:'them', text:'Ottimo! Procediamo con il rilievo delle impronte digitali. Appoggi l\'indice sul lettore.', trans:'Great! Let\'s proceed with fingerprinting. Place your index finger on the scanner.'},
+      {side:'me', prompt:'Esegui le istruzioni:', choices:[
+        {text:'Certamente, ecco qui. Quanto tempo occorrerà indicativamente per il ritiro del tesserino?', correct:true, tip:'✓ Esegui l\'azione e chiedi i tempi di rilascio ("ritiro del tesserino")'},
+        {text:'Non voglio mettere le impronte.', correct:false, tip:'❌ La rilevazione biometrica è obbligatoria per legge'},
+        {text:'Posso avere il permesso in 5 minuti?', correct:false, tip:'❌ I tempi burocratici richiedono alcune settimane'},
+      ]},
+    ]
+  },
+  {
+    id:'colloquio', level:'B2', emoji:'💼',
+    title:'Colloquio di Lavoro',
+    desc:'Affronta un colloquio per un tirocinio universitario, illustrando competenze e motivazioni.',
+    from:'#e8f5e9', to:'#f1f8e9',
+    minutes:6, phrases:12,
+    speaker:{name:'Dott.ssa Bianchi (HR Manager)', avatar:'👩‍💼'},
+    vocab:[
+      {it:'Curriculum Vitae (CV)', fr:'Curriculum Vitae'},
+      {it:'Tirocinio formativo / Stage', fr:'Stage de formation'},
+      {it:'Competenze trasversali (Soft skills)', fr:'Compétences transversales'},
+      {it:'Spirito di iniziativa e lavoro in team', fr:'Esprit d\'initiative et travail d\'équipe'},
+    ],
+    steps:[
+      {side:'them', text:'Buongiorno! Si accommodation. Abbiamo esaminato con interesse il suo profilo. Ci parli delle sue esperienze principali.', trans:'Good morning! Please have a seat. We reviewed your profile with interest. Tell us about your main experience.'},
+      {side:'me', prompt:'Presenta il tuo percorso:', choices:[
+        {text:'Buongiorno e grazie per l\'opportunità. Durante i miei studi ho sviluppato solide competenze analitiche e gestito progetti in team.', correct:true, tip:'✓ Introduzione professionale B2+: valorizza studi e competenze'},
+        {text:'Ho bisogno di soldi subito.', correct:false, tip:'❌ Troppo diretto e focalizzato sull\'aspetto economico'},
+        {text:'Non ho mai fatto niente nella mia vita.', correct:false, tip:'❌ Sottovaluta il proprio percorso formativo'},
+      ]},
+      {side:'them', text:'Qual è il suo punto di forza principale e come affronta le situazioni di stress lavorativo?', trans:'What is your main strength and how do you handle workplace stress?'},
+      {side:'me', prompt:'Rispondi sui punti di forza:', choices:[
+        {text:'Ritengo di essere molto flessibile e orientato alla risoluzione dei problemi (problem solving). Gestisco lo stress dando priorità alle scadenze urgenti.', correct:true, tip:'✓ Termini chiave da colloquio: "flessibile", "priorità", "problem solving"'},
+        {text:'Quando sono stressato urlo contro tutti.', correct:false, tip:'❌ Mostra scarsa gestione delle emozioni'},
+        {text:'Non ho punti di forza.', correct:false, tip:'❌ È importante comunicare fiducia nelle proprie capacità'},
+      ]},
+      {side:'them', text:'Quali sono le sue aspettative riguardo a questo tirocinio nella nostra azienda?', trans:'What are your expectations regarding this internship at our company?'},
+      {side:'me', prompt:'Esprimi le tue aspettative:', choices:[
+        {text:'Aspirare a mettere in pratica le conoscenze teoriche acquisite e apprendere da un team di professionisti esperti.', correct:true, tip:'✓ "Mettere in pratica le conoscenze teoriche" = obiettivo ideale per uno stage'},
+        {text:'Spero di lavorare solo un\'ora al giorno.', correct:false, tip:'❌ Dimostra scarso impegno professionale'},
+        {text:'Non mi interessa l\'azienda.', correct:false, tip:'❌ Manca di motivazione verso l\'azienda'},
+      ]},
+    ]
+  },
+  {
+    id:'seminario', level:'C1', emoji:'🧠',
+    title:'Seminario Accademico e Tesi',
+    desc:'Presenta la struttura della tua tesi di laurea in un dibattito accademico con professori.',
+    from:'#f3e5f5', to:'#faebee',
+    minutes:7, phrases:14,
+    speaker:{name:'Prof. Barbieri (Relatore)', avatar:'👨‍🏫'},
+    vocab:[
+      {it:'Tesi di laurea magistrale', fr:'Thèse de master'},
+      {it:'Quadro teorico di riferimento', fr:'Cadre théorique de référence'},
+      {it:'Metodologia empirica', fr:'Méthodologie empirique'},
+      {it:'Rilevanza scientifica', fr:'Pertinence scientifique'},
+    ],
+    steps:[
+      {side:'them', text:'Bene, candidato. Esponga sinteticamente l\'ipotesi di ricerca e il quadro metodologico della sua tesi.', trans:'Well, candidate. Briefly outline the research hypothesis and methodological framework of your thesis.'},
+      {side:'me', prompt:'Introduci la tesi (Livello C1):', choices:[
+        {text:'La mia ricerca si propone di analizzare l\'impatto delle tecnologie emergenti sui modelli di business sostenibili, adottando una metodologia quantitativa.', correct:true, tip:'✓ Registro formale accademico C1: "si propone di analizzare", "metodologia quantitativa"'},
+        {text:'Ho scritto qualche pagina ieri sera sul computer.', correct:false, tip:'❌ Linguaggio colloquiale non idoneo per una tesi universitaria'},
+        {text:'Non ricordo l\'argomento del mio lavoro.', correct:false, tip:'❌ Inammissibile davanti alla commissione di laurea'},
+      ]},
+      {side:'them', text:'Quali sono state le principali limitazioni metodologiche riscontrate nella raccolta dei dati?', trans:'What were the main methodological limitations encountered during data collection?'},
+      {side:'me', prompt:'Argomenta sui dati (C1):', choices:[
+        {text:'La principale criticità ha riguardato la ridotta dimensione del campione, fattore che impone cautela nel generalizzare i risultati ottenuti.', correct:true, tip:'✓ Rigore scientifico: "ridotta dimensione del campione", "cautela nel generalizzare"'},
+        {text:'I dati erano sbagliati ma l\'ho nascosto.', correct:false, tip:'❌ Mancanza di integrità accademica!'},
+        {text:'Nessuna limitazione, il mio lavoro è perfetto.', correct:false, tip:'❌ Ogni ricerca scientifica ammette limitazioni metodologiche'},
+      ]},
+      {side:'them', text:'In conclusione, quali prospettive di sviluppo futuro apre questo contributo alla letteratura scientifica?', trans:'In conclusion, what future perspectives does this contribution open to scientific literature?'},
+      {side:'me', prompt:'Concludi l\'esposizione accademica:', choices:[
+        {text:'Auspico che i risultati possano offrire spunti di riflessione sia per i policy maker sia per future indagini interdisciplinari nel settore.', correct:true, tip:'✓ Linguaggio elevato da tesi C1: "auspico", "spunti di riflessione", "indagini interdisciplinari"'},
+        {text:'Spero solo di prendere trenta e lode.', correct:false, tip:'❌ Focalizzato sul voto anziché sul valore scientifico'},
+        {text:'Finito. Posso andare via ora?', correct:false, tip:'❌ Conclusione troppo brusca per un contesto universitario'},
+      ]},
+    ]
+  },
 ];
 
 /* ── Vocab data ────────────────────────────────────────────── */
@@ -724,6 +999,26 @@ const VOCAB_CATS = {
     {it:'Riunione',            en:'Meeting'},
     {it:'Scadenza',            en:'Deadline'},
   ],
+  universita:[
+    {it:'Immatricolazione',   en:'University Enrollment'},
+    {it:'Segreteria studenti',en:'Student Secretariat'},
+    {it:'Tasse universitarie',en:'Tuition fees'},
+    {it:'Piano di studi',     en:'Study curriculum'},
+    {it:'Esame parziale',     en:'Midterm exam'},
+    {it:'Tesi di laurea',     en:'Degree thesis'},
+    {it:'Mensa universitaria',en:'University canteen'},
+    {it:'Libretto universitario', en:'Academic record book'},
+  ],
+  burocrazia:[
+    {it:'Codice fiscale',     en:'Tax / Fiscal code'},
+    {it:'Permesso di soggiorno', en:'Residence permit'},
+    {it:'Marca da bollo',     en:'Revenue stamp'},
+    {it:'Certificato di residenza', en:'Residence certificate'},
+    {it:'Modulo di domanda',  en:'Application form'},
+    {it:'Questura',           en:'Police headquarters'},
+    {it:'Dichiarazione',      en:'Declaration'},
+    {it:'Documento di riconoscimento', en:'Identity document'},
+  ],
 };
 
 /* ── Phrase-builder data ───────────────────────────────────── */
@@ -734,6 +1029,12 @@ const BUILDER_EX = [
   {target:'I don\'t understand, can you repeat?', answer:['Non','capisco,','può','ripetere?'], extra:['voglio','bello','italiano']},
   {target:'I am looking for a pharmacy.',         answer:['Sto','cercando','una','farmacia.'], extra:['pizza','sempre','bene']},
   {target:'Can you help me, please?',             answer:['Può','aiutarmi,','per','favore?'], extra:['mangio','grande','rosso']},
+  {target:'I need to enroll at university.',      answer:['Devo','immatricolarmi','all\'università.'], extra:['dormire','mangiare','macchina']},
+  {target:'Which platform does the train leave from?', answer:['Da','quale','binario','parte','il','treno?'], extra:['casa','ristorante','bello']},
+  {target:'I have a job interview tomorrow.',     answer:['Domani','ho','un','colloquio','di','lavoro.'], extra:['pizza','strada','telefono']},
+  {target:'Where can I apply for a residence permit?', answer:['Dove','posso','richiedere','il','permesso','di','soggiorno?'], extra:['latte','caffè','cinema']},
+  {target:'I am looking for a single room to rent.', answer:['Cerco','una','stanza','singola','in','affitto.'], extra:['auto','treno','mare']},
+  {target:'In my opinion, foreign languages are crucial.', answer:['Secondo','me,','le','lingue','straniere','sono','fondamentali.'], extra:['rosso','piccolo','male']},
 ];
 
 /* ── State ─────────────────────────────────────────────────── */
@@ -749,7 +1050,7 @@ let builderAns   = [];
 function saveDone(){ localStorage.setItem(DONE_KEY, JSON.stringify(done)); }
 
 function getLevelColor(lvl){
-  return {A1:'#1d4ed8', A2:'#d97706', B1:'#ce2b37', B2:'#1a7f4b'}[lvl] || '#8b90a0';
+  return {A1:'#1d4ed8', A2:'#d97706', B1:'#ce2b37', B2:'#1a7f4b', C1:'#7c3aed'}[lvl] || '#8b90a0';
 }
 
 /* ── Overall bar ───────────────────────────────────────────── */

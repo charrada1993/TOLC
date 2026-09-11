@@ -31,6 +31,7 @@
         <li><a href="/" class="{% if request.endpoint == 'index' %}active{% endif %}" aria-current="{% if request.endpoint == 'index' %}page{% endif %}"><span class="nav-icon">🏠</span><span>Dashboard</span></a></li>
         <li><a href="/plan" class="{% if request.endpoint == 'plan' %}active{% endif %}"><span class="nav-icon">📅</span><span>Piano 10 Giorni</span></a></li>
         <li><a href="/conversazione" class="{% if request.endpoint == 'conversazione' %}active{% endif %}"><span class="nav-icon">💬</span><span>Conversazione</span></a></li>
+        <li><a href="/testo" class="{% if request.endpoint == 'testo' %}active{% endif %}"><span class="nav-icon">📖</span><span>Testi & Lettura</span></a></li>
         <li><a href="/test" class="{% if request.endpoint == 'test' %}active{% endif %}"><span class="nav-icon">✏️</span><span>Test Livello</span></a></li>
         <li><a href="/simulation" class="{% if request.endpoint == 'simulation' %}active{% endif %}"><span class="nav-icon">🏆</span><span>Simulazione</span></a></li>
         <li><a href="/about" class="{% if request.endpoint == 'about' %}active{% endif %}"><span class="nav-icon">ℹ️</span><span>Info</span></a></li>
@@ -59,6 +60,9 @@
       </a>
       <a href="/conversazione" class="{% if request.endpoint == 'conversazione' %}active{% endif %}">
         <span class="m-icon">💬</span> Conversazione
+      </a>
+      <a href="/testo" class="{% if request.endpoint == 'testo' %}active{% endif %}">
+        <span class="m-icon">📖</span> Testi & Lettura
       </a>
       <a href="/test" class="{% if request.endpoint == 'test' %}active{% endif %}">
         <span class="m-icon">✏️</span> Testa il Livello
