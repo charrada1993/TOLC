@@ -940,6 +940,142 @@ const SCENARIOS = [
       ]},
     ]
   },
+  {
+    id:'biblioteca_studio', level:'A1', emoji:'📚',
+    title:'In Biblioteca Universitaria',
+    desc:'Chiedi una tessera, prendi in prestito un libro per il TOLC e chiedi la password del Wi-Fi.',
+    from:'#e0f2fe', to:'#f0f9ff',
+    minutes:4, phrases:8,
+    speaker:{name:'Chiara (Bibliotecaria)', avatar:'👩‍💼'},
+    vocab:[
+      {it:'Tessera della biblioteca', fr:'Carte de bibliothèque'},
+      {it:'Prendere in prestito', fr:'Emprunter'},
+      {it:'Sala studio', fr:'Salle d\'étude'},
+      {it:'Password del Wi-Fi', fr:'Mot de passe Wi-Fi'},
+    ],
+    steps:[
+      {side:'them', text:'Buongiorno! Come posso aiutarti oggi in biblioteca?', trans:'Good morning! How can I help you today in the library?'},
+      {side:'me', prompt:'Chiedi come fare la tessera:', choices:[
+        {text:'Buongiorno! Vorrei fare la tessera per prendere in prestito dei libri.', correct:true, tip:'✓ Educato e chiaro: "Vorrei fare la tessera per..."'},
+        {text:'Dammi tutti i libri gratis!', correct:false, tip:'❌ Troppo aggressivo e poco educato'},
+        {text:'Chiudi la porta.', correct:false, tip:'❌ Non pertinente alla richiesta'},
+      ]},
+      {side:'them', text:'Certamente! Mostrami un documento di identità e compila questo modulo. Cerchi un testo specifico?', trans:'Certainly! Show me an ID document and fill in this form. Looking for a specific textbook?'},
+      {side:'me', prompt:'Indica il libro che cerchi:', choices:[
+        {text:'Sì, cerco il manuale di preparazione al TOLC-ITA-L2. È disponibile?', correct:true, tip:'✓ Specifica chiaramente il titolo del manuale'},
+        {text:'Non so leggere.', correct:false, tip:'❌ Contraddice la richiesta di un libro'},
+        {text:'La pizza è buona.', correct:false, tip:'❌ Fuori contesto'},
+      ]},
+      {side:'them', text:'Sì, è al secondo piano nella sala studio B. Ti serve altro?', trans:'Yes, it is on the second floor in study room B. Do you need anything else?'},
+      {side:'me', prompt:'Chiedi la connessione internet:', choices:[
+        {text:'Posso avere la password per il Wi-Fi della biblioteca? Grazie mille!', correct:true, tip:'✓ Formula classica: "Posso avere la password per...?"'},
+        {text:'Il tuo vestito è rosso.', correct:false, tip:'❌ Non pertinente per la richiesta di studio'},
+        {text:'Voglio andare a casa subito.', correct:false, tip:'❌ Contraddice la permanenza in sala studio'},
+      ]},
+    ]
+  },
+  {
+    id:'supermercato_spesa', level:'A1', emoji:'🛒',
+    title:'Al Supermercato & Gastronomia',
+    desc:'Fai la spesa al banco dei freschi, ordina formaggio e salumi a peso e paga alla cassa.',
+    from:'#fef3c7', to:'#fffbeb',
+    minutes:4, phrases:8,
+    speaker:{name:'Luigi (Salumiere)', avatar:'👨‍🍳'},
+    vocab:[
+      {it:'Un etto / Due etti (100g / 200g)', fr:'100g / 200g'},
+      {it:'Tagliato sottile', fr:'Coupé finement'},
+      {it:'Busta / Sacchetto', fr:'Sac plastique'},
+      {it:'Scontrino', fr:'Ticket de caisse'},
+    ],
+    steps:[
+      {side:'them', text:'Buongiorno! A chi tocca? Cosa le posso servire al banco?', trans:'Good morning! Who is next? What can I get you at the counter?'},
+      {side:'me', prompt:'Ordina del prosciutto o formaggio a peso:', choices:[
+        {text:'Buongiorno! Vorrei due etti di prosciutto cotto tagliato sottile, per favore.', correct:true, tip:'✓ In Italia il peso al banco si chiede in "etti" (1 etto = 100g)'},
+        {text:'Voglio una tonnellata di carne.', correct:false, tip:'❌ Quantità esagerata!'},
+        {text:'Non mi piace mangiare.', correct:false, tip:'❌ Contraddice l\'essere al banco alimentari'},
+      ]},
+      {side:'them', text:'Ecco a lei! Desidera anche del formaggio, per esempio del Parmigiano Reggiano?', trans:'Here you are! Would you also like some cheese, for instance Parmigiano Reggiano?'},
+      {side:'me', prompt:'Rispondi all\'offerta:', choices:[
+        {text:'Sì, grazie! Me ne dia un pezzo da circa trecento grammi.', correct:true, tip:'✓ "Me ne dia un pezzo da circa..." = formula precisa'},
+        {text:'Il formaggio fa rumore.', correct:false, tip:'❌ Senza senso'},
+        {text:'Costa un milione di euro.', correct:false, tip:'❌ Non è una risposta alla domanda del salumiere'},
+      ]},
+      {side:'them', text:'Perfetto, ecco il pacchetto. Ha bisogno del sacchetto alla cassa?', trans:'Perfect, here is your package. Do you need a bag at the checkout?'},
+      {side:'me', prompt:'Rispondi sul sacchetto:', choices:[
+        {text:'Sì, un sacchetto per favore. Posso pagare con la carta o solo contanti?', correct:true, tip:'✓ Domanda comune alla cassa: "Posso pagare con la carta?"'},
+        {text:'Non ho tasche.', correct:false, tip:'❌ Risposta insolita'},
+        {text:'Buonanotte!', correct:false, tip:'❌ "Buonanotte" si dice solo prima di dormire'},
+      ]},
+    ]
+  },
+  {
+    id:'esame_orale', level:'B2', emoji:'🎓',
+    title:'Esame Orale Universitario',
+    desc:'Sostieni un colloquio d\'esame con il docente universitario, argomentando con registro formale.',
+    from:'#ecfdf5', to:'#f0fdf4',
+    minutes:6, phrases:12,
+    speaker:{name:'Prof.ssa Moretti', avatar:'👩‍🏫'},
+    vocab:[
+      {it:'Appello d\'esame', fr:'Session d\'examen'},
+      {it:'Argomentare una tesi', fr:'Argumenter une thèse'},
+      {it:'In merito a questo punto…', fr:'Concernant ce point…'},
+      {it:'Verbalizzazione del voto', fr:'Enregistrement de la note'},
+    ],
+    steps:[
+      {side:'them', text:'Buongiorno candidato. Si accomodi. Partiamo dall\'argomento a piacere del programma: quale tema ha scelto di approfondire?', trans:'Good morning candidate. Please have a seat. Let us start with the topic of your choice: what theme did you choose to explore?'},
+      {side:'me', prompt:'Introduci il tuo argomento d\'esame (B2):', choices:[
+        {text:'Buongiorno professoressa. Vorrei esporre l\'evoluzione delle istituzioni europee e il loro impatto sulle politiche economiche nazionali.', correct:true, tip:'✓ Registro formale accademico eccellente per iniziare l\'esame orale'},
+        {text:'Non ho studiato niente, mi faccia domande facili.', correct:false, tip:'❌ Atteggiamento inaccettabile all\'università'},
+        {text:'Parliamo del meteo di oggi.', correct:false, tip:'❌ Fuori tema rispetto al programma d\'esame'},
+      ]},
+      {side:'them', text:'Molto bene. Come si concilia questo sviluppo con il principio di sussidiarietà sancito dai trattati?', trans:'Very well. How does this development reconcile with the principle of subsidiarity established by the treaties?'},
+      {side:'me', prompt:'Argomenta con precisione concettuale:', choices:[
+        {text:'In merito a questo punto, il principio garantisce che le decisioni siano adottate al livello più vicino possibile ai cittadini, intervenendo solo ove necessario.', correct:true, tip:'✓ Dimostra padronanza dei concetti e proprietà di linguaggio'},
+        {text:'I trattati sono noiosi e non li ho letti.', correct:false, tip:'❌ Dimostra mancata preparazione'},
+        {text:'È una domanda troppo difficile, passi a un\'altra.', correct:false, tip:'❌ Mostra insicurezza e rifiuto della domanda'},
+      ]},
+      {side:'them', text:'Ottima esposizione, precisa e ben articolata. Per me l\'esame è brillante: le propongo ventotto. Accetta il voto?', trans:'Excellent presentation, accurate and well structured. A brilliant exam: I propose a 28/30. Do you accept the grade?'},
+      {side:'me', prompt:'Concludi l\'esame accettando con cortesia:', choices:[
+        {text:'Accetto il voto con molto piacere, grazie mille professoressa per la disponibilità!', correct:true, tip:'✓ Formula corretta di accettazione e ringraziamento formale'},
+        {text:'Voglio trenta e lode altrimenti mi arrabbio.', correct:false, tip:'❌ Tono irrispettoso verso la commissione'},
+        {text:'Non mi interessa il voto.', correct:false, tip:'❌ Mostra indifferenza verso il proprio percorso'},
+      ]},
+    ]
+  },
+  {
+    id:'dibattito_ecologia', level:'C1', emoji:'🌍',
+    title:'Tavola Rotonda sulla Sostenibilità',
+    desc:'Partecipa a un dibattito accademico proponendo soluzioni energetiche e confutando tesi opposte.',
+    from:'#eff6ff', to:'#f5f3ff',
+    minutes:7, phrases:14,
+    speaker:{name:'Dott. De Angelis (Moderatore)', avatar:'👨‍💼'},
+    vocab:[
+      {it:'Transizione ecologica', fr:'Transition écologique'},
+      {it:'Confutare un\'obiezione', fr:'Réfuter une objection'},
+      {it:'Sostenibilità a lungo termine', fr:'Durabilité à long terme'},
+      {it:'Criteri di fattibilità economica', fr:'Critères de faisabilité économique'},
+    ],
+    steps:[
+      {side:'them', text:'Diamo inizio alla tavola rotonda. Alcuni relatori sostengono che la transizione verde comporti costi insostenibili per le imprese. Qual è la sua posizione in merito?', trans:'Let us open the panel discussion. Some panelists claim that the green transition carries unsustainable costs for businesses. What is your position on this?'},
+      {side:'me', prompt:'Argomenta confutando l\'obiezione (C1):', choices:[
+        {text:'Ritengo doveroso confutare tale assunto: sebbene la riconversione richieda investimenti iniziali, l\'inazione climatica produrrà esternalità negative e costi esponenzialmente più elevati.', correct:true, tip:'✓ Registro C1 elevato: "confutare tale assunto", "esternalità negative", "esponenzialmente elevati"'},
+        {text:'Hanno ragione loro, lasciamo perdere l\'ecologia.', correct:false, tip:'❌ Manca di argomentazione critica e propositiva'},
+        {text:'Non so niente di economia e di aziende.', correct:false, tip:'❌ Inadeguato per una tavola rotonda specialistica'},
+      ]},
+      {side:'them', text:'Quali strumenti concreti di politica industriale suggerirebbe per incentivare l\'innovazione tecnologica a basse emissioni?', trans:'What concrete industrial policy tools would you suggest to foster low-emission technological innovation?'},
+      {side:'me', prompt:'Proponi soluzioni strutturate (C1):', choices:[
+        {text:'Sarebbe opportuno combinare sgravi fiscali per la ricerca e sviluppo con partenariati pubblico-privati, favorendo il trasferimento tecnologico verso le PMI.', correct:true, tip:'✓ Articolazione sintattica e lessico specialistico impeccabile: "partenariati pubblico-privati", "trasferimento tecnologico"'},
+        {text:'Dobbiamo solo sperare che qualcuno inventi qualcosa di magico.', correct:false, tip:'❌ Approccio irrealistico e non scientifico'},
+        {text:'Non ci sono strumenti possibili, è inutile provare.', correct:false, tip:'❌ Posizione rinunciataria priva di fondamento analitico'},
+      ]},
+      {side:'them', text:'La ringrazio per l\'intervento puntuale ed esaustivo, che arricchisce notevolmente il nostro dibattito odierno.', trans:'Thank you for your timely and comprehensive contribution, which considerably enriches our discussion today.'},
+      {side:'me', prompt:'Concludi con eleganza accademica:', choices:[
+        {text:'Ringrazio lei e i colleghi presenti per l\'opportunità di confronto su un tema così cruciale per il nostro futuro.', correct:true, tip:'✓ Chiusura formale elegante e consona a un consesso accademico C1'},
+        {text:'Sì, sono stato il migliore del gruppo.', correct:false, tip:'❌ Vanaglorioso e poco professionale'},
+        {text:'Addio a tutti.', correct:false, tip:'❌ "Addio" è un saluto definitivo e fuori luogo'},
+      ]},
+    ]
+  }
 ];
 
 /* ── Vocab data ────────────────────────────────────────────── */

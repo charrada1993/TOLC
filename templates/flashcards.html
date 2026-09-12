@@ -1,0 +1,854 @@
+{% extends "base.html" %}
+
+{% block title %}Flashcards & Vocabolario — TOLC-ITA-L2{% endblock %}
+{% block meta_desc %}Ripassa il vocabolario accademico, connettivi logici, espressioni idiomatiche e falsi amici per il TOLC-ITA-L2 con il sistema di ripetizione spaziata.{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── Hero ──────────────────────────────────────────────────── */
+.fc-hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #065f46 100%);
+  padding: var(--space-16) 0 var(--space-12);
+  position: relative; overflow: hidden; color: #fff;
+}
+.fc-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.18), transparent 50%);
+}
+.fc-hero-inner { position: relative; z-index: 1; }
+.fc-hero h1 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.4rem); margin-bottom: var(--space-3); }
+.fc-hero p  { color: rgba(255, 255, 255, 0.85); font-size: 1.15rem; max-width: 640px; margin-bottom: var(--space-6); }
+
+/* Category Pills */
+.fc-pills { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.fc-pill {
+  padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700;
+  cursor: pointer; border: 2px solid rgba(255, 255, 255, 0.2); transition: all 0.25s;
+  background: rgba(255, 255, 255, 0.1); color: #fff;
+}
+.fc-pill.active { background: #fff; color: #1e1b4b; border-color: #fff; box-shadow: var(--shadow-md); }
+.fc-pill:hover:not(.active) { background: rgba(255, 255, 255, 0.2); }
+
+/* ── Container & Layout ────────────────────────────────────── */
+.fc-workspace {
+  max-width: 780px; margin: 0 auto; padding: var(--space-8) var(--space-4) var(--space-16);
+}
+
+/* Stats Bar */
+.fc-stats-bar {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-3);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-6); margin-bottom: var(--space-6); box-shadow: var(--shadow-sm);
+}
+.fc-stat-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); }
+.fc-stat-item strong { color: var(--text-primary); font-size: 1.1rem; }
+
+/* Progress bar */
+.fc-progress-wrap { margin-bottom: var(--space-6); }
+.fc-progress-label { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+.fc-progress-track { height: 8px; background: var(--surface-3); border-radius: var(--radius-full); overflow: hidden; }
+.fc-progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #10b981); width: 0%; transition: width 0.3s ease; }
+
+/* ── 3D Flashcard Container ────────────────────────────────── */
+.fc-card-scene {
+  perspective: 1200px;
+  width: 100%;
+  min-height: 380px;
+  margin-bottom: var(--space-6);
+  cursor: pointer;
+}
+.fc-card {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+}
+.fc-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.fc-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-2xl);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.fc-card-face.back {
+  transform: rotateY(180deg);
+  background: var(--surface-2);
+  border-color: var(--primary);
+}
+
+/* Card Header */
+.fc-card-top {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.fc-card-category-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--surface-2); padding: 4px 12px; border-radius: var(--radius-full);
+  font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;
+  border: 1px solid var(--border);
+}
+.fc-card-level {
+  font-size: 0.75rem; font-weight: 800; padding: 3px 10px; border-radius: var(--radius-full);
+}
+
+/* Card Front Body */
+.fc-card-center {
+  text-align: center; margin: auto 0;
+}
+.fc-word-title {
+  font-size: clamp(2rem, 4.5vw, 2.8rem); font-weight: 800; color: var(--text-primary);
+  margin-bottom: var(--space-2); line-height: 1.2;
+}
+.fc-word-phonetic {
+  font-family: var(--font-sans); font-size: 1rem; color: var(--text-muted); margin-bottom: var(--space-4);
+}
+.fc-audio-btn {
+  background: var(--primary-light); color: var(--primary); border: 1px solid rgba(99,102,241,0.3);
+  border-radius: var(--radius-full); padding: 8px 18px; font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s;
+}
+.fc-audio-btn:hover { background: var(--primary); color: #fff; transform: scale(1.05); }
+
+.fc-flip-hint {
+  text-align: center; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+
+/* Card Back Details */
+.fc-def-box { margin-bottom: var(--space-4); }
+.fc-def-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 0.05em; margin-bottom: 4px; }
+.fc-def-text { font-size: 1.15rem; font-weight: 600; color: var(--text-primary); line-height: 1.5; }
+
+.fc-example-box {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: var(--space-4); margin-bottom: var(--space-4); border-left: 4px solid var(--primary);
+}
+.fc-example-text { font-style: italic; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 4px; line-height: 1.5; }
+.fc-example-trans { font-size: 0.85rem; color: var(--text-muted); }
+
+.fc-extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); font-size: 0.85rem; }
+.fc-extra-item { background: var(--surface); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--border); }
+.fc-extra-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 2px; }
+
+/* ── SRS Rating Action Bar ─────────────────────────────────── */
+.fc-actions {
+  display: flex; gap: var(--space-3); justify-content: center; margin-bottom: var(--space-6); flex-wrap: wrap;
+}
+.fc-rate-btn {
+  flex: 1; min-width: 140px; padding: 14px 18px; border-radius: var(--radius-xl);
+  font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+  display: flex; flex-direction: column; align-items: center; gap: 4px; border: 2px solid transparent;
+}
+.fc-rate-btn .shortcut { font-size: 0.72rem; opacity: 0.7; font-weight: normal; }
+
+.fc-rate-again {
+  background: #fee2e2; color: #dc2626; border-color: #fca5a5;
+}
+.fc-rate-again:hover { background: #dc2626; color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.fc-rate-good {
+  background: #fef3c7; color: #d97706; border-color: #fde68a;
+}
+.fc-rate-good:hover { background: #d97706; color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.fc-rate-easy {
+  background: #dcfce7; color: #15803d; border-color: #86efac;
+}
+.fc-rate-easy:hover { background: #15803d; color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* Navigation & Controls */
+.fc-nav-controls {
+  display: flex; justify-content: space-between; align-items: center; gap: var(--space-3);
+  padding-top: var(--space-4); border-top: 1px solid var(--border);
+}
+.fc-ctrl-btn {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 8px 16px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 6px; color: var(--text-primary);
+}
+.fc-ctrl-btn:hover { background: var(--surface-2); border-color: var(--primary); }
+
+/* Keyboard guide helper */
+.fc-kbd-guide {
+  text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: var(--space-6);
+}
+.fc-kbd {
+  display: inline-block; padding: 2px 6px; background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 4px; font-family: monospace; font-size: 0.75rem; font-weight: 700; color: var(--text-primary);
+}
+
+/* Completion Screen */
+.fc-complete-card {
+  display: none; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-2xl); padding: var(--space-12) var(--space-8); text-align: center;
+  box-shadow: var(--shadow-xl); animation: fadeIn 0.4s ease;
+}
+.fc-complete-card.show { display: block; }
+.fc-complete-trophy { font-size: 4rem; margin-bottom: var(--space-4); animation: bounce 1s infinite alternate; }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="fc-hero" aria-label="Flashcards e Vocabolario">
+  <div class="container">
+    <div class="fc-hero-inner">
+      <div class="hero-label">
+        <span>🃏</span>
+        <span>Spaced Repetition System (SRS) — TOLC-ITA-L2</span>
+      </div>
+      <h1>Flashcards di Vocabolario</h1>
+      <p>
+        Padroneggia i connettivi logici, il lessico accademico e i trabocchetti più frequenti nei test universitari con la ripetizione spaziata.
+      </p>
+
+      <!-- Category Filter Pills -->
+      <div class="fc-pills" role="tablist" aria-label="Filtra flashcards per argomento">
+        <button class="fc-pill active" onclick="switchCategory('all')" id="pill-all">🌍 Tutte le Carte (<span id="count-all">0</span>)</button>
+        <button class="fc-pill" onclick="switchCategory('connettivi')" id="pill-connettivi">🔗 Connettivi Logici</button>
+        <button class="fc-pill" onclick="switchCategory('accademico')" id="pill-accademico">🎓 Lessico Accademico</button>
+        <button class="fc-pill" onclick="switchCategory('falsiamici')" id="pill-falsiamici">⚠️ Falsi Amici</button>
+        <button class="fc-pill" onclick="switchCategory('idiomi')" id="pill-idiomi">💡 Modi di Dire</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    <div class="fc-workspace">
+
+      <!-- Stats Bar -->
+      <div class="fc-stats-bar" role="region" aria-label="Statistiche studio">
+        <div class="fc-stat-item">
+          <span>🃏 Carte in Coda:</span>
+          <strong id="statQueueCount">0</strong>
+        </div>
+        <div class="fc-stat-item">
+          <span>🟢 Padroneggiate:</span>
+          <strong id="statMasteredCount">0</strong>
+        </div>
+        <div class="fc-stat-item">
+          <span>🔥 Sessione:</span>
+          <strong id="statSessionStreak">0</strong>
+        </div>
+      </div>
+
+      <!-- Progress Track -->
+      <div class="fc-progress-wrap">
+        <div class="fc-progress-label">
+          <span id="fcProgressText">Carta 1 di 10</span>
+          <span id="fcProgressPct">0%</span>
+        </div>
+        <div class="fc-progress-track">
+          <div class="fc-progress-fill" id="fcProgressFill"></div>
+        </div>
+      </div>
+
+      <!-- Flashcard 3D Card Scene -->
+      <div class="fc-card-scene" id="cardScene" onclick="toggleCardFlip()">
+        <div class="fc-card" id="activeCard">
+          
+          <!-- Front Face -->
+          <div class="fc-card-face front">
+            <div class="fc-card-top">
+              <span class="fc-card-category-badge" id="cardCatBadge">🔗 Connettivo</span>
+              <span class="fc-card-level tag-b2" id="cardLevelBadge">B2</span>
+            </div>
+
+            <div class="fc-card-center">
+              <div class="fc-word-title" id="cardWord">bensì</div>
+              <div class="fc-word-phonetic" id="cardPhonetic">/benˈsi/ • [Congiunzione]</div>
+              <button class="fc-audio-btn" onclick="event.stopPropagation(); playCardAudio();" title="Ascolta pronuncia">
+                <span>🔊</span>
+                <span>Ascolta Pronuncia</span>
+              </button>
+            </div>
+
+            <div class="fc-flip-hint">
+              <span>🔄 Clicca sulla carta o premi <kbd class="fc-kbd">Spazio</kbd> per girare</span>
+            </div>
+          </div>
+
+          <!-- Back Face -->
+          <div class="fc-card-face back">
+            <div class="fc-card-top">
+              <span class="fc-card-category-badge" id="cardCatBadgeBack">Significato &amp; Uso</span>
+              <span class="fc-card-level tag-b2" id="cardLevelBadgeBack">B2</span>
+            </div>
+
+            <div class="fc-def-box">
+              <div class="fc-def-label">Definizione CISIA / TOLC</div>
+              <div class="fc-def-text" id="cardDef">Introduce una correzione a una frase negativa precedente; equivale a "ma al contrario".</div>
+            </div>
+
+            <div class="fc-example-box">
+              <div class="fc-def-label">Esempio in Contesto Esame</div>
+              <div class="fc-example-text" id="cardExample">"Non intendeva criticare la teoria, bensì proporre un modello alternativo."</div>
+              <div class="fc-example-trans" id="cardTranslation">🇬🇧 Not... but rather / but instead</div>
+            </div>
+
+            <div class="fc-extra-grid">
+              <div class="fc-extra-item">
+                <div class="fc-extra-label">Sinonimi</div>
+                <strong id="cardSynonyms" style="color:var(--text-primary);">ma, invece, ma anzi</strong>
+              </div>
+              <div class="fc-extra-item">
+                <div class="fc-extra-label">Attenzione / Errore tipico</div>
+                <span id="cardWarning" style="color:var(--error);font-size:0.8rem;font-weight:600;">Usato solo dopo negazione (non... bensì)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Rating Actions (SRS) -->
+      <div class="fc-actions" id="fcActionsArea">
+        <button class="fc-rate-btn fc-rate-again" onclick="rateCard('again')">
+          <span>🔴 Da Rivedere</span>
+          <span class="shortcut">Tasto <kbd class="fc-kbd">1</kbd></span>
+        </button>
+        <button class="fc-rate-btn fc-rate-good" onclick="rateCard('good')">
+          <span>🟡 Quasi Sicuro</span>
+          <span class="shortcut">Tasto <kbd class="fc-kbd">2</kbd></span>
+        </button>
+        <button class="fc-rate-btn fc-rate-easy" onclick="rateCard('easy')">
+          <span>🟢 Padroneggiato!</span>
+          <span class="shortcut">Tasto <kbd class="fc-kbd">3</kbd></span>
+        </button>
+      </div>
+
+      <!-- Controls & Deck Navigation -->
+      <div class="fc-nav-controls">
+        <div style="display:flex;gap:8px;">
+          <button class="fc-ctrl-btn" onclick="prevCard()">← Precedente</button>
+          <button class="fc-ctrl-btn" onclick="nextCard()">Successiva →</button>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="fc-ctrl-btn" onclick="shuffleDeck()" title="Mischia carte">🔀 Mischia</button>
+          <button class="fc-ctrl-btn" onclick="resetDeckProgress()" title="Ricomincia mazzo">🔄 Reset</button>
+        </div>
+      </div>
+
+      <!-- Keyboard Guide -->
+      <div class="fc-kbd-guide">
+        <span>Scorciatoie da tastiera: <kbd class="fc-kbd">Spazio</kbd> Gira carta • <kbd class="fc-kbd">←</kbd> <kbd class="fc-kbd">→</kbd> Cambia carta • <kbd class="fc-kbd">1</kbd> <kbd class="fc-kbd">2</kbd> <kbd class="fc-kbd">3</kbd> Valuta • <kbd class="fc-kbd">A</kbd> Audio</span>
+      </div>
+
+      <!-- Completion Screen -->
+      <div class="fc-complete-card" id="completeCard">
+        <div class="fc-complete-trophy">🎉</div>
+        <h2 style="font-size:1.8rem;margin-bottom:var(--space-2);">Mazzo Completato!</h2>
+        <p style="color:var(--text-secondary);max-width:440px;margin:0 auto var(--space-6);">
+          Hai ripassato tutte le carte di questa categoria. Ottimo lavoro di consolidamento!
+        </p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="restartCategory()">🔄 Ripeti Mazzo</button>
+          <button class="btn btn-outline" onclick="switchCategory('all')">🌍 Tutte le Carte</button>
+          <a href="/test" class="btn btn-secondary">✏️ Fai un Test di Verifica</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/* ── Rich TOLC Dataset of Flashcards ────────────────────────── */
+const FLASHCARDS_DATA = [
+  // CONNETTIVI LOGICI
+  {
+    id: "fc_bensi",
+    word: "bensì",
+    category: "connettivi",
+    categoryLabel: "🔗 Connettivo Avversativo",
+    level: "B2",
+    phonetic: "/benˈsi/ • [Congiunzione]",
+    def: "Introduce una forte correzione a una frase negativa precedente; equivale a 'ma al contrario'.",
+    example: "Non intendeva criticare la teoria, bensì proporre un modello alternativo.",
+    translation: "🇬🇧 Not... but rather / but instead",
+    synonyms: "ma, invece, ma anzi",
+    warning: "Si usa solo dopo una negazione (non... bensì)."
+  },
+  {
+    id: "fc_benche",
+    word: "benché / sebbene",
+    category: "connettivi",
+    categoryLabel: "🔗 Connettivo Concessivo",
+    level: "B2",
+    phonetic: "/benˈke/ • [Congiunzione + Congiuntivo]",
+    def: "Introduce una proposizione concessiva che esprime un ostacolo non sufficiente a impedire l'azione principale.",
+    example: "Benché i dati fossero incompleti, i ricercatori hanno confermato l'ipotesi.",
+    translation: "🇬🇧 Although / Even though / Despite",
+    synonyms: "quantunque, malgrado, ancorché",
+    warning: "Richiede OBBLIGATORIAMENTE il modo Congiuntivo!"
+  },
+  {
+    id: "fc_affinche",
+    word: "affinché / acciocché",
+    category: "connettivi",
+    categoryLabel: "🔗 Connettivo Finale",
+    level: "B2",
+    phonetic: "/affinˈke/ • [Congiunzione + Congiuntivo]",
+    def: "Introduce una proposizione finale, indicando lo scopo o l'obiettivo di un'azione.",
+    example: "Hanno modificato i parametri affinché l'esperimento risultasse replicabile.",
+    translation: "🇬🇧 In order that / So that",
+    synonyms: "perché (con valore finale), onde (+ inf.)",
+    warning: "Richiede sempre il Congiuntivo."
+  },
+  {
+    id: "fc_purche",
+    word: "purché / a patto che",
+    category: "connettivi",
+    categoryLabel: "🔗 Connettivo Condizionale",
+    level: "B2",
+    phonetic: "/purˈke/ • [Congiunzione + Congiuntivo]",
+    def: "Esprime una condizione necessaria affinché si verifichi quanto espresso nella principale.",
+    example: "La domanda d'iscrizione è valida purché sia presentata entro la scadenza.",
+    translation: "🇬🇧 Provided that / As long as",
+    synonyms: "a condizione che, sempreché",
+    warning: "Richiede sempre il Congiuntivo."
+  },
+  {
+    id: "fc_nondimeno",
+    word: "nondimeno / tuttavia",
+    category: "connettivi",
+    categoryLabel: "🔗 Connettivo Conclusivo-Avversativo",
+    level: "C1",
+    phonetic: "/nondiˈmeno/ • [Avverbio]",
+    def: "Significa 'ciononostante', 'ciò nonostante'. Esprime persistenza logica di un fatto.",
+    example: "Le difficoltà erano evidenti; nondimeno il comitato proseguì il progetto.",
+    translation: "🇬🇧 Nonetheless / Nevertheless",
+    synonyms: "tuttavia, ciononostante, nulladimeno",
+    warning: "Registro formale/accademico, tipico dei testi TOLC."
+  },
+  {
+    id: "fc_giacche",
+    word: "giacché / poiché",
+    category: "connettivi",
+    categoryLabel: "🔗 Connettivo Causale",
+    level: "B2",
+    phonetic: "/dʒakˈke/ • [Congiunzione + Indicativo]",
+    def: "Introduce una causa nota o premessa logica evidente.",
+    example: "Giacché l'aula è al completo, trasmetteremo la conferenza in streaming.",
+    translation: "🇬🇧 Since / Given that / Seeing that",
+    synonyms: "poiché, dacché, dato che, siccome",
+    warning: "Si usa con il modo Indicativo."
+  },
+
+  // LESSICO ACCADEMICO
+  {
+    id: "fc_confutare",
+    word: "confutare",
+    category: "accademico",
+    categoryLabel: "🎓 Lessico Accademico",
+    level: "C1",
+    phonetic: "/konfuˈtare/ • [Verbo transitivo]",
+    def: "Dimostrare falsa o infondata un'affermazione, una tesi o una teoria mediante argomentazioni rigorose.",
+    example: "Il nuovo studio confuta la tesi secondo cui il fenomeno sia puramente casuale.",
+    translation: "🇬🇧 To refute / To disprove",
+    synonyms: "smentire, ribattere, inficiare, invalidare",
+    warning: "Non confondere con 'confermare' (sono opposti!)."
+  },
+  {
+    id: "fc_postulato",
+    word: "postulato",
+    category: "accademico",
+    categoryLabel: "🎓 Lessico Accademico",
+    level: "C1",
+    phonetic: "/postuˈlato/ • [Sostantivo maschile]",
+    def: "Principio assunto come vero senza dimostrazione, su cui si fonda una teoria scientifica o filosofica.",
+    example: "L'intera dimostrazione geometrica poggia sul quinto postulato di Euclide.",
+    translation: "🇬🇧 Postulate / Axiom / Premise",
+    synonyms: "assioma, presupposto, premessa",
+    warning: "Diverso da 'ipotesi' (il postulato è preso per certo come base)."
+  },
+  {
+    id: "fc_desumere",
+    word: "desumere",
+    category: "accademico",
+    categoryLabel: "🎓 Lessico Accademico",
+    level: "B2",
+    phonetic: "/deˈzumere/ • [Verbo transitivo]",
+    def: "Ricavare una conclusione logica o un'informazione da determinati indizi o premesse (dedurre).",
+    example: "Dal contesto del brano si può desumere l'atteggiamento scettico dell'autore.",
+    translation: "🇬🇧 To deduce / To infer / To gather",
+    synonyms: "dedurre, evincere, ricavare, inferire",
+    warning: "Frequente nei quesiti: 'Cosa si può desumere dal testo?'."
+  },
+  {
+    id: "fc_dicotomia",
+    word: "dicotomia",
+    category: "accademico",
+    categoryLabel: "🎓 Lessico Accademico",
+    level: "C1",
+    phonetic: "/dikotoˈmi.a/ • [Sostantivo femminile]",
+    def: "Divisione netta di un concetto o fenomeno in due elementi contrapposti o complementari.",
+    example: "Il saggio analizza la classica dicotomia tra natura e cultura.",
+    translation: "🇬🇧 Dichotomy / Binary opposition",
+    synonyms: "bipartizione, contrapposizione, dualismo",
+    warning: "Parola chiave in testi sociologici e filosofici TOLC."
+  },
+  {
+    id: "fc_anacronistico",
+    word: "anacronistico",
+    category: "accademico",
+    categoryLabel: "🎓 Lessico Accademico",
+    level: "B2",
+    phonetic: "/anakroˈnistiko/ • [Aggettivo]",
+    def: "Non conforme al periodo storico di riferimento; superato o fuori dal tempo presente.",
+    example: "Applicare categorie morali odierne a eventi del Medioevo risulta anacronistico.",
+    translation: "🇬🇧 Anachronistic / Outdated",
+    synonyms: "antiquato, inattuale, superato",
+    warning: "Dal greco anà (contro) + chrònos (tempo)."
+  },
+
+  // FALSI AMICI & TRABOCCHETTI
+  {
+    id: "fc_attendere",
+    word: "attendere",
+    category: "falsiamici",
+    categoryLabel: "⚠️ Falso Amico",
+    level: "A2",
+    phonetic: "/atˈtɛndere/ • [Verbo]",
+    def: "Significa 'aspettare' (NON 'partecipare / attend in inglese').",
+    example: "I candidati devono attendere in aula fino al termine della prova.",
+    translation: "🇬🇧 To wait / To await (NOT to participate!)",
+    synonyms: "aspettare, pazientare",
+    warning: "Partecipare a un evento si dice 'frequentare' o 'presenziare'."
+  },
+  {
+    id: "fc_libreria",
+    word: "libreria vs biblioteca",
+    category: "falsiamici",
+    categoryLabel: "⚠️ Falso Amico",
+    level: "A1",
+    phonetic: "/libreˈri.a/ • [Sostantivo]",
+    def: "La libreria è il negozio dove si COMPRANO i libri (bookshop). La biblioteca è il luogo pubblico dove si prendono in prestito.",
+    example: "Ho comprato il manuale in libreria e ho studiato in biblioteca.",
+    translation: "🇬🇧 Libreria = Bookshop | Biblioteca = Library",
+    synonyms: "negozio di libri",
+    warning: "Inglese: Library = Biblioteca (NON libreria!)."
+  },
+  {
+    id: "fc_morbido",
+    word: "morbido",
+    category: "falsiamici",
+    categoryLabel: "⚠️ Falso Amico",
+    level: "A2",
+    phonetic: "/ˈmorbido/ • [Aggettivo]",
+    def: "Significa soffice, tenero al tatto (NON 'morboso / morbid in inglese').",
+    example: "Questo cuscino ergonomico è molto morbido e confortevole.",
+    translation: "🇬🇧 Soft / Tender / Plump (NOT morbid/diseased!)",
+    synonyms: "soffice, cedevole, tenero",
+    warning: "L'inglese 'morbid' in italiano si traduce con 'morboso' o 'malsano'."
+  },
+  {
+    id: "fc_pretendere",
+    word: "pretendere",
+    category: "falsiamici",
+    categoryLabel: "⚠️ Falso Amico",
+    level: "B1",
+    phonetic: "/preˈtɛndere/ • [Verbo]",
+    def: "Esigere con insistenza, richiedere come diritto (NON 'fingere / pretend in inglese').",
+    example: "La commissione pretende la massima puntualità alla registrazione.",
+    translation: "🇬🇧 To demand / To claim / To require (NOT to pretend/fake!)",
+    synonyms: "esigere, reclamare, imporre",
+    warning: "L'inglese 'to pretend' in italiano si traduce con 'fingere' o 'fare finta'."
+  },
+
+  // MODI DI DIRE & IDIOMI
+  {
+    id: "fc_boccalupo",
+    word: "In bocca al lupo!",
+    category: "idiomi",
+    categoryLabel: "💡 Modo di Dire",
+    level: "A1",
+    phonetic: "/in ˈbokka al ˈlupo/ • [Augurio]",
+    def: "Augurio tradizionale per esami e prove difficili. Si risponde tradizionalmente: 'Viva il lupo!' o 'Crepi!'.",
+    example: "Domani hai il test TOLC? In bocca al lupo per la prova!",
+    translation: "🇬🇧 Good luck! / Break a leg!",
+    synonyms: "Buona fortuna!",
+    warning: "Rispondere 'Grazie' è considerato tradizionalmente di cattivo auspicio!"
+  },
+  {
+    id: "fc_lucciole",
+    word: "Prendere lucciole per lanterne",
+    category: "idiomi",
+    categoryLabel: "💡 Modo di Dire",
+    level: "B2",
+    phonetic: "/ˈluttʃole per lanˈtɛrne/ • [Espressione]",
+    def: "Prendere un grosso abbaglio, confondere una cosa per un'altra del tutto diversa.",
+    example: "Chi pensa che il TOLC sia solo memoria prende lucciole per lanterne.",
+    translation: "🇬🇧 To mistake chalk for cheese / To be utterly mistaken",
+    synonyms: "fraintendere completamente, ingannarsi",
+    warning: "Metafora visiva della luce tenue della lucciola scambiata per una lanterna."
+  },
+  {
+    id: "fc_pelilingua",
+    word: "Non avere peli sulla lingua",
+    category: "idiomi",
+    categoryLabel: "💡 Modo di Dire",
+    level: "B1",
+    phonetic: "/ˈpɛli ˈsulla ˈliŋɡwa/ • [Espressione]",
+    def: "Parlare con estrema franchezza e schiettezza, senza timore di offendere.",
+    example: "Il professore non ha peli sulla lingua quando valuta gli elaborati.",
+    translation: "🇬🇧 To speak one's mind / Not to mince words",
+    synonyms: "parlare chiaro, essere schietto",
+    warning: "Uso colloquiale e giornalistico molto frequente."
+  },
+  {
+    id: "fc_piantareasso",
+    word: "Piantare in asso",
+    category: "idiomi",
+    categoryLabel: "💡 Modo di Dire",
+    level: "A2",
+    phonetic: "/pjanˈtare in ˈasso/ • [Espressione]",
+    def: "Abbandonare qualcuno improvvisamente e senza preavviso nel momento del bisogno.",
+    example: "Non posso piantare in asso il mio gruppo di studio prima dell'esame.",
+    translation: "🇬🇧 To leave in the lurch / To abandon abruptly",
+    synonyms: "abbandonare, mollare all'improvviso",
+    warning: "Origine dal gioco delle carte (l'asso rimasto isolato)."
+  }
+];
+
+/* ── SRS & State Management ─────────────────────────────────── */
+const SRS_STORAGE_KEY = "tolc_flashcards_srs_v1";
+let srsState = JSON.parse(localStorage.getItem(SRS_STORAGE_KEY) || "{}");
+
+let currentCategory = "all";
+let activeDeck = [];
+let currentCardIndex = 0;
+let isFlipped = false;
+let sessionCount = 0;
+
+function saveSRS(){
+  localStorage.setItem(SRS_STORAGE_KEY, JSON.stringify(srsState));
+  updateStatsDisplay();
+}
+
+function getMasteredCount(){
+  return Object.values(srsState).filter(status => status === 'easy').length;
+}
+
+function updateStatsDisplay(){
+  const total = activeDeck.length;
+  const mastered = getMasteredCount();
+  document.getElementById('statQueueCount').textContent = Math.max(0, total - currentCardIndex);
+  document.getElementById('statMasteredCount').textContent = mastered;
+  document.getElementById('statSessionStreak').textContent = sessionCount;
+
+  // Category counts
+  document.getElementById('count-all').textContent = FLASHCARDS_DATA.length;
+}
+
+function switchCategory(cat){
+  currentCategory = cat;
+  document.querySelectorAll('.fc-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.id === 'pill-' + cat);
+  });
+
+  activeDeck = (cat === 'all') 
+    ? [...FLASHCARDS_DATA]
+    : FLASHCARDS_DATA.filter(c => c.category === cat);
+
+  currentCardIndex = 0;
+  isFlipped = false;
+  document.getElementById('completeCard').classList.remove('show');
+  document.getElementById('cardScene').style.display = 'block';
+  document.getElementById('fcActionsArea').style.display = 'flex';
+
+  renderCurrentCard();
+  updateStatsDisplay();
+}
+
+function renderCurrentCard(){
+  if(activeDeck.length === 0 || currentCardIndex >= activeDeck.length){
+    showCompletionScreen();
+    return;
+  }
+
+  const card = activeDeck[currentCardIndex];
+  const cardEl = document.getElementById('activeCard');
+  cardEl.classList.remove('is-flipped');
+  isFlipped = false;
+
+  // Front details
+  document.getElementById('cardCatBadge').textContent = card.categoryLabel;
+  document.getElementById('cardCatBadgeBack').textContent = card.categoryLabel;
+  
+  const lvlBadge = document.getElementById('cardLevelBadge');
+  lvlBadge.textContent = card.level;
+  lvlBadge.className = `fc-card-level tag-${card.level.toLowerCase()}`;
+  
+  const lvlBadgeBack = document.getElementById('cardLevelBadgeBack');
+  lvlBadgeBack.textContent = card.level;
+  lvlBadgeBack.className = `fc-card-level tag-${card.level.toLowerCase()}`;
+
+  document.getElementById('cardWord').textContent = card.word;
+  document.getElementById('cardPhonetic').textContent = card.phonetic;
+
+  // Back details
+  document.getElementById('cardDef').textContent = card.def;
+  document.getElementById('cardExample').textContent = card.example;
+  document.getElementById('cardTranslation').textContent = card.translation;
+  document.getElementById('cardSynonyms').textContent = card.synonyms;
+  document.getElementById('cardWarning').textContent = card.warning;
+
+  // Progress Bar
+  const total = activeDeck.length;
+  const pct = Math.round(((currentCardIndex + 1) / total) * 100);
+  document.getElementById('fcProgressText').textContent = `Carta ${currentCardIndex + 1} di ${total}`;
+  document.getElementById('fcProgressPct').textContent = `${pct}%`;
+  document.getElementById('fcProgressFill').style.width = `${pct}%`;
+
+  updateStatsDisplay();
+}
+
+function toggleCardFlip(){
+  const cardEl = document.getElementById('activeCard');
+  isFlipped = !isFlipped;
+  cardEl.classList.toggle('is-flipped', isFlipped);
+}
+
+function rateCard(rating){
+  const card = activeDeck[currentCardIndex];
+  srsState[card.id] = rating;
+  sessionCount++;
+  saveSRS();
+
+  // Check achievements
+  if(getMasteredCount() >= 5 && window.showToast){
+    window.showToast("🃏 Obiettivo Sbloccato: Mago dei Vocaboli!", "success");
+  }
+
+  if(rating === 'again'){
+    // Move to end of current queue
+    activeDeck.push(card);
+  }
+
+  nextCard();
+}
+
+function nextCard(){
+  if(currentCardIndex < activeDeck.length - 1){
+    currentCardIndex++;
+    renderCurrentCard();
+  } else {
+    showCompletionScreen();
+  }
+}
+
+function prevCard(){
+  if(currentCardIndex > 0){
+    currentCardIndex--;
+    renderCurrentCard();
+  }
+}
+
+function shuffleDeck(){
+  for (let i = activeDeck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [activeDeck[i], activeDeck[j]] = [activeDeck[j], activeDeck[i]];
+  }
+  currentCardIndex = 0;
+  renderCurrentCard();
+  if(window.showToast) window.showToast("🔀 Mazzo mescolato!", "info");
+}
+
+function resetDeckProgress(){
+  if(confirm("Vuoi azzerare il progresso di studio per questo mazzo?")){
+    activeDeck.forEach(c => delete srsState[c.id]);
+    saveSRS();
+    currentCardIndex = 0;
+    renderCurrentCard();
+    if(window.showToast) window.showToast("Progresso azzerato.", "info");
+  }
+}
+
+function showCompletionScreen(){
+  document.getElementById('cardScene').style.display = 'none';
+  document.getElementById('fcActionsArea').style.display = 'none';
+  document.getElementById('completeCard').classList.add('show');
+}
+
+function restartCategory(){
+  switchCategory(currentCategory);
+}
+
+/* ── Web Speech Audio Synthesis ─────────────────────────────── */
+function playCardAudio(){
+  if(!('speechSynthesis' in window)){
+    alert("Sintesi vocale non supportata nel tuo browser.");
+    return;
+  }
+  const card = activeDeck[currentCardIndex];
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(card.word);
+  utterance.lang = 'it-IT';
+  utterance.rate = 0.85;
+
+  const voices = window.speechSynthesis.getVoices();
+  const italianVoice = voices.find(v => v.lang.startsWith('it'));
+  if(italianVoice) utterance.voice = italianVoice;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+/* ── Keyboard Shortcuts Listener ────────────────────────────── */
+document.addEventListener('keydown', (e) => {
+  // Ignore if user is typing in an input
+  if(['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+  switch(e.code){
+    case 'Space':
+      e.preventDefault();
+      toggleCardFlip();
+      break;
+    case 'ArrowRight':
+      nextCard();
+      break;
+    case 'ArrowLeft':
+      prevCard();
+      break;
+    case 'Digit1':
+    case 'Numpad1':
+      rateCard('again');
+      break;
+    case 'Digit2':
+    case 'Numpad2':
+      rateCard('good');
+      break;
+    case 'Digit3':
+    case 'Numpad3':
+      rateCard('easy');
+      break;
+    case 'KeyA':
+      playCardAudio();
+      break;
+  }
+});
+
+/* ── Init on DOM Ready ──────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  switchCategory('all');
+});
+</script>
+{% endblock %}

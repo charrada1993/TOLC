@@ -96,13 +96,58 @@
       </div>
     </div>
 
+    <!-- Parola & Proverbio del Giorno Widget -->
+    <div class="daily-discovery-card mb-8" role="region" aria-label="Parola e Proverbio del Giorno">
+      <div class="daily-discovery-grid">
+        <!-- Word of the Day -->
+        <div class="daily-word-pane">
+          <div class="daily-badge-row">
+            <span class="badge badge-primary">✨ Parola del Giorno</span>
+            <span class="passage-tag tag-b2" id="dailyWordLevel">B2</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin:var(--space-3) 0 var(--space-2);">
+            <h3 id="dailyWordTitle" style="font-size:1.6rem;font-weight:800;margin:0;">postulato</h3>
+            <button class="fc-audio-btn-sm" onclick="playDailyWordAudio()" title="Ascolta pronuncia">🔊</button>
+          </div>
+          <div class="daily-pos" id="dailyWordPos">Sostantivo maschile • /pos.tuˈla.to/</div>
+          <p class="daily-def" id="dailyWordDef">Principio fondamentale assunto come vero senza bisogno di dimostrazione.</p>
+          <div class="daily-example" id="dailyWordExample"><em>"La teoria della relatività poggia sul postulato della costanza della velocità della luce."</em></div>
+          <div style="margin-top:var(--space-4);">
+            <a href="/flashcards" class="btn btn-primary btn-sm">🃏 Apri Tutte le Flashcards →</a>
+          </div>
+        </div>
+
+        <!-- Proverb & Daily Mini Challenge -->
+        <div class="daily-challenge-pane">
+          <div class="daily-badge-row">
+            <span class="badge badge-warning">💡 Proverbio &amp; Mini-Sfida</span>
+            <span style="font-size:0.8rem;color:var(--text-muted);" id="dailyStreakXp">+10 XP Oggi</span>
+          </div>
+          <div class="daily-proverb-box">
+            <strong id="dailyProverbText">"In bocca al lupo!"</strong>
+            <span id="dailyProverbMeaning" style="font-size:0.85rem;color:var(--text-secondary);display:block;margin-top:4px;">Augurio tradizionale per gli esami. Si risponde "Viva il lupo!"</span>
+          </div>
+
+          <div class="daily-mini-quiz" id="dailyMiniQuiz">
+            <div class="mini-quiz-q" id="dailyQuizQuestion">Come si risponde correttamente a "In bocca al lupo"?</div>
+            <div class="mini-quiz-options" id="dailyQuizOptions">
+              <button class="mini-quiz-opt" onclick="answerDailyQuiz(0)">A) Grazie mille!</button>
+              <button class="mini-quiz-opt" onclick="answerDailyQuiz(1)">B) Viva il lupo! 🎉</button>
+              <button class="mini-quiz-opt" onclick="answerDailyQuiz(2)">C) A te e famiglia</button>
+            </div>
+            <div class="mini-quiz-feedback" id="dailyQuizFeedback"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Quick actions -->
     <div class="section-header">
       <div class="section-label">Azioni rapide</div>
       <h2>Cosa vuoi fare oggi?</h2>
     </div>
 
-    <div class="grid-2 mb-8">
+    <div class="grid-3 mb-8">
       <a href="/day/{{ current_day }}" class="card card-interactive" style="border-left:4px solid var(--primary);text-decoration:none;">
         <div class="card-body flex-between">
           <div>
@@ -121,12 +166,36 @@
         </div>
       </a>
 
+      <a href="/flashcards" class="card card-interactive" style="border-left:4px solid #10b981;text-decoration:none;">
+        <div class="card-body flex-between">
+          <div>
+            <div class="badge badge-success mb-4" style="background:#dcfce7;color:#15803d;">Novità ✨</div>
+            <h3>Flashcards &amp; Lessico</h3>
+            <p style="margin-top:var(--space-2);">Ripetizione spaziata (SRS), connettivi logici e lessico accademico</p>
+            <span class="btn btn-sm mt-4" style="background:#10b981;color:white;">🃏 Allenati →</span>
+          </div>
+          <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">🃏</span>
+        </div>
+      </a>
+
+      <a href="/testo" class="card card-interactive" style="border-left:4px solid #6366f1;text-decoration:none;">
+        <div class="card-body flex-between">
+          <div>
+            <div class="badge badge-info mb-4">Comprensione</div>
+            <h3>Testi &amp; Lettura</h3>
+            <p style="margin-top:var(--space-2);">Brani ufficiali, audio-lettura e vocabolario contestuale</p>
+            <span class="btn btn-sm mt-4" style="background:#6366f1;color:white;">📖 Leggi brani →</span>
+          </div>
+          <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">📖</span>
+        </div>
+      </a>
+
       <a href="/test" class="card card-interactive" style="border-left:4px solid #1d4ed8;text-decoration:none;">
         <div class="card-body flex-between">
           <div>
             <div class="badge badge-info mb-4">Test libero</div>
-            <h3>Testa il tuo italiano</h3>
-            <p style="margin-top:var(--space-2);">Scegli categoria, difficoltà e numero di domande</p>
+            <h3>Testa il tuo livello</h3>
+            <p style="margin-top:var(--space-2);">Scegli categoria, difficoltà e numero di quesiti</p>
             <span class="btn btn-sm mt-4" style="background:var(--info);color:white;">✏️ Inizia test →</span>
           </div>
           <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">✏️</span>
@@ -136,9 +205,9 @@
       <a href="/results" class="card card-interactive" style="border-left:4px solid var(--warning);text-decoration:none;">
         <div class="card-body flex-between">
           <div>
-            <div class="badge badge-warning mb-4">Analisi</div>
-            <h3>Rivedi i risultati</h3>
-            <p style="margin-top:var(--space-2);">Vedi il tuo ultimo test e le aree da migliorare</p>
+            <div class="badge badge-warning mb-4">Analisi &amp; Badges</div>
+            <h3>I Miei Risultati</h3>
+            <p style="margin-top:var(--space-2);">Trofei sbloccati, andamento storico e punti deboli</p>
             <span class="btn btn-sm mt-4" style="background:var(--warning);color:white;">📊 Vedi risultati →</span>
           </div>
           <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">📊</span>
@@ -149,8 +218,8 @@
         <div class="card-body flex-between">
           <div>
             <div class="badge badge-error mb-4">Esame simulato</div>
-            <h3>Simulazione finale</h3>
-            <p style="margin-top:var(--space-2);">50 domande in 60 minuti — come il vero esame</p>
+            <h3>Simulazione CISIA</h3>
+            <p style="margin-top:var(--space-2);">50 domande in 60 minuti — come il test ufficiale</p>
             <span class="btn btn-sm mt-4" style="background:var(--accent);color:white;">🏆 Inizia simulazione →</span>
           </div>
           <span style="font-size:3rem;margin-left:var(--space-4);" aria-hidden="true">🏆</span>
@@ -259,16 +328,169 @@
 </div>
 
 <script>
+/* ── Rotating Daily Word & Proverb Dataset ───────────────────── */
+const DAILY_DISCOVERIES = [
+  {
+    word: "postulato",
+    pos: "Sostantivo maschile • /pos.tuˈla.to/",
+    level: "C1",
+    def: "Principio assunto come vero senza dimostrazione, su cui si fonda una teoria scientifica.",
+    example: "La geometria euclidea poggia sul celebre postulato delle rette parallele.",
+    proverb: "\"In bocca al lupo!\"",
+    proverbMeaning: "Augurio tradizionale per prove ed esami. Risposta: 'Viva il lupo!' o 'Crepi!'",
+    quiz: {
+      q: "Qual è il significato esatto di 'postulato'?",
+      options: ["Un'ipotesi smentita dai fatti", "Un principio assunto per vero come base di una teoria", "Una legge approvata in parlamento"],
+      correct: 1,
+      explanation: "Esatto! Un postulato è una proposizione non dimostrata assunta come premessa fondamentale."
+    }
+  },
+  {
+    word: "confutare",
+    pos: "Verbo transitivo • /kon.fuˈta.re/",
+    level: "B2",
+    def: "Dimostrare falsa o infondata un'affermazione o una tesi mediante argomentazioni logiche.",
+    example: "Il ricercatore ha presentato dati inoppugnabili per confutare la tesi avversaria.",
+    proverb: "\"Non avere peli sulla lingua\"",
+    proverbMeaning: "Parlare con estrema franchezza, senza timore di dire la verità.",
+    quiz: {
+      q: "Cosa significa 'confutare una tesi'?",
+      options: ["Approvarla con riserva", "Dimostrarne l'infondatezza o falsità", "Copiarla da un altro autore"],
+      correct: 1,
+      explanation: "Corretto! Confutare significa dimostrare che una teoria è errata."
+    }
+  },
+  {
+    word: "bensì",
+    pos: "Congiunzione avversativa • /benˈsi/",
+    level: "B2",
+    def: "Introduce una correzione dopo una frase negativa; significa 'ma invece / ma al contrario'.",
+    example: "Non cercava una scusa, bensì una spiegazione razionale all'accaduto.",
+    proverb: "\"Prendere lucciole per lanterne\"",
+    proverbMeaning: "Prendere un grosso abbaglio o confondere una cosa per un'altra.",
+    quiz: {
+      q: "In quale frase 'bensì' è usato in modo corretto?",
+      options: ["Oggi piove, bensì esco lo stesso", "Non era stanco, bensì profondamente deluso", "Ho mangiato la mela, bensì la pera"],
+      correct: 1,
+      explanation: "Ottimo! 'Bensì' si usa solo dopo una proposizione negativa (non era... bensì...)."
+    }
+  },
+  {
+    word: "dicotomia",
+    pos: "Sostantivo femminile • /di.ko.toˈmi.a/",
+    level: "C1",
+    def: "Divisione netta o contrapposizione di un concetto in due parti distinte.",
+    example: "Il saggio approfondisce la dicotomia tra razionalità ed emozione nelle scelte umane.",
+    proverb: "\"A caval donato non si guarda in bocca\"",
+    proverbMeaning: "I regali vanno sempre apprezzati senza fare critiche.",
+    quiz: {
+      q: "Cosa indica una 'dicotomia'?",
+      options: ["Una suddivisione in tre rami", "Una netta contrapposizione binaria", "Un accordo tra parti avverse"],
+      correct: 1,
+      explanation: "Bravo! Dicotomia deriva dal greco dicha (in due parti) + temnein (tagliare)."
+    }
+  }
+];
+
+// Pick discovery based on day of the year
+function getTodayDiscovery() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+  return DAILY_DISCOVERIES[dayOfYear % DAILY_DISCOVERIES.length];
+}
+
+const currentDiscovery = getTodayDiscovery();
+
+function initDailyWidget() {
+  if (!currentDiscovery) return;
+  document.getElementById('dailyWordTitle').textContent = currentDiscovery.word;
+  document.getElementById('dailyWordLevel').textContent = currentDiscovery.level;
+  document.getElementById('dailyWordPos').textContent = currentDiscovery.pos;
+  document.getElementById('dailyWordDef').textContent = currentDiscovery.def;
+  document.getElementById('dailyWordExample').innerHTML = `<em>"${currentDiscovery.example}"</em>`;
+  document.getElementById('dailyProverbText').textContent = currentDiscovery.proverb;
+  document.getElementById('dailyProverbMeaning').textContent = currentDiscovery.proverbMeaning;
+
+  // Quiz
+  const q = currentDiscovery.quiz;
+  document.getElementById('dailyQuizQuestion').textContent = q.q;
+  const optContainer = document.getElementById('dailyQuizOptions');
+  optContainer.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'mini-quiz-opt';
+    btn.id = `dailyOpt-${idx}`;
+    btn.textContent = `${String.fromCharCode(65 + idx)}) ${opt}`;
+    btn.onclick = () => answerDailyQuiz(idx);
+    optContainer.appendChild(btn);
+  });
+
+  // Check if answered today
+  const todayKey = 'tolc_daily_quiz_' + new Date().toISOString().slice(0,10);
+  if (localStorage.getItem(todayKey)) {
+    const saved = JSON.parse(localStorage.getItem(todayKey));
+    revealDailyQuiz(saved.selected, saved.isCorrect, false);
+  }
+}
+
+function answerDailyQuiz(selectedIdx) {
+  const q = currentDiscovery.quiz;
+  const isCorrect = (selectedIdx === q.correct);
+  const todayKey = 'tolc_daily_quiz_' + new Date().toISOString().slice(0,10);
+  localStorage.setItem(todayKey, JSON.stringify({ selected: selectedIdx, isCorrect }));
+
+  revealDailyQuiz(selectedIdx, isCorrect, true);
+}
+
+function revealDailyQuiz(selectedIdx, isCorrect, showToastMsg) {
+  const q = currentDiscovery.quiz;
+  const btns = document.querySelectorAll('.mini-quiz-opt');
+  btns.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === q.correct) {
+      btn.classList.add('correct');
+    } else if (idx === selectedIdx && !isCorrect) {
+      btn.classList.add('wrong');
+    }
+  });
+
+  const fb = document.getElementById('dailyQuizFeedback');
+  fb.className = 'mini-quiz-feedback show ' + (isCorrect ? 'correct' : 'wrong');
+  fb.textContent = (isCorrect ? "🎉 " : "💡 ") + q.explanation;
+
+  if (showToastMsg && window.showToast) {
+    window.showToast(isCorrect ? "✨ Risposta esatta! +10 XP Guadagnati!" : "💡 Continua a esercitarti!", isCorrect ? "success" : "info");
+  }
+}
+
+function playDailyWordAudio() {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(currentDiscovery.word);
+  u.lang = 'it-IT';
+  u.rate = 0.85;
+  const voices = window.speechSynthesis.getVoices();
+  const iv = voices.find(v => v.lang.startsWith('it'));
+  if (iv) u.voice = iv;
+  window.speechSynthesis.speak(u);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initDailyWidget();
+});
+
 async function resetProgress() {
   if (!confirm('Sei sicuro di voler azzerare tutti i progressi? Questa azione non può essere annullata.')) return;
   try {
     const res = await fetch('/api/reset', { method: 'POST' });
     if (res.ok) {
-      showToast('Progressi azzerati.', 'info');
+      if(window.showToast) showToast('Progressi azzerati.', 'info');
       setTimeout(() => location.reload(), 1200);
     }
   } catch(e) {
-    showToast('Errore durante il reset.', 'error');
+    if(window.showToast) showToast('Errore durante il reset.', 'error');
   }
 }
 </script>

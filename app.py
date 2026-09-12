@@ -402,6 +402,11 @@ def conversazione():
 def testo():
     return render_template("testo.html")
 
+@app.route("/flashcards")
+def flashcards():
+    return render_template("flashcards.html")
+
+
 
 # ─── API Endpoints ────────────────────────────────────────────────────────────
 @app.route("/api/questions")

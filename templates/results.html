@@ -386,5 +386,150 @@
     </div>
   </div>
 
+  <!-- ── Badges & Trofei Showcase ── -->
+  <div class="section-header" style="margin-top:var(--space-8);">
+    <div class="section-label">Gamification &amp; Traguardi</div>
+    <h2>Trofei &amp; Badges Sbloccati</h2>
+  </div>
+
+  <div class="badges-grid mb-8" role="region" aria-label="Elenco badges">
+    
+    <!-- Badge 1: Primo Passo -->
+    <div class="badge-card {% if stats.total_questions > 0 %}unlocked{% else %}locked{% endif %}" id="badge-primo-passo">
+      <div class="badge-icon-wrap">
+        <span class="badge-icon">🥇</span>
+        <span class="badge-lock">🔒</span>
+      </div>
+      <div class="badge-title">Primo Passo</div>
+      <div class="badge-desc">Completa il tuo primo quiz o sessione di studio</div>
+      <div class="badge-status">
+        {% if stats.total_questions > 0 %}
+          <span class="badge-status-tag tag-unlocked">✓ Sbloccato</span>
+        {% else %}
+          <span class="badge-status-tag tag-locked">Bloccato</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Badge 2: Mago dei Vocaboli (Flashcards) -->
+    <div class="badge-card locked" id="badge-flashcards">
+      <div class="badge-icon-wrap">
+        <span class="badge-icon">🃏</span>
+        <span class="badge-lock">🔒</span>
+      </div>
+      <div class="badge-title">Mago dei Vocaboli</div>
+      <div class="badge-desc">Padroneggia almeno 5 flashcards con il sistema SRS</div>
+      <div class="badge-status">
+        <span class="badge-status-tag tag-locked" id="badgeStatusFlashcards">0 / 5</span>
+      </div>
+    </div>
+
+    <!-- Badge 3: Topo di Biblioteca (Lettura) -->
+    <div class="badge-card locked" id="badge-reading">
+      <div class="badge-icon-wrap">
+        <span class="badge-icon">📚</span>
+        <span class="badge-lock">🔒</span>
+      </div>
+      <div class="badge-title">Topo di Biblioteca</div>
+      <div class="badge-desc">Completa l'analisi di almeno 3 brani di lettura</div>
+      <div class="badge-status">
+        <span class="badge-status-tag tag-locked" id="badgeStatusReading">In corso</span>
+      </div>
+    </div>
+
+    <!-- Badge 4: Cecchino TOLC (80%+ precisione) -->
+    <div class="badge-card {% if stats.best_score >= 80 %}unlocked{% else %}locked{% endif %}" id="badge-accuracy">
+      <div class="badge-icon-wrap">
+        <span class="badge-icon">🎯</span>
+        <span class="badge-lock">🔒</span>
+      </div>
+      <div class="badge-title">Cecchino TOLC</div>
+      <div class="badge-desc">Ottieni un punteggio ≥ 80% in un test o simulazione</div>
+      <div class="badge-status">
+        {% if stats.best_score >= 80 %}
+          <span class="badge-status-tag tag-unlocked">✓ Sbloccato ({{ stats.best_score }}%)</span>
+        {% else %}
+          <span class="badge-status-tag tag-locked">Record: {{ stats.best_score }}%</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Badge 5: Costanza d'Acciaio (Streak) -->
+    <div class="badge-card {% if stats.streak >= 3 %}unlocked{% else %}locked{% endif %}" id="badge-streak">
+      <div class="badge-icon-wrap">
+        <span class="badge-icon">🔥</span>
+        <span class="badge-lock">🔒</span>
+      </div>
+      <div class="badge-title">Costanza d'Acciaio</div>
+      <div class="badge-desc">Mantieni uno streak di studio di almeno 3 giorni</div>
+      <div class="badge-status">
+        {% if stats.streak >= 3 %}
+          <span class="badge-status-tag tag-unlocked">✓ Sbloccato ({{ stats.streak }} gg)</span>
+        {% else %}
+          <span class="badge-status-tag tag-locked">{{ stats.streak }} / 3 giorni</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Badge 6: Accademico TOLC (10 giorni) -->
+    <div class="badge-card {% if stats.days_completed >= 10 %}unlocked{% else %}locked{% endif %}" id="badge-graduate">
+      <div class="badge-icon-wrap">
+        <span class="badge-icon">🎓</span>
+        <span class="badge-lock">🔒</span>
+      </div>
+      <div class="badge-title">Accademico TOLC</div>
+      <div class="badge-desc">Completa l'intero percorso intensivo di 10 giorni</div>
+      <div class="badge-status">
+        {% if stats.days_completed >= 10 %}
+          <span class="badge-status-tag tag-unlocked">✓ Sbloccato! 🏆</span>
+        {% else %}
+          <span class="badge-status-tag tag-locked">{{ stats.days_completed }} / 10 giorni</span>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
 </div>
+
+<script>
+// Dynamic client-side evaluation of local achievements (flashcards & reading passages)
+document.addEventListener('DOMContentLoaded', () => {
+  // Flashcards SRS check
+  try {
+    const srs = JSON.parse(localStorage.getItem('tolc_flashcards_srs_v1') || '{}');
+    const mastered = Object.values(srs).filter(s => s === 'easy').length;
+    const cardEl = document.getElementById('badge-flashcards');
+    const statusEl = document.getElementById('badgeStatusFlashcards');
+    if (cardEl && statusEl) {
+      if (mastered >= 5) {
+        cardEl.classList.remove('locked');
+        cardEl.classList.add('unlocked');
+        statusEl.className = 'badge-status-tag tag-unlocked';
+        statusEl.textContent = `✓ Sbloccato (${mastered} carte)`;
+      } else {
+        statusEl.textContent = `${mastered} / 5 carte`;
+      }
+    }
+  } catch(e) {}
+
+  // Reading passages check
+  try {
+    const doneTexts = JSON.parse(localStorage.getItem('tolc_done_texts_v1') || '{}');
+    const count = Object.keys(doneTexts).length;
+    const cardEl = document.getElementById('badge-reading');
+    const statusEl = document.getElementById('badgeStatusReading');
+    if (cardEl && statusEl) {
+      if (count >= 3) {
+        cardEl.classList.remove('locked');
+        cardEl.classList.add('unlocked');
+        statusEl.className = 'badge-status-tag tag-unlocked';
+        statusEl.textContent = `✓ Sbloccato (${count} brani)`;
+      } else {
+        statusEl.textContent = `${count} / 3 brani`;
+      }
+    }
+  } catch(e) {}
+});
+</script>
 {% endblock %}

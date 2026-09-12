@@ -30,8 +30,9 @@
       <ul class="nav-links" role="list">
         <li><a href="/" class="{% if request.endpoint == 'index' %}active{% endif %}" aria-current="{% if request.endpoint == 'index' %}page{% endif %}"><span class="nav-icon">🏠</span><span>Dashboard</span></a></li>
         <li><a href="/plan" class="{% if request.endpoint == 'plan' %}active{% endif %}"><span class="nav-icon">📅</span><span>Piano 10 Giorni</span></a></li>
-        <li><a href="/conversazione" class="{% if request.endpoint == 'conversazione' %}active{% endif %}"><span class="nav-icon">💬</span><span>Conversazione</span></a></li>
+        <li><a href="/flashcards" class="{% if request.endpoint == 'flashcards' %}active{% endif %}"><span class="nav-icon">🃏</span><span>Flashcards</span></a></li>
         <li><a href="/testo" class="{% if request.endpoint == 'testo' %}active{% endif %}"><span class="nav-icon">📖</span><span>Testi & Lettura</span></a></li>
+        <li><a href="/conversazione" class="{% if request.endpoint == 'conversazione' %}active{% endif %}"><span class="nav-icon">💬</span><span>Conversazione</span></a></li>
         <li><a href="/test" class="{% if request.endpoint == 'test' %}active{% endif %}"><span class="nav-icon">✏️</span><span>Test Livello</span></a></li>
         <li><a href="/simulation" class="{% if request.endpoint == 'simulation' %}active{% endif %}"><span class="nav-icon">🏆</span><span>Simulazione</span></a></li>
         <li><a href="/about" class="{% if request.endpoint == 'about' %}active{% endif %}"><span class="nav-icon">ℹ️</span><span>Info</span></a></li>
@@ -58,11 +59,14 @@
       <a href="/plan" class="{% if request.endpoint == 'plan' %}active{% endif %}">
         <span class="m-icon">📅</span> Piano 10 Giorni
       </a>
-      <a href="/conversazione" class="{% if request.endpoint == 'conversazione' %}active{% endif %}">
-        <span class="m-icon">💬</span> Conversazione
+      <a href="/flashcards" class="{% if request.endpoint == 'flashcards' %}active{% endif %}">
+        <span class="m-icon">🃏</span> Flashcards & Lessico
       </a>
       <a href="/testo" class="{% if request.endpoint == 'testo' %}active{% endif %}">
         <span class="m-icon">📖</span> Testi & Lettura
+      </a>
+      <a href="/conversazione" class="{% if request.endpoint == 'conversazione' %}active{% endif %}">
+        <span class="m-icon">💬</span> Conversazione
       </a>
       <a href="/test" class="{% if request.endpoint == 'test' %}active{% endif %}">
         <span class="m-icon">✏️</span> Testa il Livello
@@ -99,6 +103,7 @@
           <h4>Studio</h4>
           <ul>
             <li><a href="/day/1">Piano 10 Giorni</a></li>
+            <li><a href="/flashcards">Flashcards &amp; Lessico</a></li>
             <li><a href="/testo">Testi &amp; Lettura</a></li>
             <li><a href="/conversazione">Conversazione</a></li>
             <li><a href="/test">Test Livello</a></li>
