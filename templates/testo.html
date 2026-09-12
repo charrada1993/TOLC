@@ -49,6 +49,7 @@
   display: inline-block; padding: 4px 12px; border-radius: var(--radius-full);
   font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
 }
+.tag-a1 { background: #e0f2fe; color: #0369a1; }
 .tag-a2 { background: #fef3c7; color: #d97706; }
 .tag-b1 { background: #fee2e2; color: #dc2626; }
 .tag-b2 { background: #dcfce7; color: #15803d; }
@@ -305,6 +306,126 @@
 /* ── Structured Dataset of Passages ─────────────────────────── */
 const PASSAGES = [
   {
+    id: "famiglia_italiana",
+    title: "La Famiglia Italiana: Amore e Tradizione",
+    topic: "societa",
+    level: "A1",
+    readTime: "1 min",
+    wordCount: 100,
+    excerpt: "In Italia la famiglia è molto importante. I nonni, i genitori e i figli vivono spesso vicino. La domenica tutta la famiglia mangia insieme a casa. È un momento speciale...",
+    textHTML: `<p>In Italia la <span class="vocab-term" onclick="showGlossary('famiglia')">famiglia</span> è molto importante. I nonni, i genitori e i figli vivono spesso vicino. Molte famiglie abitano nella stessa città o nello stesso quartiere.</p>
+    <p>La domenica tutta la famiglia <span class="vocab-term" onclick="showGlossary('mangia')">mangia</span> insieme a casa. La nonna cucina la pasta, il sugo e il dolce. È un momento molto speciale e allegro.</p>
+    <p>In Italia si dice: «La famiglia è tutto». I bambini imparano le tradizioni dai nonni: le ricette, le canzoni e le storie del passato. La famiglia italiana è un punto di riferimento per tutti.</p>`,
+    glossary: {
+      "famiglia": "Il gruppo formato da genitori, figli e parenti (en: family).",
+      "mangia": "Terza persona singolare del verbo 'mangiare' (en: eats / eats together)."
+    },
+    questions: [
+      {
+        prompt: "Quando si riunisce di solito la famiglia italiana?",
+        options: [
+          "Il lunedì mattina, al lavoro",
+          "La domenica, per mangiare insieme a casa",
+          "Il sabato sera, al ristorante",
+          "Mai, ogni persona mangia da sola"
+        ],
+        correct: 1,
+        explanation: "Il secondo paragrafo dice che 'la domenica tutta la famiglia mangia insieme a casa'."
+      },
+      {
+        prompt: "Cosa imparano i bambini dai nonni?",
+        options: [
+          "Come usare il computer e i videogiochi",
+          "Le tradizioni: le ricette, le canzoni e le storie del passato",
+          "Le lingue straniere come l'inglese e il francese",
+          "Come guidare la macchina"
+        ],
+        correct: 1,
+        explanation: "Il terzo paragrafo afferma che i bambini imparano dai nonni 'le ricette, le canzoni e le storie del passato'."
+      }
+    ]
+  },
+  {
+    id: "colori_stagioni",
+    title: "I Colori delle Stagioni in Italia",
+    topic: "scienza",
+    level: "A1",
+    readTime: "1 min",
+    wordCount: 95,
+    excerpt: "In Italia ci sono quattro stagioni: primavera, estate, autunno e inverno. Ogni stagione ha i suoi colori e le sue tradizioni. In primavera i fiori sono belli e colorati...",
+    textHTML: `<p>In Italia ci sono quattro <span class="vocab-term" onclick="showGlossary('stagioni')">stagioni</span>: primavera, estate, autunno e inverno. Ogni stagione è diversa e bella.</p>
+    <p>In <span class="vocab-term" onclick="showGlossary('primavera')">primavera</span> i fiori sono belli e colorati. I colori sono il rosa, il giallo e il bianco. In estate il sole è forte e il cielo è azzurro. Le persone vanno al mare o in montagna.</p>
+    <p>In autunno le foglie degli alberi diventano rosse, arancioni e gialle. In inverno fa freddo e nevica sulle montagne. I bambini amano la neve. Ogni stagione porta gioia e colori diversi nella vita italiana.</p>`,
+    glossary: {
+      "stagioni": "Le quattro parti dell'anno: primavera, estate, autunno, inverno (en: seasons).",
+      "primavera": "La stagione dopo l'inverno, quando le piante fioriscono (en: spring)."
+    },
+    questions: [
+      {
+        prompt: "Quante stagioni ci sono in Italia?",
+        options: [
+          "Due: estate e inverno",
+          "Tre: primavera, estate e autunno",
+          "Quattro: primavera, estate, autunno e inverno",
+          "Una sola: l'estate"
+        ],
+        correct: 2,
+        explanation: "Il primo paragrafo dice chiaramente: 'In Italia ci sono quattro stagioni: primavera, estate, autunno e inverno'."
+      },
+      {
+        prompt: "Di che colore diventano le foglie in autunno?",
+        options: [
+          "Blu e viola",
+          "Verde e azzurro",
+          "Rosse, arancioni e gialle",
+          "Bianche e rosa"
+        ],
+        correct: 2,
+        explanation: "Il terzo paragrafo afferma che in autunno 'le foglie degli alberi diventano rosse, arancioni e gialle'."
+      }
+    ]
+  },
+  {
+    id: "citta_roma",
+    title: "Roma: La Città Eterna",
+    topic: "storia",
+    level: "A1",
+    readTime: "1 min",
+    wordCount: 105,
+    excerpt: "Roma è la capitale d'Italia. È una città molto grande e antica. A Roma ci sono molti monumenti famosi come il Colosseo, la Fontana di Trevi e il Vaticano...",
+    textHTML: `<p>Roma è la <span class="vocab-term" onclick="showGlossary('capitale')">capitale</span> d'Italia. È una città molto grande e antica. Molte persone da tutto il mondo visitano Roma ogni anno.</p>
+    <p>A Roma ci sono molti <span class="vocab-term" onclick="showGlossary('monumenti')">monumenti</span> famosi. Il Colosseo è un grande anfiteatro romano. La Fontana di Trevi è bellissima. Le persone lanciano una moneta nella fontana per tornare a Roma.</p>
+    <p>Roma si chiama «La Città Eterna» perché è molto antica — ha più di 2700 anni! Il cibo di Roma è ottimo: la pizza, la pasta e il gelato sono buonissimi. Roma è una città magica.</p>`,
+    glossary: {
+      "capitale": "La città principale di uno Stato, dove si trova il governo (en: capital city).",
+      "monumenti": "Edifici o strutture importanti che hanno valore storico o artistico (en: monuments)."
+    },
+    questions: [
+      {
+        prompt: "Perché Roma si chiama 'La Città Eterna'?",
+        options: [
+          "Perché il tempo non passa mai in questa città",
+          "Perché è molto antica, con più di 2700 anni di storia",
+          "Perché le persone non vanno mai via da Roma",
+          "Perché è la città più grande del mondo"
+        ],
+        correct: 1,
+        explanation: "Il terzo paragrafo spiega che Roma si chiama Città Eterna 'perché è molto antica — ha più di 2700 anni'."
+      },
+      {
+        prompt: "Cosa fanno le persone alla Fontana di Trevi?",
+        options: [
+          "Mangiano la pizza vicino all'acqua",
+          "Lanciano una moneta per tornare a Roma",
+          "Fanno il bagno nella fontana",
+          "Comprano i souvenir del Colosseo"
+        ],
+        correct: 1,
+        explanation: "Il secondo paragrafo dice: 'Le persone lanciano una moneta nella fontana per tornare a Roma'."
+      }
+    ]
+  },
+  {
     id: "dante_lingua",
     title: "L'Evoluzione della Lingua Italiana: Da Dante all'Era Digitale",
     topic: "storia",
@@ -447,6 +568,308 @@ const PASSAGES = [
         ],
         correct: 1,
         explanation: "Il mecenatismo dei Medici finanziò le opere d'arte e attrasse i più grandi geni dell'epoca."
+      }
+    ]
+  },
+  {
+    id: "costituzione_italiana",
+    title: "La Costituzione Italiana: Fondamento della Repubblica",
+    topic: "storia",
+    level: "B1",
+    readTime: "3 min",
+    wordCount: 240,
+    excerpt: "Entrata in vigore il 1° gennaio 1948, la Costituzione della Repubblica Italiana è la legge fondamentale dello Stato. Nata dalla lotta partigiana e dal dolore della Seconda Guerra Mondiale...",
+    textHTML: `<p>Entrata in vigore il 1° gennaio 1948, la <span class="vocab-term" onclick="showGlossary('Costituzione')">Costituzione</span> della Repubblica Italiana rappresenta la legge fondamentale dello Stato. Redatta dall'Assemblea Costituente dopo la fine della Seconda Guerra Mondiale e la caduta del regime fascista, essa sancisce i valori di democrazia, libertà e uguaglianza su cui si fonda la Repubblica.</p>
+    <p>Composta da 139 articoli, la Carta fondamentale si divide in una sezione dedicata ai Principi Fondamentali, poi ai diritti e doveri dei cittadini, e infine all'organizzazione dello Stato. I dodici <span class="vocab-term" onclick="showGlossary('principi fondamentali')">principi fondamentali</span> iniziali sono considerati intoccabili e non modificabili nemmeno dal Parlamento.</p>
+    <p>L'articolo 1 afferma che «L'Italia è una Repubblica democratica, fondata sul <span class="vocab-term" onclick="showGlossary('lavoro')">lavoro</span>». La <span class="vocab-term" onclick="showGlossary('sovranità')">sovranità</span> appartiene al popolo: questi principi non sono semplici dichiarazioni ma rappresentano l'identità profonda di una nazione nata dalla Resistenza e dalla volontà di non ripetere gli errori del passato.</p>`,
+    glossary: {
+      "Costituzione": "La legge suprema dello Stato che stabilisce i diritti fondamentali e l'organizzazione del governo.",
+      "principi fondamentali": "I dodici articoli iniziali della Costituzione che non possono essere modificati dal Parlamento.",
+      "lavoro": "Qui inteso nel senso ampio di attività produttiva che conferisce dignità al cittadino.",
+      "sovranità": "Il potere supremo di uno Stato di governare se stesso; appartiene al popolo in democrazia."
+    },
+    questions: [
+      {
+        prompt: "Quando è entrata in vigore la Costituzione Italiana?",
+        options: [
+          "1° gennaio 1861, con l'Unità d'Italia",
+          "1° gennaio 1948, dopo la Seconda Guerra Mondiale",
+          "4 novembre 1918, alla fine della Prima Guerra Mondiale",
+          "2 giugno 1946, con il referendum istituzionale"
+        ],
+        correct: 1,
+        explanation: "Il primo paragrafo indica chiaramente che la Costituzione è entrata in vigore il 1° gennaio 1948."
+      },
+      {
+        prompt: "Cosa si afferma nell'articolo 1 della Costituzione?",
+        options: [
+          "Che il Re governa con poteri assoluti",
+          "Che l'Italia è una Repubblica democratica fondata sul lavoro e la sovranità appartiene al popolo",
+          "Che la lingua ufficiale è il dialetto toscano",
+          "Che il Parlamento può modificare qualsiasi articolo"
+        ],
+        correct: 1,
+        explanation: "Il terzo paragrafo cita l'articolo 1: Repubblica democratica, fondata sul lavoro, con sovranità popolare."
+      },
+      {
+        prompt: "Perché i dodici principi fondamentali sono considerati speciali?",
+        options: [
+          "Perché sono scritti in latino antico",
+          "Perché non possono essere modificati nemmeno dal Parlamento",
+          "Perché sono stati scritti da Dante Alighieri",
+          "Perché riguardano solo la politica estera"
+        ],
+        correct: 1,
+        explanation: "Il secondo paragrafo spiega che i dodici principi fondamentali sono 'intoccabili e non modificabili nemmeno dal Parlamento'."
+      }
+    ]
+  },
+  {
+    id: "sistema_solare",
+    title: "Il Sistema Solare: La Nostra Casa nell'Universo",
+    topic: "scienza",
+    level: "A2",
+    readTime: "2 min",
+    wordCount: 200,
+    excerpt: "Il sistema solare è formato dal Sole e da tutti i corpi celesti che orbitano intorno ad esso. Si trova nella Via Lattea, una galassia a spirale che contiene centinaia di miliardi di stelle...",
+    textHTML: `<p>Il <span class="vocab-term" onclick="showGlossary('sistema solare')">sistema solare</span> è formato dal Sole e da tutti i corpi celesti che gli girano intorno. Comprende otto pianeti principali, numerosi pianeti nani, asteroidi e comete. Il Sole contiene circa il 99,8% di tutta la massa del sistema solare ed è fondamentale per la vita sulla Terra.</p>
+    <p>I quattro pianeti più vicini al Sole — Mercurio, Venere, Terra e Marte — sono chiamati pianeti <span class="vocab-term" onclick="showGlossary('rocciosi')">rocciosi</span> perché hanno una superficie solida. I quattro pianeti più lontani — Giove, Saturno, Urano e Nettuno — sono detti giganti gassosi: sono molto più grandi e composti principalmente da gas come idrogeno ed elio.</p>
+    <p>La Terra è l'unico pianeta del sistema solare che ospita la vita, grazie alla sua distanza ideale dal Sole, all'atmosfera protettiva e alla presenza di acqua liquida. Gli scienziati continuano a esplorare gli altri pianeti alla ricerca di segni di vita passata o futura.</p>`,
+    glossary: {
+      "sistema solare": "L'insieme del Sole e di tutti i corpi celesti (pianeti, lune, asteroidi) che orbitano attorno ad esso.",
+      "rocciosi": "Pianeti con superficie solida composta da rocce e metalli, opposto dei giganti gassosi."
+    },
+    questions: [
+      {
+        prompt: "Quanti sono i pianeti principali del sistema solare?",
+        options: [
+          "Cinque",
+          "Dieci",
+          "Otto",
+          "Dodici"
+        ],
+        correct: 2,
+        explanation: "Il primo paragrafo afferma che il sistema solare 'comprende otto pianeti principali'."
+      },
+      {
+        prompt: "Cosa distingue i pianeti rocciosi dai giganti gassosi?",
+        options: [
+          "I pianeti rocciosi sono più lontani dal Sole",
+          "I pianeti rocciosi hanno una superficie solida, i giganti gassosi sono composti principalmente da gas",
+          "I giganti gassosi sono più vicini al Sole",
+          "I pianeti rocciosi non hanno atmosfera"
+        ],
+        correct: 1,
+        explanation: "Il secondo paragrafo spiega che i pianeti rocciosi hanno superficie solida, mentre i giganti gassosi sono composti da idrogeno ed elio."
+      }
+    ]
+  },
+  {
+    id: "mafia_stato",
+    title: "La Criminalità Organizzata e lo Stato di Diritto in Italia",
+    topic: "societa",
+    level: "C1",
+    readTime: "5 min",
+    wordCount: 310,
+    excerpt: "Il fenomeno della criminalità organizzata in Italia rappresenta una delle più complesse sfide che lo Stato democratico abbia mai affrontato. La Mafia siciliana, la Camorra campana e la 'Ndrangheta calabrese...",
+    textHTML: `<p>Il fenomeno della criminalità organizzata in Italia rappresenta una delle più complesse sfide che lo Stato democratico abbia dovuto affrontare nella sua storia recente. La Mafia siciliana, la Camorra campana e la <span class="vocab-term" onclick="showGlossary('Ndrangheta')">'Ndrangheta</span> calabrese costituiscono sistemi criminali articolati, con ramificazioni transnazionali e capacità di infiltrazione nei circuiti economici e politici legali.</p>
+    <p>La risposta dello Stato si è strutturata su più livelli: dalla creazione della legislazione antimafia, avviata dopo le stragi di <span class="vocab-term" onclick="showGlossary('Capaci')">Capaci e Via D'Amelio</span> del 1992, all'istituzione di organismi specializzati come la Direzione Investigativa Antimafia (DIA). Il <span class="vocab-term" onclick="showGlossary('41bis')">regime del 41-bis</span> — il carcere duro per i boss — ha rappresentato uno strumento cruciale per recidere i flussi comunicativi tra i detenuti e le organizzazioni esterne.</p>
+    <p>Tuttavia, la lotta alla criminalità organizzata non si esaurisce nell'azione repressiva. La confisca e il riutilizzo sociale dei beni mafiosi, regolamentata dalla legge Rognoni-La Torre, ha restituito alla collettività patrimoni immensi, trasformando ville e terreni in sedi di cooperative, biblioteche e centri sociali. È questa dimensione <span class="vocab-term" onclick="showGlossary('rigenerativa')">rigenerativa</span> dello Stato di diritto che rappresenta la risposta più profonda e duratura al potere mafioso.</p>`,
+    glossary: {
+      "Ndrangheta": "Organizzazione criminale calabrese, considerata tra le più potenti al mondo per volume d'affari nel narcotraffico.",
+      "Capaci": "Luogo degli attentati mafiosi del 1992 in cui furono assassinati i giudici Giovanni Falcone e Paolo Borsellino.",
+      "41bis": "Regime carcerario speciale che isola i boss mafiosi per impedire comunicazioni con l'esterno.",
+      "rigenerativa": "Che ha la capacità di rinnovare, ricostruire e restituire valore positivo alla comunità."
+    },
+    questions: [
+      {
+        prompt: "Qual è stata una conseguenza diretta delle stragi di Capaci e Via D'Amelio del 1992?",
+        options: [
+          "La chiusura di tutte le carceri italiane",
+          "L'avvio della legislazione antimafia e la creazione di organismi investigativi specializzati",
+          "L'aumento dei beni confiscati alle famiglie normali",
+          "La firma di un accordo di pace con le organizzazioni mafiose"
+        ],
+        correct: 1,
+        explanation: "Il secondo paragrafo collega le stragi del 1992 all'accelerazione della legislazione antimafia e alla creazione della DIA."
+      },
+      {
+        prompt: "Cosa prevede la legge Rognoni-La Torre secondo il testo?",
+        options: [
+          "L'aumento delle pene per i reati minori",
+          "La confisca e il riutilizzo sociale dei beni confiscati alle organizzazioni mafiose",
+          "La soppressione del regime del 41-bis",
+          "La costruzione di nuove carceri in Sicilia"
+        ],
+        correct: 1,
+        explanation: "Il terzo paragrafo descrive come la legge Rognoni-La Torre permetta di confiscare i patrimoni mafiosi e riutilizzarli per scopi sociali."
+      },
+      {
+        prompt: "Qual è, secondo l'autore, la risposta più profonda al potere mafioso?",
+        options: [
+          "L'aumento del numero di agenti di polizia nelle strade",
+          "La dimensione rigenerativa: restituire i beni mafiosi alla collettività",
+          "Il potenziamento del regime del 41-bis per tutti i detenuti",
+          "L'applicazione della pena di morte per i boss mafiosi"
+        ],
+        correct: 1,
+        explanation: "Il testo conclude che è 'la dimensione rigenerativa dello Stato di diritto che rappresenta la risposta più profonda e duratura'."
+      }
+    ]
+  },
+  {
+    id: "barocco_arte",
+    title: "Il Barocco: L'Arte della Meraviglia e dell'Eccesso",
+    topic: "letteratura",
+    level: "B2",
+    readTime: "3 min",
+    wordCount: 255,
+    excerpt: "Il Seicento europeo è dominato dallo stile barocco, un movimento artistico e letterario che nasce in Italia e si diffonde rapidamente in tutta Europa. Caratterizzato da forme ardite, colori intensi e dinamismo...",
+    textHTML: `<p>Il Seicento europeo è dominato dallo stile <span class="vocab-term" onclick="showGlossary('barocco')">barocco</span>, un movimento artistico e culturale che nasce in Italia, tra Roma e Napoli, e si diffonde con straordinaria rapidità in tutta Europa. In netta contrapposizione con l'equilibrio e la misura del Rinascimento, il Barocco privilegia il dinamismo, la teatralità e la ricerca della meraviglia.</p>
+    <p>Nell'architettura, maestri come Gian Lorenzo Bernini trasformano la pietra in materia viva e pulsante: le colonnate di Piazza San Pietro a Roma sembrano aprirsi come braccia accoglienti verso i fedeli. Nella pittura, Michelangelo Merisi da <span class="vocab-term" onclick="showGlossary('Caravaggio')">Caravaggio</span> rivoluziona l'arte con il suo uso drammatico del chiaroscuro, portando le scene sacre nella vita reale e popolare.</p>
+    <p>Anche nella letteratura, il Barocco si distingue per il gusto della <span class="vocab-term" onclick="showGlossary('metafora ardita')">metafora ardita</span>, l'accumulo di immagini e la ricercatezza del linguaggio. Il poeta Giambattista Marino sintetizza questa estetica nella celebre formula: «È del poeta il fin la meraviglia». Il Barocco non cerca la verità semplice, ma stupisce, seduce e travolge i sensi.</p>`,
+    glossary: {
+      "barocco": "Stile artistico e culturale del XVII secolo caratterizzato da dinamismo, teatralità e ricerca del meraviglioso.",
+      "Caravaggio": "Pittore italiano (1571-1610) rivoluzionario per l'uso del chiaroscuro e la rappresentazione realistica delle scene sacre.",
+      "metafora ardita": "Figura retorica che accosta elementi molto distanti tra loro per creare immagini originali e sorprendenti."
+    },
+    questions: [
+      {
+        prompt: "Quale principio estetico fondamentale distingue il Barocco dal Rinascimento?",
+        options: [
+          "Il Barocco predilige semplicità, misura ed equilibrio classico",
+          "Il Barocco privilegia dinamismo, teatralità e la ricerca della meraviglia rispetto all'equilibrio rinascimentale",
+          "Il Barocco rifiuta completamente la pittura e la scultura",
+          "Il Barocco si sviluppa esclusivamente in Francia e Spagna"
+        ],
+        correct: 1,
+        explanation: "Il primo paragrafo contrappone esplicitamente il dinamismo e la meraviglia del Barocco all'equilibrio e alla misura del Rinascimento."
+      },
+      {
+        prompt: "Qual è il contributo principale di Caravaggio all'arte barocca?",
+        options: [
+          "Ha inventato la prospettiva matematica",
+          "Ha dipinto solo ritratti di re e imperatori",
+          "Ha rivoluzionato la pittura con l'uso drammatico del chiaroscuro e scene sacre nella realtà popolare",
+          "Ha costruito le colonnate di Piazza San Pietro"
+        ],
+        correct: 2,
+        explanation: "Il secondo paragrafo descrive Caravaggio come rivoluzionario per il chiaroscuro drammatico e per aver portato le scene sacre nella vita reale."
+      },
+      {
+        prompt: "Cosa intende Marino con la formula 'È del poeta il fin la meraviglia'?",
+        options: [
+          "Il poeta deve scrivere solo testi scientifici",
+          "L'obiettivo principale della poesia barocca è stupire e meravigliare il lettore",
+          "La poesia deve imitare perfettamente la natura senza abbellirla",
+          "Il poeta non deve usare metafore o figure retoriche"
+        ],
+        correct: 1,
+        explanation: "Il terzo paragrafo usa la citazione di Marino per indicare che il fine dell'arte barocca è suscitare meraviglia, stupire e sedurre i sensi."
+      }
+    ]
+  },
+  {
+    id: "dieta_mediterranea",
+    title: "La Dieta Mediterranea: Un Patrimonio per la Salute",
+    topic: "scienza",
+    level: "B1",
+    readTime: "3 min",
+    wordCount: 235,
+    excerpt: "Riconosciuta dall'UNESCO come Patrimonio Culturale Immateriale dell'Umanità nel 2010, la dieta mediterranea non è semplicemente un regime alimentare, ma uno stile di vita tramandato da generazioni...",
+    textHTML: `<p>Riconosciuta dall'<span class="vocab-term" onclick="showGlossary('UNESCO')">UNESCO</span> come Patrimonio Culturale Immateriale dell'Umanità nel 2010, la dieta mediterranea rappresenta molto più di un semplice regime alimentare. È uno stile di vita che affonda le radici nelle tradizioni dei popoli del bacino mediterraneo, in particolare di Italia, Grecia e Spagna.</p>
+    <p>Il modello alimentare mediterraneo si basa su un abbondante consumo di verdure, legumi, cereali integrali, frutta fresca e olio d'oliva extravergine come principale fonte di grassi. Il pesce e i latticini vengono consumati con moderazione, mentre la carne rossa è limitata a poche occasioni. Il tutto è accompagnato da un consumo moderato di vino rosso durante i pasti.</p>
+    <p>Numerosi studi scientifici confermano i benefici di questo <span class="vocab-term" onclick="showGlossary('pattern alimentare')">pattern alimentare</span>: riduzione del rischio di malattie cardiovascolari, prevenzione del diabete di tipo 2 e miglioramento della longevità. La <span class="vocab-term" onclick="showGlossary('convivialità')">convivialità</span> — il mangiare insieme — è considerata parte integrante del modello, poiché contribuisce al benessere psicologico e sociale.</p>`,
+    glossary: {
+      "UNESCO": "Organizzazione delle Nazioni Unite per l'Educazione, la Scienza e la Cultura, che tutela i patrimoni dell'umanità.",
+      "pattern alimentare": "Modello o schema di comportamento alimentare seguito regolarmente nel tempo.",
+      "convivialità": "Il piacere di stare insieme a tavola, condividere il cibo e socializzare durante i pasti."
+    },
+    questions: [
+      {
+        prompt: "In quale anno l'UNESCO ha riconosciuto la dieta mediterranea come Patrimonio Culturale?",
+        options: [
+          "Nel 1948",
+          "Nel 1992",
+          "Nel 2010",
+          "Nel 2020"
+        ],
+        correct: 2,
+        explanation: "Il primo paragrafo indica chiaramente che il riconoscimento UNESCO è avvenuto nel 2010."
+      },
+      {
+        prompt: "Quale alimento è la principale fonte di grassi nella dieta mediterranea?",
+        options: [
+          "Il burro di mucca",
+          "L'olio d'oliva extravergine",
+          "La carne rossa",
+          "Il latte intero"
+        ],
+        correct: 1,
+        explanation: "Il secondo paragrafo identifica l'olio d'oliva extravergine come 'principale fonte di grassi' nella dieta mediterranea."
+      },
+      {
+        prompt: "Perché la 'convivialità' è considerata parte del modello mediterraneo?",
+        options: [
+          "Perché mangiare velocemente fa bruciare più calorie",
+          "Perché contribuisce al benessere psicologico e sociale delle persone",
+          "Perché i pasti comuni riducono il consumo di vino",
+          "Perché la cucina mediterranea richiede molte persone per essere preparata"
+        ],
+        correct: 1,
+        explanation: "Il terzo paragrafo spiega che la convivialità 'contribuisce al benessere psicologico e sociale', rendendola parte integrante del modello."
+      }
+    ]
+  },
+  {
+    id: "emigrazione_italiana",
+    title: "La Grande Emigrazione Italiana: Storie di Coraggio e Speranza",
+    topic: "storia",
+    level: "B2",
+    readTime: "4 min",
+    wordCount: 275,
+    excerpt: "Tra il 1876 e il 1976, circa 27 milioni di italiani lasciarono il loro Paese in cerca di una vita migliore. Fu la più grande emigrazione di massa della storia moderna europea...",
+    textHTML: `<p>Tra il 1876 e il 1976, circa 27 milioni di italiani lasciarono il proprio Paese per cercare fortuna all'estero. Fu la più grande <span class="vocab-term" onclick="showGlossary('emigrazione di massa')">emigrazione di massa</span> della storia europea moderna, che investì soprattutto le regioni del Sud Italia e del Veneto, duramente colpite dalla miseria, dalla siccità e dalla mancanza di lavoro industriale.</p>
+    <p>Le mete preferite cambiarono nel corso dei decenni: nelle prime ondate, gli emigranti si dirigevano verso le Americhe — in particolare Stati Uniti, Argentina e Brasile — spinti dalla promessa di terre fertili e salari dignitosi. Dopo la Seconda Guerra Mondiale, il flusso migratorio si orientò invece verso l'Europa settentrionale: Germania, Svizzera, Belgio e Francia accolsero milioni di lavoratori italiani nelle fabbriche, nelle miniere di carbone e nel settore edile.</p>
+    <p>Questi <span class="vocab-term" onclick="showGlossary('emigranti')">emigranti</span> portarono con sé la lingua, le tradizioni culinarie e i valori familiari, contribuendo a diffondere la cultura italiana nel mondo. Le <span class="vocab-term" onclick="showGlossary('rimesse')">rimesse</span> inviate in patria rappresentarono spesso l'unica fonte di reddito per intere famiglie rimaste in Italia, sostenendo economicamente le regioni più povere.</p>`,
+    glossary: {
+      "emigrazione di massa": "Spostamento di grandi numeri di persone da un Paese verso altri, generalmente per motivi economici.",
+      "emigranti": "Persone che lasciano il proprio Paese di origine per stabilirsi in un altro Paese, spesso per motivi di lavoro.",
+      "rimesse": "Denaro inviato dagli emigranti al loro Paese d'origine per sostenere le famiglie rimaste."
+    },
+    questions: [
+      {
+        prompt: "Quanti italiani emigrarono approssimativamente tra il 1876 e il 1976?",
+        options: [
+          "Circa 5 milioni",
+          "Circa 27 milioni",
+          "Circa 2 milioni",
+          "Circa 50 milioni"
+        ],
+        correct: 1,
+        explanation: "Il primo paragrafo afferma chiaramente che 'circa 27 milioni di italiani lasciarono il proprio Paese'."
+      },
+      {
+        prompt: "Verso dove si orientò principalmente l'emigrazione italiana dopo la Seconda Guerra Mondiale?",
+        options: [
+          "Verso gli Stati Uniti e l'Argentina",
+          "Verso l'Australia e il Canada",
+          "Verso l'Europa settentrionale: Germania, Svizzera, Belgio e Francia",
+          "Verso il Medio Oriente"
+        ],
+        correct: 2,
+        explanation: "Il secondo paragrafo specifica che dopo la Seconda Guerra Mondiale il flusso si orientò verso Germania, Svizzera, Belgio e Francia."
+      },
+      {
+        prompt: "Cosa si intende per 'rimesse' nel contesto del testo?",
+        options: [
+          "Lettere scritte dagli emigranti alle loro famiglie",
+          "Denaro inviato dagli emigranti alle famiglie rimaste in patria",
+          "Documenti ufficiali di viaggio e permessi di soggiorno",
+          "Merci e prodotti alimentari spediti dall'estero"
+        ],
+        correct: 1,
+        explanation: "L'ultimo paragrafo definisce le rimesse come 'l'unica fonte di reddito per intere famiglie rimaste in Italia', ovvero denaro inviato in patria."
       }
     ]
   },
