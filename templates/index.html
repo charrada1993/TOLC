@@ -18,14 +18,17 @@
         e simulazioni per arrivare preparato al test.
       </p>
 
-      <!-- Progress indicator -->
-      <div style="background:rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-8);max-width:480px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3);">
-          <span style="color:rgba(255,255,255,.9);font-weight:600;font-size:.9rem;">Giorno {{ current_day }} / 10</span>
-          <span style="color:rgba(255,255,255,.9);font-weight:700;">{{ progress_pct }}%</span>
-        </div>
-        <div style="height:10px;background:rgba(255,255,255,.2);border-radius:999px;overflow:hidden;">
-          <div style="height:100%;width:{{ progress_pct }}%;background:rgba(255,255,255,.85);border-radius:999px;transition:width .8s cubic-bezier(.4,0,.2,1);"></div>
+      <!-- Circular Progress Ring -->
+      <div class="hero-progress-ring" role="region" aria-label="Avanzamento percorso">
+        <svg class="ring-svg" width="72" height="72" viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="ring-track" cx="36" cy="36" r="30"/>
+          <circle class="ring-fill" cx="36" cy="36" r="30"
+            stroke-dasharray="188.5"
+            stroke-dashoffset="{{ ((100 - progress_pct) / 100 * 188.5) | round(1) }}"/>
+        </svg>
+        <div class="ring-info">
+          <span class="ring-pct">{{ progress_pct }}%</span>
+          <span class="ring-label">Giorno {{ current_day }} di 10 completato</span>
         </div>
       </div>
 
@@ -64,7 +67,7 @@
     <div class="grid-4 mb-8" role="region" aria-label="Statistiche di studio">
       <div class="stat-card">
         <span class="stat-icon" aria-hidden="true">📅</span>
-        <div class="stat-value">{{ stats.days_completed }}<span style="font-size:1.2rem;color:var(--text-muted)">/10</span></div>
+        <div class="stat-value" data-target="{{ stats.days_completed }}">{{ stats.days_completed }}<span style="font-size:1.2rem;color:var(--text-muted)">/10</span></div>
         <div class="stat-label">Giorni completati</div>
         <div class="progress-bar mt-4">
           <div class="progress-fill" style="width:{{ stats.days_completed * 10 }}%" role="progressbar" aria-valuenow="{{ stats.days_completed * 10 }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -73,13 +76,13 @@
 
       <div class="stat-card">
         <span class="stat-icon" aria-hidden="true">❓</span>
-        <div class="stat-value">{{ stats.total_questions }}</div>
+        <div class="stat-value" data-target="{{ stats.total_questions }}">{{ stats.total_questions }}</div>
         <div class="stat-label">Domande risposte</div>
       </div>
 
       <div class="stat-card">
         <span class="stat-icon" aria-hidden="true">🎯</span>
-        <div class="stat-value">{{ stats.accuracy }}<span style="font-size:1.2rem;color:var(--text-muted)">%</span></div>
+        <div class="stat-value" data-target="{{ stats.accuracy }}">{{ stats.accuracy }}<span style="font-size:1.2rem;color:var(--text-muted)">%</span></div>
         <div class="stat-label">Precisione media</div>
         <div class="progress-bar mt-4 {% if stats.accuracy < 60 %}progress-bar-accent{% elif stats.accuracy < 80 %}progress-bar-warning{% endif %}">
           <div class="progress-fill" style="width:{{ stats.accuracy }}%"></div>
@@ -88,7 +91,7 @@
 
       <div class="stat-card">
         <span class="stat-icon" aria-hidden="true">🏅</span>
-        <div class="stat-value">{{ stats.best_score }}<span style="font-size:1.2rem;color:var(--text-muted)">%</span></div>
+        <div class="stat-value" data-target="{{ stats.best_score }}">{{ stats.best_score }}<span style="font-size:1.2rem;color:var(--text-muted)">%</span></div>
         <div class="stat-label">Miglior punteggio</div>
       </div>
     </div>

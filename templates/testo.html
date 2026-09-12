@@ -214,6 +214,12 @@
         <p>Seleziona un brano per avviare la lettura guidata e la sessione di quesiti.</p>
       </div>
 
+      <!-- Search bar -->
+      <div class="library-search-wrap">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="search" id="passageSearchInput" placeholder="Cerca un brano per titolo..." aria-label="Cerca brano" oninput="filterBySearch(this.value)">
+      </div>
+
       <div class="passages-grid" id="passagesGrid"></div>
     </div>
 
@@ -246,6 +252,9 @@
               <button class="tool-btn" id="lineNumsBtn" onclick="toggleLineNumbers()"># Righe</button>
             </div>
           </div>
+
+          <!-- Scroll progress bar -->
+          <div id="readerScrollProgress" role="progressbar" aria-label="Avanzamento lettura" aria-valuemin="0" aria-valuemax="100"></div>
 
           <div class="reader-content-body" id="readerContentBody"></div>
 
@@ -929,27 +938,55 @@ let isTTSPlaying = false;
 let currentSpeechUtterance = null;
 
 /* ── Init & Render Passages Grid ────────────────────────────── */
+const NEW_PASSAGE_IDS = ['costituzione_italiana','sistema_solare','mafia_stato','barocco_arte','dieta_mediterranea','emigrazione_italiana','famiglia_italiana','colori_stagioni','citta_roma'];
+let currentTopicFilter = 'all';
+let currentSearchQuery = '';
+
 function renderLibrary(topicFilter = 'all'){
+  currentTopicFilter = topicFilter;
+  applyFilters();
+}
+
+function filterBySearch(q){
+  currentSearchQuery = q.trim().toLowerCase();
+  applyFilters();
+}
+
+function applyFilters(){
   const grid = document.getElementById('passagesGrid');
   grid.innerHTML = '';
 
-  const list = topicFilter === 'all'
+  let list = currentTopicFilter === 'all'
     ? PASSAGES
-    : PASSAGES.filter(p => p.topic === topicFilter);
+    : PASSAGES.filter(p => p.topic === currentTopicFilter);
+
+  if(currentSearchQuery){
+    list = list.filter(p => p.title.toLowerCase().includes(currentSearchQuery));
+  }
+
+  if(list.length === 0){
+    grid.innerHTML = `<p style="color:var(--text-muted);grid-column:1/-1;padding:var(--space-8) 0;">Nessun brano trovato per "${currentSearchQuery}".</p>`;
+    return;
+  }
 
   list.forEach(p => {
     const isDone = !!doneTexts[p.id];
+    const isNew  = NEW_PASSAGE_IDS.includes(p.id);
     const card = document.createElement('div');
     card.className = 'passage-card';
+    card.setAttribute('data-level', p.level);
     card.onclick = () => openWorkspace(p.id);
 
-    const levelClass = {A2:'tag-a2', B1:'tag-b1', B2:'tag-b2', C1:'tag-c1'}[p.level] || 'tag-b2';
+    const levelClass = {A1:'tag-a1', A2:'tag-a2', B1:'tag-b1', B2:'tag-b2', C1:'tag-c1'}[p.level] || 'tag-b2';
 
     card.innerHTML = `
       <div>
         <div class="passage-card-header">
           <span class="passage-tag ${levelClass}">Livello ${p.level}</span>
-          ${isDone ? '<span style="color:var(--success);font-weight:700;font-size:0.8rem;">✓ Completato</span>' : ''}
+          <div style="display:flex;gap:6px;align-items:center;">
+            ${isNew ? '<span class="badge-new">✨ Nuovo</span>' : ''}
+            ${isDone ? '<span style="color:var(--success);font-weight:700;font-size:0.8rem;">✓ Completato</span>' : ''}
+          </div>
         </div>
         <div class="passage-card-title">${p.title}</div>
         <div class="passage-card-excerpt">${p.excerpt}</div>
@@ -992,6 +1029,17 @@ function openWorkspace(passageId){
   startTimer();
   renderQuestionPills();
   loadQuestion(0);
+
+  // Reset scroll & progress bar
+  const readerBody = document.getElementById('readerContentBody');
+  const progBar = document.getElementById('readerScrollProgress');
+  if(readerBody){
+    readerBody.scrollTop = 0;
+  }
+  if(progBar){
+    progBar.style.width = '0%';
+    progBar.setAttribute('aria-valuenow', '0');
+  }
 }
 
 function backToLibrary(){
@@ -1237,6 +1285,17 @@ function restartPassageQuiz(){
 /* ── DOM Ready Init ─────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   renderLibrary('all');
+
+  const readerBody = document.getElementById('readerContentBody');
+  const progBar = document.getElementById('readerScrollProgress');
+  if(readerBody && progBar){
+    readerBody.addEventListener('scroll', () => {
+      const max = readerBody.scrollHeight - readerBody.clientHeight;
+      const pct = max > 0 ? Math.min(100, Math.round((readerBody.scrollTop / max) * 100)) : 0;
+      progBar.style.width = pct + '%';
+      progBar.setAttribute('aria-valuenow', pct);
+    }, { passive: true });
+  }
 });
 </script>
 {% endblock %}

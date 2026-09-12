@@ -84,10 +84,106 @@
   <!-- Toast container -->
   <div class="toast-container" id="toastContainer" aria-live="polite" aria-label="Notifiche"></div>
 
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <div class="logo-icon" aria-hidden="true">🇮🇹</div>
+          <strong style="font-size:1.1rem;font-weight:800;display:block;margin-bottom:8px;">TOLC-ITA <span style="color:var(--primary)">L2</span></strong>
+          <p>Piattaforma di preparazione intensiva al TOLC-ITA per studenti L2. Grammatica, lettura critica, vocabolario e simulazioni d'esame.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="/day/1">Piano 10 Giorni</a></li>
+            <li><a href="/testo">Testi &amp; Lettura</a></li>
+            <li><a href="/conversazione">Conversazione</a></li>
+            <li><a href="/test">Test Livello</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Esami</h4>
+          <ul>
+            <li><a href="/simulation">Simulazione Finale</a></li>
+            <li><a href="/results">I Miei Risultati</a></li>
+            <li><a href="/plan">Piano di Studio</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li><a href="/about">Informazioni</a></li>
+            <li><a href="https://www.cisiaonline.it/area-tematica-tolc-cisia/interfacce-tolc/tolc-ita/" target="_blank" rel="noopener">CISIA TOLC ↗</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 TOLC-ITA L2 Prep — Strumento didattico non ufficiale. Non affiliato con CISIA.</p>
+        <div class="footer-flag" aria-label="Bandiera italiana" title="Made with ❤️ for Italian learners">
+          <span class="flag-stripe green"></span>
+          <span class="flag-stripe white"></span>
+          <span class="flag-stripe red"></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <!-- Core JS -->
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   <script src="{{ url_for('static', filename='js/progress.js') }}"></script>
   <script src="{{ url_for('static', filename='js/translator.js') }}"></script>
   {% block extra_js %}{% endblock %}
+
+  <!-- Nav scroll shrink + stat count-up -->
+  <script>
+  // Nav scroll effect
+  (function(){
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 20);
+    }, { passive: true });
+  })();
+
+  // Count-up utility — call countUp(el, target, duration)
+  function countUp(el, target, duration = 900) {
+    const start = performance.now();
+    const from = parseInt(el.textContent) || 0;
+    el.classList.add('counting');
+    function step(ts) {
+      const p = Math.min((ts - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.firstChild && el.firstChild.nodeType === 3
+        ? (el.firstChild.textContent = Math.round(from + (target - from) * ease))
+        : (el.textContent = Math.round(from + (target - from) * ease));
+      if (p < 1) requestAnimationFrame(step);
+      else el.classList.remove('counting');
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Auto count-up for all .stat-value elements visible on load
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const raw = el.dataset.target;
+        if (raw !== undefined) {
+          countUp(el, parseInt(raw));
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.stat-value[data-target]').forEach(el => observer.observe(el));
+  });
+  </script>
 </body>
 </html>
